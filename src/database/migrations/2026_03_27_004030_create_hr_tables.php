@@ -8,6 +8,17 @@ return new class extends Migration
 {
     public function up(): void
     {
+        // Ensure staff_positions exists before employees references it
+        Schema::create('staff_positions', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->string('name', 100);
+            $table->string('slug')->unique();
+            $table->foreignUuid('parent_position_id')->nullable()->constrained('staff_positions')->nullOnDelete();
+            $table->timestamps();
+
+            $table->index('parent_position_id');
+        });
+
         Schema::create('employees', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
@@ -133,5 +144,6 @@ return new class extends Migration
         Schema::dropIfExists('attendance_locations');
         Schema::dropIfExists('work_shifts');
         Schema::dropIfExists('employees');
+        Schema::dropIfExists('staff_positions');
     }
 };
