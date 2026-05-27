@@ -36,7 +36,6 @@ return new class extends Migration
             $table->longText('description')->nullable();
             $table->string('graduation')->nullable();
             $table->foreignUuid('employee_id')->nullable()->constrained('employees')->nullOnDelete();
-            $table->foreignUuid('staff_position_id')->nullable()->constrained('staff_positions')->nullOnDelete();
             $table->string('photo')->nullable();
             $table->string('slug')->unique();
             $table->boolean('status')->default(true);

@@ -14,7 +14,6 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
 
             AcademicYearSeeder::class,
-            SchoolSettingSeeder::class,
 
             PaymentTitleSeeder::class,
 

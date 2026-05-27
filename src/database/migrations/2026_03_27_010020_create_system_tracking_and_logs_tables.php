@@ -11,36 +11,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ratings', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('name');
-            $table->tinyInteger('rating')->unsigned()->comment('1-5 stars');
-            $table->string('ip_address', 45);
-            $table->timestamps();
-
-            $table->index('ip_address');
-        });
-
-        Schema::create('visitors', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('ip_address', 45);
-            $table->text('user_agent')->nullable();
-            $table->date('date');
-            $table->timestamps();
-
-            $table->index('date');
-            $table->index(['ip_address', 'date']);
-        });
-
-        Schema::create('error_log', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->text('error');
-            $table->string('status_code', 10);
-            $table->timestamps();
-
-            $table->index('status_code');
-        });
-
         Schema::create('charge_not_found', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('transaction_type', 50)->nullable();
@@ -101,8 +71,5 @@ return new class extends Migration
         Schema::dropIfExists('whatsapp_message_statuses');
         Schema::dropIfExists('whatsapp_incoming_messages');
         Schema::dropIfExists('charge_not_found');
-        Schema::dropIfExists('error_log');
-        Schema::dropIfExists('visitors');
-        Schema::dropIfExists('ratings');
     }
 };

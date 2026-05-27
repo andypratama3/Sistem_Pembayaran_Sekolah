@@ -11,18 +11,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // staff_positions moved to HR migration to ensure correct creation order
-
-        Schema::create('education_staff', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('name');
-            $table->string('position');
-            $table->string('photo');
-            $table->string('slug')->unique();
-            $table->foreignUuid('staff_position_id')->constrained('staff_positions')->cascadeOnDelete();
-            $table->timestamps();
-        });
-
         Schema::create('report_cards', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('file');
@@ -59,6 +47,5 @@ return new class extends Migration
     {
         Schema::dropIfExists('student_report_cards');
         Schema::dropIfExists('report_cards');
-        Schema::dropIfExists('education_staff');
     }
 };

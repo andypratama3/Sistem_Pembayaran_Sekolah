@@ -24,40 +24,6 @@ return new class extends Migration
             $table->index(['user_id', 'read_at']);
         });
 
-        Schema::create('feedbacks', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('name');
-            $table->string('email');
-            $table->text('message');
-            $table->timestamps();
-        });
-
-        Schema::create('news', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('title');
-            $table->longText('content');
-            $table->string('photo');
-            $table->string('slug')->unique();
-            $table->softDeletes()->index();
-            $table->timestamps();
-
-            $table->index('created_at');
-        });
-
-        Schema::create('articles', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('title');
-            $table->longText('content');
-            $table->string('photo')->nullable();
-            $table->string('slug')->unique();
-            $table->foreignUuid('author_id')->nullable()->constrained('users')->nullOnDelete();
-            $table->enum('status', ['draft', 'published'])->default('draft');
-            $table->softDeletes()->index();
-            $table->timestamps();
-
-            $table->index('created_at');
-        });
-
         Schema::create('extracurriculars', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
@@ -65,38 +31,6 @@ return new class extends Migration
             $table->string('photo');
             $table->string('slug')->unique();
             $table->timestamps();
-        });
-
-        Schema::create('facilities', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('name');
-            $table->text('description');
-            $table->string('photo');
-            $table->string('slug')->unique();
-            $table->timestamps();
-        });
-
-        Schema::create('facility_items', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->foreignUuid('facility_id')->constrained('facilities')->cascadeOnDelete();
-            $table->string('name');
-            $table->integer('quantity')->default(1);
-            $table->timestamps();
-        });
-
-        Schema::create('school_photos', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('title');
-            $table->string('photo');
-            $table->enum('type', ['general', 'facility', 'activity'])->default('general');
-            $table->timestamps();
-        });
-
-        Schema::create('url_visits', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('url');
-            $table->string('ip_address', 45);
-            $table->timestamp('visited_at');
         });
 
         Schema::create('whatsapp_request_logs', function (Blueprint $table) {
@@ -127,15 +61,6 @@ return new class extends Migration
 
             $table->foreign('student_id')->references('id')->on('students')->nullOnDelete();
         });
-
-        Schema::create('url_visitor', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('ip_address', 45);
-            $table->text('user_agent')->nullable();
-            $table->timestamp('visited_at')->useCurrent();
-
-            $table->index('ip_address');
-        });
     }
 
     /**
@@ -143,17 +68,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('url_visitor');
         Schema::dropIfExists('whatsapp_sessions');
         Schema::dropIfExists('whatsapp_request_logs');
-        Schema::dropIfExists('url_visits');
-        Schema::dropIfExists('school_photos');
-        Schema::dropIfExists('facility_items');
-        Schema::dropIfExists('facilities');
         Schema::dropIfExists('extracurriculars');
-        Schema::dropIfExists('articles');
-        Schema::dropIfExists('news');
-        Schema::dropIfExists('feedbacks');
         Schema::dropIfExists('notifications');
     }
 };

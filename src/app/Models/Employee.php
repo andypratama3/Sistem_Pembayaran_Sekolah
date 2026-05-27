@@ -21,7 +21,6 @@ class Employee extends Model
         'phone',
         'nip',
         'nik',
-        'staff_position_id',
         'slug',
         'base_salary',
         'status',

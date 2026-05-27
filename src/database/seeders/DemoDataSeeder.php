@@ -8,9 +8,7 @@ use App\Models\Employee;
 use App\Models\Grade;
 use App\Models\Payment;
 use App\Models\PaymentTitle;
-use App\Models\StaffPosition;
 use App\Models\Student;
-use App\Models\StudentAttendance;
 use App\Models\Subject;
 use App\Models\Teacher;
 use App\Models\User;
@@ -35,19 +33,15 @@ class DemoDataSeeder extends Seeder
 
         $academicYear = AcademicYear::where('is_active', true)->first() ?? AcademicYear::first();
 
-        $staffPositions = StaffPosition::all();
-        $defaultPosition = $staffPositions->first();
-
         $classrooms = $this->createClassrooms($academicYear);
         $subjects = $this->createSubjects();
-        $employees = $this->createEmployees($defaultPosition);
+        $employees = $this->createEmployees();
         $teachers = $this->createTeachers($employees);
         $students = $this->createStudents(50);
 
         $this->assignStudentsToClassrooms($students, $classrooms);
         $this->assignSubjectsToClassrooms($classrooms, $subjects);
         $this->createGrades($students, $subjects, $classrooms);
-        $this->createStudentAttendances($students, $classrooms);
         $this->createPayments($students, $classrooms);
         $this->createWhatsAppConversations($students);
         $this->createTeacherClassrooms($teachers, $classrooms);
@@ -131,7 +125,7 @@ class DemoDataSeeder extends Seeder
         return $subjects;
     }
 
-    protected function createEmployees($defaultPosition): array
+    protected function createEmployees(): array
     {
         $employees = [];
         $employeeData = [
@@ -147,21 +141,17 @@ class DemoDataSeeder extends Seeder
             ['name' => 'Putra Pratama', 'sex' => 'Laki-Laki', 'position' => 'Satpam', 'salary' => 3500000],
         ];
 
-        $positions = StaffPosition::whereIn('name', array_column($employeeData, 'position'))->get()->keyBy('name');
-
         foreach ($employeeData as $index => $emp) {
             $slug = Str::slug($emp['name']);
             $employee = Employee::where('slug', $slug)->first();
 
             if (! $employee) {
-                $position = $positions[$emp['position']] ?? $defaultPosition;
                 $employee = Employee::create([
                     'name' => $emp['name'],
                     'sex' => $emp['sex'],
                     'phone' => '08'.str_pad((string) ($index + 1100000000), 10, '0', STR_PAD_LEFT),
                     'nip' => str_pad((string) (198500000 + $index), 18, '0', STR_PAD_LEFT),
                     'nik' => str_pad((string) (3274 .rand(100000000, 999999999)), 16, '0', STR_PAD_LEFT),
-                    'staff_position_id' => $position->id,
                     'slug' => $slug,
                     'base_salary' => $emp['salary'],
                     'status' => 1,
@@ -366,7 +356,6 @@ class DemoDataSeeder extends Seeder
                         'subject_id' => $subject->id,
                         'classroom_id' => $classroom->id,
                         'academic_year_id' => $academicYear?->id,
-                        'academic_year' => $academicYear?->name,
                         'semester' => $semester,
                         'score' => $baseScore + rand(-5, 10),
                     ]);
@@ -376,58 +365,6 @@ class DemoDataSeeder extends Seeder
         }
 
         $this->command->info('   📊 Created '.$gradeCount.' grades');
-    }
-
-    protected function createStudentAttendances(array $students, array $classrooms): void
-    {
-        $attendanceCount = 0;
-        $statuses = [
-            ['hadir', 80],
-            ['sakit', 10],
-            ['izin', 7],
-            ['alpa', 3],
-        ];
-
-        foreach ($students as $student) {
-            $classroom = $student->classrooms()->first();
-            if (! $classroom) {
-                continue;
-            }
-
-            $existingDates = $student->attendances()
-                ->where('classroom_id', $classroom->id)
-                ->pluck('date')
-                ->map(fn ($d) => $d->format('Y-m-d'))
-                ->toArray();
-
-            for ($i = 0; $i < 30; $i++) {
-                $date = now()->subDays(30 - $i)->format('Y-m-d');
-                if (in_array($date, $existingDates)) {
-                    continue;
-                }
-
-                $rand = rand(1, 100);
-                $status = 'hadir';
-                foreach ($statuses as $s) {
-                    if ($rand <= $s[1]) {
-                        $status = $s[0];
-                        break;
-                    }
-                    $rand -= $s[1];
-                }
-
-                StudentAttendance::create([
-                    'student_id' => $student->id,
-                    'classroom_id' => $classroom->id,
-                    'classroom_type' => 'App\\Models\\Classroom',
-                    'date' => $date,
-                    'status' => $status,
-                ]);
-                $attendanceCount++;
-            }
-        }
-
-        $this->command->info('   ✅ Created '.$attendanceCount.' attendances');
     }
 
     protected function createPayments(array $students, array $classrooms): void
