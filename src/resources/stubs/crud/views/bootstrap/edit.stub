@@ -1,0 +1,26 @@
+@extends('{{layout}}')
+@section('title', 'Edit {{modelTitle}}')
+
+
+@section('page-header')
+<x-page-header create-route="{{modelRoute}}.create">
+    <x-slot:left>
+        {{ Breadcrumbs::render('{{modelRoute}}.index') }}
+    </x-slot:left>
+    <x-slot:actions>
+    </x-slot:actions>
+</x-page-header>
+@endsection
+
+
+@section('content')
+<form action="{{ route('{{modelRoute}}.update', ${{modelNameLowerCase}}->id) }}" method="POST" enctype="multipart/form-data">
+    @csrf
+    @method('PUT')
+    <div class="col-xl-12">
+        <div class="card stretch stretch-full">
+            @include('{{modelView}}.form', ['{{modelNameLowerCase}}' => ${{modelNameLowerCase}}])
+        </div>
+    </div>
+</form>
+@endsection

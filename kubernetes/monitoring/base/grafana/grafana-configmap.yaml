@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-config
+  namespace: monitoring
+  labels:
+    app: grafana
+    project: school-management
+data:
+  grafana.ini: |
+    [app_mode]
+    mode = production
+
+    [server]
+    http_port = 3000
+    root_url = %(protocol)s://%(domain)s:%(http_port)s/
+    serve_from_sub_path = true
+
+    [auth]
+    disable_login_form = false
+    disable_signout_form = false
+
+    [auth.basic]
+    enabled = true
+
+    [security]
+    admin_user = admin
+    # admin_password set via env from Secret
+    cookie_secure = true
+    cookie_samesite = lax
+    x_content_type_options = nosniff
+    x_frame_options = SAMEORIGIN
+    x_xss_protection = 1; mode=block
+
+    [users]
+    allow_sign_up = false
+
+    [snapshots]
+    external_enabled = false
+
+    [dashboard]
+    default_home_dashboard_path = /var/lib/grafana/dashboards/school-k8s-monitoring.json
+
+    [datasources]
+    datasource_name = Prometheus
+    datasource_url = http://prometheus:9090
+    datasource_access = proxy
+    datasource_is_default = true
+
+    [plugins]
+    allow_ui_updates = false
+
+    [log]
+    mode = console
+    level = info
+
+    [analytics]
+    reporting_enabled = false
+    check_for_plugin_updates = false

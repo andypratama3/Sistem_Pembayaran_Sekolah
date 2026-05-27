@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700">
+  <rect width="1200" height="700" fill="#f8fafc"/>
+  <text x="60" y="80" font-family="Inter, Arial" font-size="36" fill="#0f172a">roles-permissions.png</text>
+  <text x="60" y="120" font-family="Inter, Arial" font-size="16" fill="#475569">Role and permission management</text>
+  <g transform="translate(60,160)">
+    <rect x="0" y="0" width="1040" height="420" rx="12" fill="#fff" stroke="#e2e8f0"/>
+  </g>
+</svg>

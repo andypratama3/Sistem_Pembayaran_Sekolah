@@ -1,0 +1,77 @@
+# Application
+/vendor/
+/node_modules/
+/public/build/
+/public/hot/
+/public/storage
+
+# Environment
+.env
+.env.backup
+.env.production
+
+# Laravel
+/bootstrap/cache/*.php
+/storage/*.key
+Homestead.json
+Homestead.yaml
+auth.json
+npm-debug.log
+yarn-error.log
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Testing
+/coverage/
+coverage.xml
+.phpunit.result.cache
+
+# Docker
+docker/nginx/ssl/
+
+# Logs
+*.log
+/storage/logs/*
+!/storage/logs/.gitkeep
+
+# Docker
+docker/.env
+docker/.env.local
+docker/ssl/*.crt
+docker/ssl/*.key
+docker/ssl/*.pem
+
+# Kubernetes
+kubernetes/secrets/
+kubernetes/overlays/*/secrets/
+.kube/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+dist/
+build/
+
+.gemini/
+gha-creds-*.json

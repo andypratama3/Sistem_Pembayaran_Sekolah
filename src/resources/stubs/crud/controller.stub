@@ -1,0 +1,172 @@
+<?php
+
+namespace {{controllerNamespace}};
+
+use Illuminate\View\View;
+use Illuminate\Http\Request;
+use {{modelNamespace}}\{{modelName}};
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
+use Yajra\DataTables\Facades\DataTables;
+use {{requestNamespace}}\{{modelName}}Request;
+use App\Http\Controllers\ResourceController;
+
+
+class {{modelName}}Controller extends ResourceController 
+{
+    protected static string $permissionResource = '{{modelRoutePluralLowerCase}}';
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(Request $request)
+    {
+        if ($request->ajax()) {
+            ${{modelNamePluralLowerCase}} = {{modelName}}::query();
+
+            return DataTables::of(${{modelNamePluralLowerCase}})
+                ->addColumn('checkbox', function (${{modelNameLowerCase}}) {
+                    return '
+                        <div class="item-checkbox ms-1">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input checkbox" id="checkBox_' . ${{modelNameLowerCase}}->id . '">
+                                <label class="custom-control-label" for="checkBox_' . ${{modelNameLowerCase}}->id . '"></label>
+                            </div>
+                        </div>';
+                })
+                ->addColumn('action', function (${{modelNameLowerCase}}) {
+                    return '
+                        <div class="hstack gap-2 justify-content-end">
+                            <a href="' . route('{{modelRoute}}.show', ${{modelNameLowerCase}}->id) . '" class="avatar-text avatar-md">
+                                <i class="feather feather-eye"></i>
+                            </a>
+                            <div class="dropdown">
+                                <a href="javascript:void(0)" class="avatar-text avatar-md"
+                                    data-bs-toggle="dropdown" data-bs-offset="0,21">
+                                    <i class="feather feather-more-horizontal"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a class="dropdown-item" href="' . route('{{modelRoute}}.edit', ${{modelNameLowerCase}}->id) . '">
+                                            <i class="feather feather-edit-3 me-3"></i>
+                                            <span>Edit</span>
+                                        </a>
+                                    </li>
+                                    <li class="dropdown-divider"></li>
+                                    <li>
+                                        <a class="dropdown-item delete-btn" href="javascript:void(0)"
+                                            data-id="' . ${{modelNameLowerCase}}->id . '"
+                                            data-url="' . route('{{modelRoute}}.destroy', ${{modelNameLowerCase}}->id) . '">
+                                            <i class="feather feather-trash-2 me-3"></i>
+                                            <span>Delete</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>';
+                })
+                ->rawColumns(['checkbox', 'action'])
+                ->make(true);
+        }
+
+        return view('{{modelView}}.index');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create(): View
+    {
+        ${{modelNameLowerCase}} = null;
+
+        return view('{{modelView}}.create', compact('{{modelNameLowerCase}}'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store({{modelName}}Request $request): RedirectResponse
+    {
+        {{modelName}}::create($request->validated());
+        
+        //event
+        /** event(new SystemNotification([
+            'user_id' => auth()->id(),
+            'title'   => 'Data Saved',
+            'message' => 'Your data has been saved successfully',
+            'type'    => 'success',
+            'data'    => [
+                'url' => '/dashboard'
+            ]
+        ]));
+        **/
+
+        return Redirect::route('{{modelRoute}}.index')
+            ->with('success', '{{modelTitle}} berhasil ditambahkan.');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show($id): View
+    {
+        ${{modelNameLowerCase}} = {{modelName}}::findOrFail($id);
+
+        return view('{{modelView}}.show', compact('{{modelNameLowerCase}}'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit($id): View
+    {
+        ${{modelNameLowerCase}} = {{modelName}}::findOrFail($id);
+
+        return view('{{modelView}}.edit', compact('{{modelNameLowerCase}}'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update({{modelName}}Request $request, {{modelName}} ${{modelNameLowerCase}}): RedirectResponse
+    {
+        ${{modelNameLowerCase}}->update($request->validated());
+
+        return Redirect::route('{{modelRoute}}.index')
+            ->with('success', '{{modelTitle}} berhasil diperbarui.');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy({{modelName}} ${{modelNameLowerCase}})
+    {
+        $action = ${{modelNameLowerCase}}->delete();
+
+        if ($action) {
+            return response()->json([
+                'status' => 'success',
+                'message' => '{{modelTitle}} berhasil dihapus.'
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => '{{modelTitle}} gagal dihapus.'
+            ]);
+        }
+    }
+
+    /**
+     * Remove multiple records from storage.
+     */
+    public function bulkDestroy(Request $request): RedirectResponse
+    {
+        $ids = json_decode($request->input('ids'), true);
+
+        if (!empty($ids)) {
+            {{modelName}}::whereIn('id', $ids)->delete();
+        }
+
+        return Redirect::route('{{modelRoute}}.index')
+            ->with('success', count($ids) . ' {{modelTitle}} berhasil dihapus.');
+    }
+}

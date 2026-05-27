@@ -1,0 +1,30 @@
+<div class="card-body">
+
+    @if ($errors->any())
+    <div class="alert alert-danger mb-4">
+        <ul class="mb-0">
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+    <div class="row">
+        {{form}}
+    </div>
+
+</div>
+
+<div class="card-footer">
+    <div class="d-flex align-items-center justify-content-end gap-2">
+
+        <a href="{{ route('{{modelRoute}}.index') }}" class="btn btn-light">
+            Cancel
+        </a>
+
+        <button type="submit" class="btn btn-primary">
+            Save {{modelTitle}}
+        </button>
+
+    </div>
+</div>

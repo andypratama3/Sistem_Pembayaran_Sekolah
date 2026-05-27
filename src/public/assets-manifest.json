@@ -1,0 +1,389 @@
+{
+  "project": {
+    "name": "ProductSchool",
+    "template": "Duralux",
+    "framework": "Laravel 12",
+    "view_engine": "Blade (Traditional, no Livewire/Inertia)",
+    "last_updated": "2026-04-01"
+  },
+
+  "css": {
+    "main": [
+      "css/app.css",
+      "assets/css/theme.min.css"
+    ],
+    "responsive": [
+      "css/mobile-dark.css"
+    ],
+    "framework": [
+      "assets/css/bootstrap.min.css"
+    ],
+    "vendors": [
+      "assets/vendors/css/vendors.min.css",
+      "assets/vendors/css/sweetalert2.min.css",
+      "assets/vendors/css/bsicon.min.css"
+    ],
+    "fullscreen-related": [
+      "NOTE: Fullscreen styling is handled via inline classes: 'fsh-infullscreen' and 'full-screen-helper'"
+    ]
+  },
+
+  "js": {
+    "core": [
+      "assets/vendors/js/vendors.min.js",
+      "assets/vendors/js/datepicker.min.js",
+      "assets/vendors/js/apexcharts.min.js",
+      "assets/vendors/js/circle-progress.min.js"
+    ],
+    "fullscreen-handler": {
+      "primary": "assets/vendors/js/full-screen-helper.min.js",
+      "description": "jQuery fullscreen fallback handler. Loaded via jQuery plugin: jQuery().fullScreenHelper()",
+      "api_method": "jQuery('body').fullScreenHelper('toggle')",
+      "supports": ["Native Fullscreen API", "jQuery fallback", "F11 simulation (ActiveX - Windows only)"]
+    },
+    "initialization": [
+      "assets/js/common-init.min.js",
+      "assets/js/theme-customizer-init.min.js"
+    ],
+    "ui_control": [
+      "assets/vendors/js/select2.min.js",
+      "assets/vendors/js/select2-active.min.js",
+      "assets/vendors/js/dataTables.min.js",
+      "assets/vendors/js/dataTables.bs5.min.js",
+      "assets/vendors/js/sweetalert2.min.js",
+      "assets/vendors/js/quill.min.js"
+    ],
+    "utilities": [
+      "assets/js/rupiah.js",
+      "assets/js/init-datatables.js",
+      "assets/js/datatables-enhanced.js"
+    ],
+    "theme": [
+      {
+        "file": "assets/js/theme-mode-fix.js",
+        "status": "COMMENTED OUT in script.blade.php (line 14)",
+        "description": "Handles Dark/Light/Fullscreen/Tab themes"
+      }
+    ],
+    "inline_scripts": {
+      "location": "resources/views/layouts/partial/script.blade.php",
+      "fullscreen_persistence": {
+        "lines": "87-378",
+        "description": "Custom fullscreen state management with localStorage persistence",
+        "api": "window.FullscreenPersistence",
+        "methods": [
+          "toggleFullscreen(event)",
+          "enterFullscreen()",
+          "exitFullscreen()",
+          "getState()"
+        ],
+        "features": [
+          "localStorage key: 'app.fullscreen.state'",
+          "Persist fullscreen across page navigations",
+          "Detect ESC key exits",
+          "Gesture restoration on user interaction",
+          "Fallback to jQuery fullScreenHelper when native API unavailable"
+        ]
+      },
+      "laravel_echo": {
+        "lines": "28-84",
+        "description": "Real-time broadcasting with Pusher",
+        "features": ["Database table reload on data changes", "Toast notifications"]
+      },
+      "notifications": {
+        "lines": "281-387",
+        "description": "Notification system with real-time updates",
+        "routes": [
+          "dashboard.notifications.index",
+          "dashboard.notifications.unread-count",
+          "dashboard.notifications.read",
+          "dashboard.notifications.read-all"
+        ]
+      }
+    }
+  },
+
+  "blade_layouts": {
+    "header_partial": {
+      "file": "resources/views/layouts/partial/header.blade.php",
+      "fullscreen_ui": {
+        "lines": "74-83",
+        "selector": ".full-screen-switcher",
+        "trigger_id": "global-fullscreen-toggle",
+        "handler": "window.FullscreenPersistence.toggleFullscreen(event)",
+        "icons": [
+          "feather-maximize (show when not fullscreen)",
+          "feather-minimize (show when in fullscreen)"
+        ]
+      },
+      "components": [
+        "Language selector",
+        "Fullscreen toggle",
+        "Search modal",
+        "Dark/Light theme toggle",
+        "Timesheets dropdown",
+        "Notifications dropdown (real-time sync)",
+        "User profile dropdown",
+        "Logout modal"
+      ]
+    },
+    "script_partial": {
+      "file": "resources/views/layouts/partial/script.blade.php",
+      "total_lines": 387,
+      "dependencies": [
+        "jQuery (for fullScreenHelper fallback)",
+        "Bootstrap 5 (modal, dropdown)",
+        "Laravel Echo (realtime)",
+        "Pusher (broadcasting)",
+        "FontAwesome/Feather icons (implicit via CDN)"
+      ]
+    }
+  },
+
+  "images": {
+    "structure": {
+      "auth": "assets/images/auth/ - Login/Register/404/etc background images",
+      "avatar": "assets/images/avatar/ - User avatars (1-12).png + undefined.png",
+      "banner": "assets/images/banner/ - Page banners (1-6).jpg + mockup.png",
+      "brand": "assets/images/brand/ - Social/service logos (GitHub, Facebook, PayPal, etc)",
+      "file_icons": "assets/images/file-icons/ - File type icons (PDF, ZIP, JS, CSS, etc)",
+      "gallery": "assets/images/gallery/ - Gallery images (1-12).png + undefined.png",
+      "general": "assets/images/general/ - Misc (completed-steps.png, full-avatar.png, rocket.png, signature.png, video_bg_1.mp4)",
+      "icons": "assets/images/icons/ - Icon sprites (1-10).png + line-icon subfolder"
+    },
+    "favicon": "assets/images/favicon.ico"
+  },
+
+  "critical_files": {
+    "must_load_first": [
+      {
+        "file": "assets/vendors/js/vendors.min.js",
+        "description": "Contains jQuery and other core libraries",
+        "note": "Comment in script.blade.php: 'always must need to be top'"
+      }
+    ],
+    "fullscreen_critical": [
+      {
+        "file": "assets/vendors/js/full-screen-helper.min.js",
+        "why": "Provides jQuery.fullScreenHelper() fallback for non-native fullscreen browsers",
+        "loaded_via": "Direct script tag OR inline code references it"
+      },
+      {
+        "file": "resources/views/layouts/partial/script.blade.php",
+        "why": "Contains window.FullscreenPersistence API implementation",
+        "inline_code": "Lines 87-378"
+      }
+    ],
+    "ui_layout": [
+      "resources/views/layouts/partial/header.blade.php",
+      "resources/views/layouts/partial/script.blade.php"
+    ]
+  },
+
+  "features": {
+    "fullscreen": {
+      "native_api": {
+        "methods": [
+          "document.documentElement.requestFullscreen()",
+          "document.exitFullscreen()"
+        ],
+        "events": [
+          "fullscreenchange",
+          "fullscreenerror"
+        ]
+      },
+      "fallback": {
+        "method": "jQuery().fullScreenHelper('toggle')",
+        "description": "jQuery plugin that simulates fullscreen in non-supporting browsers"
+      },
+      "state_persistence": {
+        "storage": "localStorage",
+        "key": "app.fullscreen.state",
+        "fields": {
+          "isFullscreen": "Current fullscreen state (boolean)",
+          "userExited": "User explicitly exited (boolean)",
+          "routeTransition": "Navigating between routes (boolean)"
+        }
+      },
+      "ui_syncing": {
+        "selector": ".full-screen-switcher",
+        "children": [
+          {
+            "class": "maximize",
+            "show": "When NOT in fullscreen"
+          },
+          {
+            "class": "minimize",
+            "show": "When IN fullscreen"
+          }
+        ]
+      }
+    },
+    "real_time": {
+      "system": "Laravel Echo with Pusher",
+      "features": [
+        "Real-time notifications",
+        "Table data auto-refresh on updates",
+        "Toast alerts for system events"
+      ],
+      "tables_monitored": {
+        "path": "script.blade.php line 67-77",
+        "tables": [
+          "studentsTable",
+          "teachersTable",
+          "employeesTable",
+          "gradesTable",
+          "attendancesTable",
+          "paymentsTable",
+          "leaveRequestsTable",
+          "schedulesTable",
+          "notificationsTable"
+        ]
+      }
+    }
+  },
+
+  "directory_structure": {
+    "public": {
+      "css": [
+        "app.css (main app styles)",
+        "mobile-dark.css"
+      ],
+      "assets": {
+        "css": [
+          "bootstrap.min.css",
+          "theme.min.css"
+        ],
+        "js": [
+          "common-init.min.js",
+          "theme-customizer-init.min.js",
+          "rupiah.js",
+          "init-datatables.js",
+          "theme-mode-fix.js (commented)",
+          "datatables-enhanced.js"
+        ],
+        "vendors": {
+          "css": [
+            "vendors.min.css",
+            "sweetalert2.min.css",
+            "bsicon.min.css"
+          ],
+          "js": [
+            "vendors.min.js (LOAD FIRST)",
+            "datepicker.min.js",
+            "apexcharts.min.js",
+            "circle-progress.min.js",
+            "select2.min.js",
+            "select2-active.min.js",
+            "dataTables.min.js",
+            "dataTables.bs5.min.js",
+            "sweetalert2.min.js",
+            "quill.min.js",
+            "full-screen-helper.min.js (FULLSCREEN FALLBACK)"
+          ]
+        },
+        "images": {
+          "auth, avatar, banner, brand, file-icons, gallery, general, icons": "See images.structure section"
+        }
+      }
+    },
+    "resources": {
+      "views": {
+        "layouts": {
+          "partial": [
+            "header.blade.php (fullscreen toggle UI)",
+            "script.blade.php (all JS + inline fullscreen logic)"
+          ]
+        }
+      }
+    }
+  },
+
+  "loading_order": [
+    {
+      "step": 1,
+      "what": "Load CSS frameworks",
+      "files": [
+        "assets/css/bootstrap.min.css",
+        "assets/vendors/css/vendors.min.css",
+        "css/app.css",
+        "assets/css/theme.min.css"
+      ]
+    },
+    {
+      "step": 2,
+      "what": "Load JS vendors (MUST be first per comment)",
+      "files": ["assets/vendors/js/vendors.min.js"]
+    },
+    {
+      "step": 3,
+      "what": "Load supporting JS",
+      "files": [
+        "assets/vendors/js/datepicker.min.js",
+        "assets/vendors/js/apexcharts.min.js",
+        "assets/vendors/js/circle-progress.min.js"
+      ]
+    },
+    {
+      "step": 4,
+      "what": "Load app initialization",
+      "files": [
+        "assets/js/common-init.min.js",
+        "assets/js/theme-customizer-init.min.js"
+      ]
+    },
+    {
+      "step": 5,
+      "what": "Load fullscreen fallback (if needed)",
+      "files": ["assets/vendors/js/full-screen-helper.min.js"],
+      "note": "Must be before inline fullscreen script uses jQuery.fullScreenHelper()"
+    },
+    {
+      "step": 6,
+      "what": "Load theme fix (currently commented)",
+      "files": ["assets/js/theme-mode-fix.js"],
+      "status": "DISABLED"
+    },
+    {
+      "step": 7,
+      "what": "Load UI JS",
+      "files": [
+        "assets/vendors/js/select2.min.js",
+        "assets/vendors/js/dataTables.min.js",
+        "assets/vendors/js/dataTables.bs5.min.js",
+        "assets/vendors/js/sweetalert2.min.js"
+      ]
+    },
+    {
+      "step": 8,
+      "what": "Load app utilities",
+      "files": [
+        "assets/js/rupiah.js",
+        "assets/js/init-datatables.js",
+        "assets/js/datatables-enhanced.js"
+      ]
+    },
+    {
+      "step": 9,
+      "what": "Load Laravel Echo & Broadcasting",
+      "files": [
+        "https://cdn.jsdelivr.net/npm/laravel-echo@1.15.1/dist/echo.iife.js",
+        "https://js.pusher.com/8.2.0/pusher.min.js"
+      ]
+    },
+    {
+      "step": 10,
+      "what": "Execute inline scripts (fullscreen + echo + notifications)",
+      "files": ["resources/views/layouts/partial/script.blade.php"]
+    }
+  ],
+
+  "notes": {
+    "navigation": "Traditional Blade with server-side navigation - NO Livewire, NO Inertia",
+    "fullscreen_status": "Fully implemented with localStorage persistence, native API detection, jQuery fallback",
+    "theme_system": "Dark/Light mode implemented, fullscreen mode tracked separately",
+    "broadcasting": "Pusher-based real-time updates for notifications and data tables",
+    "unused_files": "theme-mode-fix.js is commented out in script.blade.php line 14 - consider removing if not needed",
+    "internationalization": "Multi-language support (EN/ID) with locale switcher in header"
+  }
+}

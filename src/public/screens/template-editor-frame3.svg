@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <style>
+    .bg{fill:#ffffff}
+    .frame{font-family:Inter, Arial; font-size:18px; fill:#111827}
+    .title{font-size:24px; fill:#111827}
+    .fade{opacity:0}
+    @keyframes fadeInOut {
+      0% {opacity:0}
+      10% {opacity:1}
+      40% {opacity:1}
+      50% {opacity:0}
+      100% {opacity:0}
+    }
+    .f1{animation:fadeInOut 3s linear infinite}
+    .f2{animation:fadeInOut 3s linear infinite; animation-delay:1s}
+    .f3{animation:fadeInOut 3s linear infinite; animation-delay:2s}
+  </style>
+  <rect class="bg" width="800" height="450"/>
+  <g transform="translate(20,20)">
+    <rect x="0" y="0" width="760" height="410" rx="10" fill="#f8fafc" stroke="#e6eef8"/>
+    <text x="24" y="40" class="title">Template Editor — Demo (animated)</text>
+    <g style="opacity:0">
+      <text x="24" y="90" class="frame">1) Open template editor</text>
+      <rect x="24" y="100" width="320" height="200" rx="6" fill="#ffffff" stroke="#e5e7eb"/>
+    </g>
+    <g style="opacity:0">
+      <text x="360" y="90" class="frame">2) Insert merge fields</text>
+      <rect x="360" y="100" width="320" height="200" rx="6" fill="#ffffff" stroke="#e5e7eb"/>
+    </g>
+    <g style="opacity:1">
+      <text x="24" y="320" class="frame">3) Preview per student and generate PDF</text>
+      <rect x="24" y="330" width="656" height="70" rx="6" fill="#06b6d4"/>
+    </g>
+  </g>
+</svg>

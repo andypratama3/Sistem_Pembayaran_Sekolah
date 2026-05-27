@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700">
+  <rect width="1200" height="700" fill="#fff7ed"/>
+  <text x="60" y="80" font-family="Inter, Arial" font-size="36" fill="#92400e">dashboard-admin.png</text>
+  <text x="60" y="120" font-family="Inter, Arial" font-size="16" fill="#92400e">KPI dashboard placeholder</text>
+  <g transform="translate(60,160)">
+    <rect x="0" y="0" width="1040" height="420" rx="12" fill="#ffffff" stroke="#f3e8ff"/>
+    <rect x="24" y="24" width="200" height="120" rx="8" fill="#fff1f2" stroke="#fecaca"/>
+    <rect x="244" y="24" width="200" height="120" rx="8" fill="#eff6ff" stroke="#bfdbfe"/>
+    <rect x="464" y="24" width="200" height="120" rx="8" fill="#ecfeff" stroke="#bbf7d0"/>
+  </g>
+</svg>

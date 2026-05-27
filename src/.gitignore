@@ -1,0 +1,49 @@
+# Laravel
+/vendor/
+/node_modules/
+yarn.lock
+/public/hot
+/public/storage
+/storage/*.key
+.env
+.env.backup
+.env.*.backup
+.phpunit.result.cache
+/bootstrap/cache/
+
+# IDE
+.vscode/
+.idea/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln.iml
+
+# Dependencies
+composer.lock
+yarn.lock
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temporary files
+*.tmp
+.cache/
+
+# Test Files & Configs (exclude from production deployment)
+/tests/
+phpunit.xml
+phpstan.neon
+.env.testing
+.phpunit.result.cache
+
+# Playwright Test Results
+tests/e2e/reports/
+tests/e2e/test-results/
+playwright-report/
+test-results/
+.git-commit-msg

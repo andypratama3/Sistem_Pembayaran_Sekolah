@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700">
+  <defs>
+    <style>
+      .bg{fill:#f3f4f6}
+      .card{fill:#ffffff;stroke:#e5e7eb}
+      .title{font-family:Inter, Arial, sans-serif; font-size:36px; fill:#111827}
+      .subtitle{font-family:Inter, Arial, sans-serif; font-size:18px; fill:#6b7280}
+    </style>
+  </defs>
+  <rect class="bg" width="1200" height="700"/>
+  <g transform="translate(60,80)">
+    <rect class="card" x="0" y="0" width="1080" height="540" rx="12"/>
+    <text x="40" y="80" class="title">auth-register.png</text>
+    <text x="40" y="120" class="subtitle">Placeholder — Register screen (1200×700)</text>
+    <rect x="40" y="160" width="420" height="44" rx="6" fill="#f8fafc" stroke="#e5e7eb"/>
+    <rect x="40" y="220" width="640" height="44" rx="6" fill="#f8fafc" stroke="#e5e7eb"/>
+    <rect x="40" y="280" width="360" height="44" rx="6" fill="#06b6d4"/>
+  </g>
+</svg>

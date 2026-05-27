@@ -1,0 +1,1951 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^PHPDoc tag @var for property App\\Exceptions\\Handler\:\:\$levels contains unresolvable type\.$#'
+			identifier: property.unresolvableType
+			count: 1
+			path: app/Exceptions/Handler.php
+
+		-
+			message: '#^PHPDoc type array\<class\-string\<Throwable\>, mixed\> of property App\\Exceptions\\Handler\:\:\$levels is not covariant with PHPDoc type array\<class\-string\<Throwable\>, ''alert''\|''critical''\|''debug''\|''emergency''\|''error''\|''info''\|''notice''\|''warning''\> of overridden property Illuminate\\Foundation\\Exceptions\\Handler\:\:\$levels\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Exceptions/Handler.php
+
+		-
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
+			count: 2
+			path: app/Exports/AttendanceExport.php
+
+		-
+			message: '#^Relation ''classroom'' is not found in App\\Models\\StudentAttendance model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Exports/AttendanceExport.php
+
+		-
+			message: '#^Relation ''student'' is not found in App\\Models\\StudentAttendance model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Exports/AttendanceExport.php
+
+		-
+			message: '#^Using nullsafe method call on non\-nullable type Carbon\\Carbon\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Exports/AttendanceExport.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Exports/ClassroomExport.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Exports/GradeComponentTemplateExport.php
+
+		-
+			message: '#^Relation ''classroom'' is not found in App\\Models\\Payment model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Exports/PaymentExport.php
+
+		-
+			message: '#^Relation ''student'' is not found in App\\Models\\Payment model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Exports/PaymentExport.php
+
+		-
+			message: '#^Relation ''classrooms'' is not found in App\\Models\\Subject model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Exports/SubjectExport.php
+
+		-
+			message: '#^Relation ''teachers'' is not found in App\\Models\\Subject model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Exports/SubjectExport.php
+
+		-
+			message: '#^Relation ''classrooms'' is not found in App\\Models\\Teacher model\.$#'
+			identifier: larastan.relationExistence
+			count: 2
+			path: app/Exports/TeacherExport.php
+
+		-
+			message: '#^Relation ''subjects'' is not found in App\\Models\\Teacher model\.$#'
+			identifier: larastan.relationExistence
+			count: 2
+			path: app/Exports/TeacherExport.php
+
+		-
+			message: '#^Relation ''classroom'' is not found in App\\Models\\StudentAttendance model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Api/AttendanceApiController.php
+
+		-
+			message: '#^Relation ''device'' is not found in App\\Models\\EmployeeAttendance model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Api/AttendanceApiController.php
+
+		-
+			message: '#^Relation ''employee'' is not found in App\\Models\\EmployeeAttendance model\.$#'
+			identifier: larastan.relationExistence
+			count: 2
+			path: app/Http/Controllers/Api/AttendanceApiController.php
+
+		-
+			message: '#^Relation ''location'' is not found in App\\Models\\EmployeeAttendance model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Api/AttendanceApiController.php
+
+		-
+			message: '#^Relation ''student'' is not found in App\\Models\\StudentAttendance model\.$#'
+			identifier: larastan.relationExistence
+			count: 2
+			path: app/Http/Controllers/Api/AttendanceApiController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\User\:\:\$employee\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Http/Controllers/Api/AttendanceApiController.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Controllers\\Api\\CacheApiController\:\:authorize\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: app/Http/Controllers/Api/CacheApiController.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Controllers\\Api\\CacheApiController\:\:errorResponse\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: app/Http/Controllers/Api/CacheApiController.php
+
+		-
+			message: '#^Unknown parameter \$statusCode in call to method App\\Http\\Controllers\\Api\\CacheApiController\:\:successResponse\(\)\.$#'
+			identifier: argument.unknown
+			count: 3
+			path: app/Http/Controllers/Api/CacheApiController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\Api\\TaskApiController\:\:created\(\) invoked with 3 parameters, 1\-2 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: app/Http/Controllers/Api/TaskApiController.php
+
+		-
+			message: '#^Relation ''assignedTo'' is not found in App\\Models\\Task model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Api/TaskApiController.php
+
+		-
+			message: '#^Parameter \#1 \$user of class Illuminate\\Auth\\Events\\Verified constructor expects Illuminate\\Contracts\\Auth\\MustVerifyEmail, App\\Models\\User given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Controllers/Auth/VerifyEmailController.php
+
+		-
+			message: '#^Relation ''academicYear'' is not found in App\\Models\\AcademicCalendar model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Dashboard/AcademicCalendarController.php
+
+		-
+			message: '#^Relation ''classroom'' is not found in App\\Models\\StudentAttendance model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Dashboard/AttendanceController.php
+
+		-
+			message: '#^Relation ''student'' is not found in App\\Models\\StudentAttendance model\.$#'
+			identifier: larastan.relationExistence
+			count: 4
+			path: app/Http/Controllers/Dashboard/AttendanceController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\AuditLog\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\AuditLog\>\:\:\$user\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Dashboard/AuditLogController.php
+
+		-
+			message: '#^Relation ''user'' is not found in App\\Models\\AuditLog model\.$#'
+			identifier: larastan.relationExistence
+			count: 2
+			path: app/Http/Controllers/Dashboard/AuditLogController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\StudentAttendance\:\:\$hadir\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Dashboard/DashboardController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\StudentAttendance\:\:\$total\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Dashboard/DashboardController.php
+
+		-
+			message: '#^Relation ''academicCalendar'' is not found in App\\Models\\AcademicEvent model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Dashboard/DashboardController.php
+
+		-
+			message: '#^Relation ''employee'' is not found in App\\Models\\EmployeeAttendance model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Dashboard/DashboardController.php
+
+		-
+			message: '#^Relation ''student'' is not found in App\\Models\\Payment model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Dashboard/DashboardController.php
+
+		-
+			message: '#^Relation ''user'' is not found in App\\Models\\AuditLog model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Dashboard/DashboardController.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\>\:\:forAcademicYear\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Controllers/Dashboard/EarlyWarningController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 3
+			path: app/Http/Controllers/Dashboard/EarlyWarningController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\User\:\:\$employee\.$#'
+			identifier: property.notFound
+			count: 4
+			path: app/Http/Controllers/Dashboard/EmployeeAttendanceController.php
+
+		-
+			message: '#^Relation ''employee'' is not found in App\\Models\\EmployeeAttendance model\.$#'
+			identifier: larastan.relationExistence
+			count: 2
+			path: app/Http/Controllers/Dashboard/EmployeeAttendanceController.php
+
+		-
+			message: '#^Relation ''location'' is not found in App\\Models\\EmployeeAttendance model\.$#'
+			identifier: larastan.relationExistence
+			count: 2
+			path: app/Http/Controllers/Dashboard/EmployeeAttendanceController.php
+
+		-
+			message: '#^Relation ''shift'' is not found in App\\Models\\EmployeeAttendance model\.$#'
+			identifier: larastan.relationExistence
+			count: 2
+			path: app/Http/Controllers/Dashboard/EmployeeAttendanceController.php
+
+		-
+			message: '#^Using nullsafe property access on non\-nullable type App\\Models\\Employee\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Http/Controllers/Dashboard/EmployeeAttendanceController.php
+
+		-
+			message: '#^Offset 0 on non\-empty\-array\<string\> on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Http/Controllers/Dashboard/EmployeeImportController.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between non\-falsy\-string and '''' will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: app/Http/Controllers/Dashboard/EmployeeImportController.php
+
+		-
+			message: '#^Ternary operator condition is always true\.$#'
+			identifier: ternary.alwaysTrue
+			count: 1
+			path: app/Http/Controllers/Dashboard/EmployeeSalaryConfigurationController.php
+
+		-
+			message: '#^Relation ''student'' is not found in App\\Models\\GradeComponent model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Dashboard/GradeController.php
+
+		-
+			message: '#^Call to an undefined static method App\\Http\\Controllers\\Dashboard\\LeaveRequestController\:\:deleted\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/Http/Controllers/Dashboard/LeaveRequestController.php
+
+		-
+			message: '#^Call to an undefined static method App\\Http\\Controllers\\Dashboard\\LeaveRequestController\:\:updated\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/Http/Controllers/Dashboard/LeaveRequestController.php
+
+		-
+			message: '#^Relation ''approvedBy'' is not found in App\\Models\\LeaveRequest model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Dashboard/LeaveRequestController.php
+
+		-
+			message: '#^Relation ''employee'' is not found in App\\Models\\LeaveRequest model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Dashboard/LeaveRequestController.php
+
+		-
+			message: '#^Static call to instance method App\\Http\\Controllers\\Dashboard\\LeaveRequestController\:\:created\(\)\.$#'
+			identifier: method.staticCall
+			count: 1
+			path: app/Http/Controllers/Dashboard/LeaveRequestController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Http/Controllers/Dashboard/LeaveRequestController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Charge\:\:\$payment\.$#'
+			identifier: property.notFound
+			count: 3
+			path: app/Http/Controllers/Dashboard/MidtransController.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: app/Http/Controllers/Dashboard/MidtransController.php
+
+		-
+			message: '#^Undefined variable\: \$payment$#'
+			identifier: variable.undefined
+			count: 3
+			path: app/Http/Controllers/Dashboard/MidtransController.php
+
+		-
+			message: '#^Undefined variable\: \$id$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/Http/Controllers/Dashboard/NarasiController.php
+
+		-
+			message: '#^Undefined variable\: \$report$#'
+			identifier: variable.undefined
+			count: 3
+			path: app/Http/Controllers/Dashboard/NarasiController.php
+
+		-
+			message: '#^Relation ''user'' is not found in App\\Models\\Notification model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Dashboard/NotificationController.php
+
+		-
+			message: '#^Relation ''assessor'' is not found in App\\Models\\StudentP5Assessment model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Dashboard/P5AssessmentController.php
+
+		-
+			message: '#^Relation ''classroom'' is not found in App\\Models\\StudentP5Assessment model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Dashboard/P5AssessmentController.php
+
+		-
+			message: '#^Relation ''indicators'' is not found in App\\Models\\P5Dimension model\.$#'
+			identifier: larastan.relationExistence
+			count: 4
+			path: app/Http/Controllers/Dashboard/P5AssessmentController.php
+
+		-
+			message: '#^Relation ''student'' is not found in App\\Models\\StudentP5Assessment model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Dashboard/P5AssessmentController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 3
+			path: app/Http/Controllers/Dashboard/P5AssessmentController.php
+
+		-
+			message: '#^Relation ''classroom'' is not found in App\\Models\\Payment model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Dashboard/PaymentController.php
+
+		-
+			message: '#^Relation ''student'' is not found in App\\Models\\Payment model\.$#'
+			identifier: larastan.relationExistence
+			count: 2
+			path: app/Http/Controllers/Dashboard/PaymentController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>classroom_type" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 2
+			path: app/Http/Controllers/Dashboard/PaymentController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Employee\:\:\$automatic_allowance_total\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Dashboard/PayrollController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Employee\:\:\$automatic_allowances\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Dashboard/PayrollController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Employee\:\:\$calculated_base_salary\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Dashboard/PayrollController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Employee\:\:\$config_allowance_total\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Dashboard/PayrollController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Employee\:\:\$salary_components\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Dashboard/PayrollController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$month\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Dashboard/PayrollController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$nip\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Dashboard/PayrollController.php
+
+		-
+			message: '#^Undefined variable\: \$payroll$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/Http/Controllers/Dashboard/PayrollController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>salary_components" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Http/Controllers/Dashboard/PayrollController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Http/Controllers/Dashboard/RaporDistributionController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>nis" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Http/Controllers/Dashboard/RaporDistributionController.php
+
+		-
+			message: '#^Using nullsafe property access on non\-nullable type App\\Models\\StudentReportCard\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Http/Controllers/Dashboard/RaporDistributionController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Dashboard/ReportCardController.php
+
+		-
+			message: '#^Relation ''classroom'' is not found in App\\Models\\ReportCard model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Dashboard/ReportCardController.php
+
+		-
+			message: '#^Relation ''reportCard'' is not found in App\\Models\\StudentReportCard model\.$#'
+			identifier: larastan.relationExistence
+			count: 2
+			path: app/Http/Controllers/Dashboard/ReportCardController.php
+
+		-
+			message: '#^Relation ''student'' is not found in App\\Models\\ReportCard model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Dashboard/ReportCardController.php
+
+		-
+			message: '#^Relation ''classroom'' is not found in App\\Models\\Schedule model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Dashboard/ScheduleController.php
+
+		-
+			message: '#^Relation ''details'' is not found in App\\Models\\Schedule model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Dashboard/ScheduleController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Http/Controllers/Dashboard/ScheduleController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Teacher\:\:\$nip\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Dashboard/SearchController.php
+
+		-
+			message: '#^Relation ''parent'' is not found in App\\Models\\StaffPosition model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Dashboard/StaffPositionController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Http/Controllers/Dashboard/StaffPositionController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Http/Controllers/Dashboard/StructuralAllowanceController.php
+
+		-
+			message: '#^Parameter \#2 \$userId of job class App\\Jobs\\GenerateExportJob constructor expects string in App\\Jobs\\GenerateExportJob\:\:dispatch\(\), array given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Controllers/Dashboard/StudentAnalyticsController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>attendance_rate" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Http/Controllers/Dashboard/StudentAnalyticsController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>grade_average" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Http/Controllers/Dashboard/StudentAnalyticsController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 3
+			path: app/Http/Controllers/Dashboard/StudentAnalyticsController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>risk_level" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Http/Controllers/Dashboard/StudentAnalyticsController.php
+		-
+			message: '#^Property App\\Http\\Controllers\\Dashboard\\StudentController\:\:\$fileUploadService is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: app/Http/Controllers/Dashboard/StudentController.php
+
+		-
+			message: '#^Call to an undefined method PhpOffice\\PhpSpreadsheet\\Worksheet\\Worksheet\:\:getCellByColumnAndRow\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: app/Http/Controllers/Dashboard/StudentImportController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 2
+			path: app/Http/Controllers/Dashboard/StudentImportController.php
+
+		-
+			message: '#^Relation ''assignedTo'' is not found in App\\Models\\Task model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Dashboard/TaskController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Http/Controllers/Dashboard/TaskController.php
+
+		-
+			message: '#^Relation ''classrooms'' is not found in App\\Models\\Teacher model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Dashboard/TeacherController.php
+
+		-
+			message: '#^Relation ''employee'' is not found in App\\Models\\Teacher model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Dashboard/TeacherController.php
+
+		-
+			message: '#^Relation ''subjects'' is not found in App\\Models\\Teacher model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Dashboard/TeacherController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 2
+			path: app/Http/Controllers/Dashboard/TeacherController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>nik" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Http/Controllers/Dashboard/TeacherController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>phone" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Http/Controllers/Dashboard/TeacherController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$field_key\.$#'
+			identifier: property.notFound
+			count: 4
+			path: app/Http/Controllers/Dashboard/TemplateController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$field_type\.$#'
+			identifier: property.notFound
+			count: 4
+			path: app/Http/Controllers/Dashboard/TemplateController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$formula\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Dashboard/TemplateController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$label\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Http/Controllers/Dashboard/TemplateController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$options\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Http/Controllers/Dashboard/TemplateController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$placeholder\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Dashboard/TemplateController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$required\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Dashboard/TemplateController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$slug\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Dashboard/TemplateController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$sort_order\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Dashboard/TemplateController.php
+
+		-
+			message: '#^Call to function is_int\(\) with object will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: app/Http/Controllers/Dashboard/TemplateController.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: app/Http/Controllers/Dashboard/TemplateController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>label" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Http/Controllers/Dashboard/TemplateController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Http/Controllers/Dashboard/TemplateController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 3
+			path: app/Http/Controllers/Dashboard/TemplateInstanceController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\WhatsAppMessageTemplate\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\WhatsAppMessageTemplate\>\:\:\$content\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Dashboard/WhatsAppChatController.php
+
+		-
+			message: '#^Call to an undefined method Symfony\\Component\\HttpFoundation\\Response\:\:status\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: app/Http/Middleware/LogSensitiveRequests.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>id" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Http/Requests/Dashboard/PermissionRequest.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>id" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Http/Requests/Dashboard/RoleRequest.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>id" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Http/Requests/Dashboard/UserRequest.php
+
+		-
+			message: '#^Variable \$upsertData in empty\(\) always exists and is not falsy\.$#'
+			identifier: empty.variable
+			count: 1
+			path: app/Imports/GradeComponentImport.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Jobs/BulkAssessClassroomJob.php
+
+		-
+			message: '#^Access to an undefined property App\\Jobs\\GenerateBulkDocumentsJob\:\:\$timeout\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Jobs/GenerateBulkDocumentsJob.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Employee\:\:\$email\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Jobs/GenerateExportJob.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,App\\Models\\Employee\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: app/Jobs/GenerateExportJob.php
+
+		-
+			message: '#^Relation ''classroom'' is not found in App\\Models\\StudentAttendance model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Jobs/GenerateExportJob.php
+
+		-
+			message: '#^Relation ''student'' is not found in App\\Models\\Payment model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Jobs/GenerateExportJob.php
+
+		-
+			message: '#^Relation ''student'' is not found in App\\Models\\StudentAttendance model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Jobs/GenerateExportJob.php
+
+		-
+			message: '#^Using nullsafe method call on non\-nullable type Carbon\\Carbon\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Jobs/GenerateExportJob.php
+
+		-
+			message: '#^Using nullsafe property access on non\-nullable type App\\Models\\Classroom\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Jobs/GenerateExportJob.php
+
+		-
+			message: '#^Using nullsafe property access on non\-nullable type App\\Models\\Student\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 3
+			path: app/Jobs/GenerateExportJob.php
+
+		-
+			message: '#^Using nullsafe property access on non\-nullable type App\\Models\\Subject\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Jobs/GenerateExportJob.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>version" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Jobs/GenerateNarasiJob.php
+
+		-
+			message: '#^Unsafe usage of new static\(\)\.$#'
+			identifier: new.static
+			count: 1
+			path: app/Jobs/ProcessBulkImportJob.php
+
+		-
+			message: '#^Static method Illuminate\\Http\\Client\\PendingRequest\<false\>\:\:post\(\) invoked with 3 parameters, 1\-2 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: app/Jobs/SendSmsNotificationJob.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>phone" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Jobs/SendSmsNotificationJob.php
+
+		-
+			message: '#^Call to an undefined method App\\Services\\RaporDistributionService\:\:trackDelivery\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Jobs/TrackDistributionStatusJob.php
+
+		-
+			message: '#^Call to an undefined method DateTimeInterface\:\:toDateString\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: app/Listeners/AttendanceNotificationListener.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 2
+			path: app/Listeners/GradeNotificationListener.php
+
+		-
+			message: '#^Call to an undefined method DateTimeInterface\:\:diffInDays\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Listeners/LeaveNotificationListener.php
+
+		-
+			message: '#^Call to an undefined method DateTimeInterface\:\:toDateString\(\)\.$#'
+			identifier: method.notFound
+			count: 6
+			path: app/Listeners/LeaveNotificationListener.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\StudentReportCard\:\:\$academic_year_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Listeners/NarasiGeneratedListener.php
+
+		-
+			message: '#^Using nullsafe property access on non\-nullable type App\\Models\\Student\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Listeners/NarasiGeneratedListener.php
+
+		-
+			message: '#^Call to an undefined method DateTimeInterface\:\:toDateString\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: app/Listeners/NotificationEventListener.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Listeners/PayrollProcessedListener.php
+
+		-
+			message: '#^Parameter \#1 \$user of job class App\\Jobs\\SendNotificationEmailJob constructor expects App\\Models\\User in App\\Jobs\\SendNotificationEmailJob\:\:dispatch\(\), Illuminate\\Database\\Eloquent\\Model given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Listeners/PayrollProcessedListener.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between ''disetujui''\|''ditolak''\|''menunggu'' and ''approved'' will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: app/Mail/LeaveDecisionMail.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\RaporDistribution\:\:\$recipient_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Mail/RaporDistributionMail.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Mail/RaporDistributionMail.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between mixed and null will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: app/Models/DistributionTemplate.php
+
+		-
+			message: '#^Match arm comparison between ''xlsx'' and ''xlsx'' is always true\.$#'
+			identifier: match.alwaysTrue
+			count: 1
+			path: app/Models/Export.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$field_type\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Models/FieldValue.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Models/RaporDistribution.php
+
+		-
+			message: '#^Using nullsafe property access on non\-nullable type App\\Models\\StudentReportCard\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Models/RaporDistribution.php
+
+		-
+			message: '#^Method App\\Models\\Student\:\:currentClassroom\(\) should return App\\Models\\Classroom\|null but returns \(Illuminate\\Database\\Eloquent\\Model&object\{pivot\: Illuminate\\Database\\Eloquent\\Relations\\Pivot\}\)\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/Student.php
+
+		-
+			message: '#^Method App\\Models\\Student\:\:currentEnrollment\(\) should return App\\Models\\StudentClassroom\|null but returns Illuminate\\Database\\Eloquent\\Relations\\Pivot\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/Student.php
+
+		-
+			message: '#^Method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\RaporDistribution\>\:\:latest\(\) invoked with 2 parameters, 0\-1 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: app/Models/StudentReportCard.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between string and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: app/Models/StudentReportCard.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>academicYear" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Models/StudentReportCard.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Task\:\:\$parent\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Models/Task.php
+
+		-
+			message: '#^Match arm comparison between ''archived'' and ''archived'' is always true\.$#'
+			identifier: match.alwaysTrue
+			count: 2
+			path: app/Models/Task.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$field_type\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Models/Template.php
+
+		-
+			message: '#^Method App\\Models\\Template\:\:getFieldByKey\(\) should return App\\Models\\TemplateField\|null but returns Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/Template.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$value\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Models/TemplateInstance.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>value" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Models/TemplateInstance.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Models/WhatsAppMessage.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$profile_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Models/WhatsAppMessage.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>profile_name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Models/WhatsAppMessage.php
+
+		-
+			message: '#^Variable \$modelClass might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/Observers/CacheInvalidationObserver.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\User\:\:\$employee\.$#'
+			identifier: property.notFound
+			count: 3
+			path: app/Policies/GradePolicy.php
+
+		-
+			message: '#^Left side of && is always true\.$#'
+			identifier: booleanAnd.leftAlwaysTrue
+			count: 6
+			path: app/Policies/GradePolicy.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Student\:\:\$parent_email\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Policies/StudentPolicy.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between int\|null and string will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: app/Policies/WhatsAppConversationPolicy.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Grade\:\:\$teacher_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Providers/AuthServiceProvider.php
+
+		-
+			message: '#^Undefined variable\: \$permission$#'
+			identifier: variable.undefined
+			count: 4
+			path: app/Providers/AuthServiceProvider.php
+
+		-
+			message: '#^Class App\\Providers\\AdmissionRejected not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Providers/EventServiceProvider.php
+
+		-
+			message: '#^Class App\\Providers\\RaporDistributionStarted not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Providers/EventServiceProvider.php
+
+		-
+			message: '#^Property App\\Providers\\EventServiceProvider\:\:\$listen \(array\<class\-string, array\<int, class\-string\>\>\) does not accept default value of type array\<string, list\<string\>\>\.$#'
+			identifier: property.defaultValue
+			count: 1
+			path: app/Providers/EventServiceProvider.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Contracts\\Auth\\Authenticatable\:\:\$email\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Providers/SentryServiceProvider.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Contracts\\Auth\\Authenticatable\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 3
+			path: app/Providers/SentryServiceProvider.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Contracts\\Auth\\Authenticatable\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Providers/SentryServiceProvider.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\AcademicYear\>\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/AdmissionService.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>id" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Services/AdmissionService.php
+
+		-
+			message: '#^Using nullsafe property access on non\-nullable type Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\AcademicYear\>\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Services/AdmissionService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/ArticleService.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Contracts\\Cache\\Store\:\:connection\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Services/CacheService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/EarlyWarningService.php
+
+		-
+			message: '#^Parameter \#1 \$student of method App\\Services\\EarlyWarningService\:\:assessStudent\(\) expects App\\Models\\Student, Illuminate\\Database\\Eloquent\\Model given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Services/EarlyWarningService.php
+
+		-
+			message: '#^Parameter \#1 \$lat1 of method App\\Services\\EmployeeAttendanceService\:\:calculateDistance\(\) expects float, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Services/EmployeeAttendanceService.php
+
+		-
+			message: '#^Parameter \#2 \$lon1 of method App\\Services\\EmployeeAttendanceService\:\:calculateDistance\(\) expects float, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Services/EmployeeAttendanceService.php
+
+		-
+			message: '#^Relation ''employee'' is not found in App\\Models\\EmployeeAttendance model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Services/EmployeeAttendanceService.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-array will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: app/Services/FileUploadService.php
+
+		-
+			message: '#^Offset 0 on array\{list\<string\>\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Services/FormulaEvaluatorService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Services/GraduationService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/GraduationService.php
+
+		-
+			message: '#^Parameter \#1 \$student of method App\\Services\\GraduationService\:\:graduateStudent\(\) expects App\\Models\\Student, Illuminate\\Database\\Eloquent\\Model given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Services/GraduationService.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Services/GraduationService.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Task\:\:\$assignedTo\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/MarkdownExportService.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Task\:\:\$comments\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Services/MarkdownExportService.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Task\:\:\$subtasks\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Services/MarkdownExportService.php
+
+		-
+			message: '#^Parameter \#2 \$times of function str_repeat expects int, float given\.$#'
+			identifier: argument.type
+			count: 2
+			path: app/Services/MarkdownExportService.php
+
+		-
+			message: '#^Cannot access property \$fraud_status on array\<mixed\>\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Services/MidtransService.php
+
+		-
+			message: '#^Cannot access property \$transaction_status on array\<mixed\>\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Services/MidtransService.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>email" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 2
+			path: app/Services/MidtransService.php
+
+		-
+			message: '#^Called ''env'' outside of the config directory which returns null when the config is cached, use ''config''\.$#'
+			identifier: larastan.noEnvCallsOutsideOfConfig
+			count: 1
+			path: app/Services/NarasiGeneratorService.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>curriculum_type" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 2
+			path: app/Services/NarasiGeneratorService.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 2
+			path: app/Services/NarasiGeneratorService.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Notification\:\:\$user\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Services/NotificationService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model&object\{pivot\: Illuminate\\Database\\Eloquent\\Relations\\Pivot\}\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/P5AssessmentService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/P5AssessmentService.php
+
+		-
+			message: '#^Parameter \#1 \$student of method App\\Services\\P5AssessmentService\:\:calculateP5Profile\(\) expects App\\Models\\Student, Illuminate\\Database\\Eloquent\\Model given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Services/P5AssessmentService.php
+
+		-
+			message: '#^Parameter \#1 \$student of method App\\Services\\P5AssessmentService\:\:createAssessment\(\) expects App\\Models\\Student, Illuminate\\Database\\Eloquent\\Model given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Services/P5AssessmentService.php
+
+		-
+			message: '#^Relation ''indicators'' is not found in App\\Models\\P5Dimension model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Services/P5AssessmentService.php
+
+		-
+			message: '#^Relation ''scores'' is not found in App\\Models\\StudentP5Assessment model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Services/P5AssessmentService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model&object\{pivot\: Illuminate\\Database\\Eloquent\\Relations\\Pivot\}\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/PaymentService.php
+
+		-
+			message: '#^Called ''env'' outside of the config directory which returns null when the config is cached, use ''config''\.$#'
+			identifier: larastan.noEnvCallsOutsideOfConfig
+			count: 1
+			path: app/Services/PaymentService.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>id" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Services/PaymentService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$employee\.$#'
+			identifier: property.notFound
+			count: 7
+			path: app/Services/PayrollExportService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$gross_salary\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/PayrollExportService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$net_salary\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/PayrollExportService.php
+
+		-
+			message: '#^Parameter \#1 \$employeePayroll of method App\\Services\\PayrollExportService\:\:generatePayslipPdf\(\) expects App\\Models\\EmployeePayroll, Illuminate\\Database\\Eloquent\\Model given\.$#'
+			identifier: argument.type
+			count: 2
+			path: app/Services/PayrollExportService.php
+
+		-
+			message: '#^Parameter \#1 \$string of function str_pad expects string, int\|null given\.$#'
+			identifier: argument.type
+			count: 2
+			path: app/Services/PayrollExportService.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 2
+			path: app/Services/PayrollExportService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$amount\.$#'
+			identifier: property.notFound
+			count: 4
+			path: app/Services/PayrollPreparationService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$createdByUser\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/PayrollPreparationService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/PayrollPreparationService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$description\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Services/PayrollPreparationService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Services/PayrollPreparationService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Services/PayrollPreparationService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$type\.$#'
+			identifier: property.notFound
+			count: 3
+			path: app/Services/PayrollPreparationService.php
+
+		-
+			message: '#^Method App\\Services\\PayrollPreparationService\:\:addAdjustment\(\) should return App\\Models\\PayrollAdjustment but returns Illuminate\\Database\\Eloquent\\Model\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Services/PayrollPreparationService.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: app/Services/PayrollPreparationService.php
+
+		-
+			message: '#^Parameter \#1 \$preparation of method App\\Services\\PayrollPreparationService\:\:recalculatePreparationTotals\(\) expects App\\Models\\PayrollPreparation, Illuminate\\Database\\Eloquent\\Model\|null given\.$#'
+			identifier: argument.type
+			count: 2
+			path: app/Services/PayrollPreparationService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/PayrollService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$nip\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/PayrollService.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: app/Services/PayrollService.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:map\(\) expects callable\(Illuminate\\Database\\Eloquent\\Model, int\)\: array\{id\: string, employee_name\: mixed, employee_nip\: mixed, gross_salary\: float, total_allowances\: float, total_deductions\: float, net_salary\: float, payment_method\: string\|null, paid\: bool\}, Closure\(App\\Models\\EmployeePayroll\)\: array\{id\: string, employee_name\: mixed, employee_nip\: mixed, gross_salary\: float, total_allowances\: float, total_deductions\: float, net_salary\: float, payment_method\: string\|null, paid\: bool\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Services/PayrollService.php
+
+		-
+			message: '#^Parameter \#1 \$payrollRun of method App\\Services\\PayrollService\:\:logAuditAction\(\) expects App\\Models\\PayrollRun\|null, Illuminate\\Database\\Eloquent\\Model\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Services/PayrollService.php
+
+		-
+			message: '#^Constant App\\Services\\PdfService\:\:A4_HEIGHT_PT is unused\.$#'
+			identifier: classConstant.unused
+			count: 1
+			path: app/Services/PdfService.php
+
+		-
+			message: '#^Constant App\\Services\\PdfService\:\:A4_HEIGHT_PX is unused\.$#'
+			identifier: classConstant.unused
+			count: 1
+			path: app/Services/PdfService.php
+
+		-
+			message: '#^Constant App\\Services\\PdfService\:\:A4_WIDTH_PT is unused\.$#'
+			identifier: classConstant.unused
+			count: 1
+			path: app/Services/PdfService.php
+
+		-
+			message: '#^Constant App\\Services\\PdfService\:\:A4_WIDTH_PX is unused\.$#'
+			identifier: classConstant.unused
+			count: 1
+			path: app/Services/PdfService.php
+
+		-
+			message: '#^Constant App\\Services\\PdfService\:\:DEFAULT_MARGIN_PX is unused\.$#'
+			identifier: classConstant.unused
+			count: 1
+			path: app/Services/PdfService.php
+
+		-
+			message: '#^Constant App\\Services\\PdfService\:\:PX_TO_PT_RATIO is unused\.$#'
+			identifier: classConstant.unused
+			count: 1
+			path: app/Services/PdfService.php
+
+		-
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
+			count: 2
+			path: app/Services/PdfService.php
+
+		-
+			message: '#^Method Illuminate\\Filesystem\\FilesystemAdapter\:\:makeDirectory\(\) invoked with 3 parameters, 1 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: app/Services/PdfService.php
+
+		-
+			message: '#^Using nullsafe method call on non\-nullable type PhpOffice\\PhpSpreadsheet\\Cell\\Cell\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Services/ProcessStudentsDapodikService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 3
+			path: app/Services/PromotionService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/PromotionService.php
+
+		-
+			message: '#^Parameter \#1 \$student of method App\\Services\\PromotionService\:\:promoteSingleStudent\(\) expects App\\Models\\Student, Illuminate\\Database\\Eloquent\\Model given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Services/PromotionService.php
+
+		-
+			message: '#^Parameter \#1 \$student of method App\\Services\\PromotionService\:\:validatePromotion\(\) expects App\\Models\\Student, Illuminate\\Database\\Eloquent\\Model given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Services/PromotionService.php
+
+		-
+			message: '#^Relation ''attendances'' is not found in App\\Models\\Employee model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Services/QueryOptimizationService.php
+
+		-
+			message: '#^Relation ''classroom'' is not found in App\\Models\\Payment model\.$#'
+			identifier: larastan.relationExistence
+			count: 2
+			path: app/Services/QueryOptimizationService.php
+
+		-
+			message: '#^Relation ''classroom'' is not found in App\\Models\\StudentAttendance model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Services/QueryOptimizationService.php
+
+		-
+			message: '#^Relation ''classrooms'' is not found in App\\Models\\Subject model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Services/QueryOptimizationService.php
+
+		-
+			message: '#^Relation ''employee'' is not found in App\\Models\\Teacher model\.$#'
+			identifier: larastan.relationExistence
+			count: 2
+			path: app/Services/QueryOptimizationService.php
+
+		-
+			message: '#^Relation ''student'' is not found in App\\Models\\Payment model\.$#'
+			identifier: larastan.relationExistence
+			count: 2
+			path: app/Services/QueryOptimizationService.php
+
+		-
+			message: '#^Relation ''student'' is not found in App\\Models\\StudentAttendance model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Services/QueryOptimizationService.php
+
+		-
+			message: '#^Relation ''teacher'' is not found in App\\Models\\Grade model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Services/QueryOptimizationService.php
+
+		-
+			message: '#^Relation ''teachers'' is not found in App\\Models\\Subject model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Services/QueryOptimizationService.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\ReportTemplate\:\:\$academicYear\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/RaporDistributionService.php
+
+		-
+			message: '#^Call to function is_array\(\) with array will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: app/Services/RaporDistributionService.php
+
+		-
+			message: '#^Method App\\Services\\RaporDistributionService\:\:getDefaultEmailTemplate\(\) is unused\.$#'
+			identifier: method.unused
+			count: 1
+			path: app/Services/RaporDistributionService.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: app/Services/RaporDistributionService.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>id" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 2
+			path: app/Services/RaporDistributionService.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 2
+			path: app/Services/RaporDistributionService.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>semester_config" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Services/RaporDistributionService.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Services/RenderService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$amount\.$#'
+			identifier: property.notFound
+			count: 7
+			path: app/Services/SalaryCalculationService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Services/SalaryCalculationService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 5
+			path: app/Services/SalaryCalculationService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$type\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Services/SalaryCalculationService.php
+
+		-
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
+			count: 1
+			path: app/Services/SalaryCalculationService.php
+
+		-
+			message: '#^Parameter \#1 \$value of function collect contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: app/Services/SalaryCalculationService.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>amount" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 2
+			path: app/Services/SalaryCalculationService.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 2
+			path: app/Services/SalaryCalculationService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$amount\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/SalaryComponentCalculator.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/SalaryComponentCalculator.php
+
+		-
+			message: '#^Relation ''schedule'' is not found in App\\Models\\ScheduleDetail model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Services/ScheduleService.php
+
+		-
+			message: '#^Relation ''subject'' is not found in App\\Models\\ScheduleDetail model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Services/ScheduleService.php
+
+		-
+			message: '#^Relation ''teacher'' is not found in App\\Models\\ScheduleDetail model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Services/ScheduleService.php
+
+		-
+			message: '#^Call to an undefined static method Sentry\\Severity\:\:fromString\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/Services/SentryService.php
+
+		-
+			message: '#^Missing parameter \$type \(string\) in call to Sentry\\Breadcrumb constructor\.$#'
+			identifier: argument.missing
+			count: 1
+			path: app/Services/SentryService.php
+
+		-
+			message: '#^Parameter \#1 \$user of method Sentry\\State\\Scope\:\:setUser\(\) expects array\<string, mixed\>\|Sentry\\UserDataBag, null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Services/SentryService.php
+
+		-
+			message: '#^Parameter \#2 \$level of static method Sentry\\Laravel\\Facade\:\:captureMessage\(\) expects Sentry\\Severity\|null, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Services/SentryService.php
+
+		-
+			message: '#^Unknown parameter \$data in call to Sentry\\Breadcrumb constructor\.$#'
+			identifier: argument.unknown
+			count: 1
+			path: app/Services/SentryService.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\StudentAnalyticsSnapshot\:\:\$student\.$#'
+			identifier: property.notFound
+			count: 3
+			path: app/Services/StudentAnalyticsService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model&object\{pivot\: Illuminate\\Database\\Eloquent\\Relations\\Pivot\}\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/StudentAnalyticsService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$date\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/StudentAnalyticsService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/StudentAnalyticsService.php
+
+		-
+			message: '#^Property App\\Services\\StudentAnalyticsService\:\:\$cacheService is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: app/Services/StudentAnalyticsService.php
+
+		-
+			message: '#^Relation ''student'' is not found in App\\Models\\StudentAnalyticsSnapshot model\.$#'
+			identifier: larastan.relationExistence
+			count: 7
+			path: app/Services/StudentAnalyticsService.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>grade_average" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 2
+			path: app/Services/StudentAnalyticsService.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>risk_level" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Services/StudentAnalyticsService.php
+
+		-
+			message: '#^Relation ''student'' is not found in App\\Models\\StudentAttendance model\.$#'
+			identifier: larastan.relationExistence
+			count: 2
+			path: app/Services/StudentAttendanceService.php
+
+		-
+			message: '#^Relation ''classrooms'' is not found in App\\Models\\Subject model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Services/SubjectService.php
+
+		-
+			message: '#^Relation ''teachers'' is not found in App\\Models\\Subject model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Services/SubjectService.php
+
+		-
+			message: '#^Method App\\Services\\TaskService\:\:getActive\(\) should return Illuminate\\Pagination\\Paginator but returns Illuminate\\Pagination\\LengthAwarePaginator\<int, App\\Models\\Task\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Services/TaskService.php
+
+		-
+			message: '#^Relation ''assignedTo'' is not found in App\\Models\\Task model\.$#'
+			identifier: larastan.relationExistence
+			count: 2
+			path: app/Services/TaskService.php
+
+		-
+			message: '#^Relation ''subtasks'' is not found in App\\Models\\Task model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Services/TaskService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$field\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/TemplateGeneratorService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$field_key\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Services/TemplateGeneratorService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 3
+			path: app/Services/TemplateGeneratorService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$label\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/TemplateGeneratorService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$required\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/TemplateGeneratorService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$value\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/TemplateGeneratorService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$field_key\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/TemplateService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$field_type\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Services/TemplateService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$formula\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/TemplateService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$label\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/TemplateService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$options\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/TemplateService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$placeholder\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/TemplateService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$required\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/TemplateService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$slug\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/TemplateService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$sort_order\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/TemplateService.php
+
+		-
+			message: '#^Method App\\Services\\TemplateService\:\:addField\(\) should return App\\Models\\TemplateField but returns Illuminate\\Database\\Eloquent\\Model\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Services/TemplateService.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: app/Services/TemplateService.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>document_type" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Services/VariableResolver.php
+
+
+		-
+			message: '#^Relation ''latestMessage'' is not found in App\\Models\\WhatsAppConversation model\.$#'
+			identifier: larastan.relationExistence
+			count: 2
+			path: app/Services/WhatsAppChatService.php

@@ -1,0 +1,249 @@
+/* Mobile Responsiveness & Dark Mode Utilities */
+
+/* ===== MOBILE RESPONSIVENESS ===== */
+@media (max-width: 768px) {
+    .nxl-navigation {
+        position: fixed;
+        left: -250px;
+        top: 0;
+        height: 100vh;
+        width: 250px;
+        transition: all 0.3s ease;
+        z-index: 1000;
+    }
+
+    .nxl-navigation.open {
+        left: 0;
+    }
+
+    .nxl-container {
+        margin-left: 0 !important;
+    }
+
+    .container-fluid {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+
+    .card {
+        margin-bottom: 15px;
+    }
+
+    .row > [class*="col-"] {
+        margin-bottom: 15px;
+    }
+
+    .table {
+        font-size: 12px;
+    }
+
+    .table th,
+    .table td {
+        padding: 8px 4px;
+    }
+
+    .btn-sm {
+        padding: 4px 8px;
+        font-size: 11px;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-size: calc(1em - 2px);
+    }
+
+    .modal-body {
+        padding: 15px;
+    }
+
+    /* Stack columns on mobile */
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6,
+    .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        flex: 0 0 50% !important;
+        max-width: 50% !important;
+    }
+
+    .col-md-6, .col-md-12 {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+
+    .data-table-wrapper {
+        overflow-x: auto;
+    }
+
+    table {
+        min-width: 500px;
+    }
+}
+
+@media (max-width: 480px) {
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6,
+    .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+
+    .form-control, .form-select, .btn {
+        font-size: 16px; /* Prevent zoom on iOS */
+    }
+
+    .navbar-brand {
+        font-size: 18px;
+    }
+
+    .table {
+        font-size: 10px;
+    }
+}
+
+/* ===== DARK MODE ===== */
+body.dark-mode {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+}
+
+.dark-mode .bg-white,
+.dark-mode .card,
+.dark-mode .modal-content,
+.dark-mode .dropdown-menu {
+    background-color: #2d2d2d !important;
+    color: #e0e0e0;
+    border-color: #444;
+}
+
+.dark-mode .table {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+    border-color: #444;
+}
+
+.dark-mode .table th {
+    background-color: #333;
+    color: #fff;
+    border-color: #555;
+}
+
+.dark-mode .table td {
+    border-color: #444;
+}
+
+.dark-mode .form-control,
+.dark-mode .form-select {
+    background-color: #333;
+    color: #e0e0e0;
+    border-color: #555;
+}
+
+.dark-mode .form-control:focus,
+.dark-mode .form-select:focus {
+    background-color: #3a3a3a;
+    color: #e0e0e0;
+    border-color: #777;
+}
+
+.dark-mode .btn-primary {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.dark-mode .btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.dark-mode .nxl-header {
+    background-color: #2d2d2d;
+    border-bottom-color: #444;
+}
+
+.dark-mode .nxl-navigation {
+    background-color: #1f1f1f;
+    border-right-color: #444;
+}
+
+.dark-mode .text-muted {
+    color: #999 !important;
+}
+
+.dark-mode .border,
+.dark-mode [class*="border-"] {
+    border-color: #444 !important;
+}
+
+.dark-mode .list-group-item {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+    border-color: #444;
+}
+
+.dark-mode .alert {
+    background-color: #333;
+    color: #e0e0e0;
+    border-color: #555;
+}
+
+/* Dark mode toggle button */
+.dark-mode-toggle {
+    cursor: pointer;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #fff;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+.dark-mode .dark-mode-toggle {
+    background-color: #333;
+    color: #fff;
+    border-color: #555;
+}
+
+.dark-mode-toggle:hover {
+    background-color: #f0f0f0;
+}
+
+.dark-mode .dark-mode-toggle:hover {
+    background-color: #444;
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: more) {
+    body {
+        color: #000;
+        background-color: #fff;
+    }
+
+    .dark-mode {
+        color: #fff;
+    }
+
+    .border {
+        border-width: 2px !important;
+    }
+}
+
+/* Print styles */
+@media print {
+    .nxl-header,
+    .nxl-navigation,
+    .btn,
+    .form-control,
+    .pagination {
+        display: none !important;
+    }
+
+    body {
+        background: white;
+        color: black;
+    }
+}

@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: school-mysql
+  namespace: school-management
+  labels:
+    app: school-mysql
+spec:
+  clusterIP: None  # Headless service for StatefulSet discovery
+  selector:
+    app: school-mysql
+  ports:
+    - name: mysql
+      port: 3306
+      targetPort: mysql
+      protocol: TCP
+  publishNotReadyAddresses: false

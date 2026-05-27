@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700">
+  <rect width="1200" height="700" fill="#fff7ed"/>
+  <text x="60" y="80" font-family="Inter, Arial" font-size="36" fill="#92400e">template-editor.png</text>
+  <text x="60" y="120" font-family="Inter, Arial" font-size="16" fill="#92400e">Template editor placeholder</text>
+  <g transform="translate(60,160)">
+    <rect x="0" y="0" width="1080" height="420" rx="12" fill="#ffffff" stroke="#f3e8ff"/>
+    <rect x="36" y="36" width="1008" height="120" fill="#f8fafc" stroke="#e5e7eb"/>
+    <rect x="36" y="168" width="420" height="240" fill="#f8fafc" stroke="#e5e7eb"/>
+    <rect x="474" y="168" width="570" height="240" fill="#ffffff" stroke="#e5e7eb"/>
+  </g>
+</svg>

@@ -1,0 +1,14 @@
+@extends('{{layout}}')
+@section('title', 'Create {{modelTitle}}')
+
+@section('content')
+
+<form action="{{ route('{{modelRoute}}.store') }}" method="POST" enctype="multipart/form-data">
+    @csrf
+    <div class="col-xl-12">
+        <div class="card stretch stretch-full">
+            @include('{{modelView}}.form')
+        </div>
+    </div>
+</form>
+@endsection

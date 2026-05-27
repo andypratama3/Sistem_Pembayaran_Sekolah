@@ -1,0 +1,15 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: school-app-rolebinding
+  namespace: school-management
+  labels:
+    app: school-app
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: school-app-role
+subjects:
+  - kind: ServiceAccount
+    name: school-app-sa
+    namespace: school-management

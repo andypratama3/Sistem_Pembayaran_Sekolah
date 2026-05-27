@@ -1,0 +1,388 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+    types: [opened, synchronize, reopened]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+  pull-requests: write   # untuk PR comments (coverage, etc.)
+  checks: write          # untuk annotations dari PHPStan/Pint
+
+# ============================================================
+# SHARED ENV — hanya nilai yang benar-benar dipakai semua job.
+# Nilai spesifik per-job dipindah ke job masing-masing.
+# ============================================================
+env:
+  APP_ENV: testing
+  DB_CONNECTION: sqlite
+  DB_DATABASE: ":memory:"
+  CACHE_STORE: array
+  SESSION_DRIVER: array
+  QUEUE_CONNECTION: sync
+  MAIL_MAILER: array
+  BROADCAST_DRIVER: log
+  PULSE_ENABLED: "false"
+  TELESCOPE_ENABLED: "false"
+  SENTRY_LARAVEL_DSN: "null"
+  SENTRY_DSN: "null"
+  SENTRY_TRACES_SAMPLE_RATE: "0"
+  SENTRY_PROFILES_SAMPLE_RATE: "0"
+
+# ============================================================
+# REUSABLE INPUT — versi PHP & Node dikontrol di satu tempat
+# ============================================================
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  # ============================================================
+  # 1. DEPENDENCY INSTALL — di-cache & di-share ke job lain
+  # ============================================================
+  install:
+    name: Install Dependencies
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    defaults:
+      run:
+        working-directory: src
+
+    outputs:
+      php-version: "8.3"
+      node-version: "22"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          extensions: sqlite3, pdo_sqlite, redis, gd, zip, bcmath, mbstring, exif, pcntl, sockets, opcache
+          coverage: none          # coverage diaktifkan hanya di job test
+          tools: composer:v2
+          ini-values: memory_limit=512M
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: src/package-lock.json
+
+      - name: Cache Composer dependencies
+        id: composer-cache
+        uses: actions/cache@v4
+        with:
+          path: src/vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('src/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Cache NPM dependencies
+        id: npm-cache
+        uses: actions/cache@v4
+        with:
+          path: src/node_modules
+          key: ${{ runner.os }}-npm-${{ hashFiles('src/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-npm-
+
+      - name: Install Composer dependencies
+        if: steps.composer-cache.outputs.cache-hit != 'true'
+        run: composer install --no-progress --prefer-dist --optimize-autoloader --no-interaction
+
+      - name: Install NPM dependencies
+        if: steps.npm-cache.outputs.cache-hit != 'true'
+        run: npm ci --ignore-scripts
+
+  # ============================================================
+  # 2. LINT & STATIC ANALYSIS — paralel dengan test
+  # ============================================================
+  lint:
+    name: Lint & Static Analysis
+    runs-on: ubuntu-latest
+    needs: install
+    timeout-minutes: 15
+
+    defaults:
+      run:
+        working-directory: src
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          extensions: pdo_sqlite, mbstring, bcmath
+          coverage: none
+          tools: composer:v2
+          ini-values: memory_limit=512M
+
+      - name: Restore Composer cache
+        uses: actions/cache@v4
+        with:
+          path: src/vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('src/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Install Composer dependencies
+        run: composer install --no-progress --prefer-dist --optimize-autoloader --no-interaction
+
+      - name: Run Pint (Code Style)
+        run: vendor/bin/pint --test
+
+      # PHPStan & Larastan sebaiknya dijalankan SATU KALI dengan config neon
+      # yang sudah include Larastan. Menjalankan dua kali hanya buang waktu.
+      - name: Run PHPStan / Larastan (Static Analysis)
+        run: |
+          if [ -f phpstan.neon ]; then
+            vendor/bin/phpstan analyse --configuration=phpstan.neon \
+              --memory-limit=512M --error-format=github
+          else
+            vendor/bin/phpstan analyse app \
+              --level=5 --memory-limit=512M --error-format=github
+          fi
+
+  # ============================================================
+  # 3. TEST — paralel dengan lint
+  # ============================================================
+  test:
+    name: Tests & Coverage
+    runs-on: ubuntu-latest
+    needs: install
+    timeout-minutes: 45
+
+    defaults:
+      run:
+        working-directory: src
+
+    env:
+      BROADCAST_DRIVER: log
+      PUSHER_APP_ID: "12345"
+      PUSHER_APP_KEY: "test-key-for-ci"
+      PUSHER_APP_SECRET: "test-secret-for-ci"
+      PUSHER_HOST: localhost
+      PUSHER_PORT: "6001"
+      PUSHER_SCHEME: http
+      REVERB_APP_ID: "12345"
+      REVERB_APP_KEY: "test-key-for-ci"
+      REVERB_APP_SECRET: "test-secret-for-ci"
+      REVERB_HOST: localhost
+      REVERB_PORT: "8080"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          extensions: sqlite3, pdo_sqlite, redis, gd, zip, bcmath, mbstring, exif, pcntl, sockets, opcache
+          coverage: pcov
+          tools: composer:v2
+          ini-values: memory_limit=1G
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: src/package-lock.json
+
+      - name: Restore Composer cache
+        uses: actions/cache@v4
+        with:
+          path: src/vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('src/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Restore NPM cache
+        uses: actions/cache@v4
+        with:
+          path: src/node_modules
+          key: ${{ runner.os }}-npm-${{ hashFiles('src/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-npm-
+
+      - name: Install Composer dependencies
+        run: composer install --no-progress --prefer-dist --optimize-autoloader --no-interaction
+
+      - name: Install NPM dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Build frontend assets
+        run: npm run build
+
+      - name: Prepare test environment
+        run: |
+          php artisan key:generate --env=testing --force
+          mkdir -p database
+          # Run migrations first (RefreshDatabase trait will handle this)
+          # Seeding will happen automatically in TestCase::setUp()
+          echo "Test environment prepared"
+
+      - name: Run tests with coverage
+        run: |
+          php artisan test \
+            --env=testing \
+            --parallel \
+            --processes=4 \
+            --coverage \
+            --coverage-clover=coverage.xml \
+            --min-coverage-percentage=0
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coverage-report
+          path: src/coverage.xml
+          overwrite: true
+          retention-days: 30
+
+  # ============================================================
+  # 4. BUILD VALIDATION — verifikasi asset build bisa reproduce
+  # (opsional tapi berguna untuk catch build-time error)
+  # ============================================================
+  build-check:
+    name: Frontend Build Check
+    runs-on: ubuntu-latest
+    needs: install
+    timeout-minutes: 10
+
+    defaults:
+      run:
+        working-directory: src
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: src/package-lock.json
+
+      - name: Restore NPM cache
+        uses: actions/cache@v4
+        with:
+          path: src/node_modules
+          key: ${{ runner.os }}-npm-${{ hashFiles('src/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-npm-
+
+      - name: Install NPM dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Build & verify output
+        run: |
+          npm run build
+          # Pastikan folder build ada dan tidak kosong
+          test -d public/build && find public/build -type f | head -5
+
+  # ============================================================
+  # 5. DEPLOY — hanya main branch, setelah semua job hijau
+  # ============================================================
+  # deploy:
+  #   name: Deploy to Production
+  #   runs-on: ubuntu-latest
+  #   needs: [test, lint, build-check]
+  #   if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+  #   timeout-minutes: 20
+  #   environment:
+  #     name: production
+
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
+
+  #     - name: Deploy via SSH
+  #       uses: appleboy/ssh-action@v1.0.3
+  #       with:
+  #         host: ${{ secrets.DEPLOY_HOST }}
+  #         username: ${{ secrets.DEPLOY_USER }}
+  #         key: ${{ secrets.DEPLOY_KEY }}
+  #         # Timeout per-command agar SSH tidak hang selamanya
+  #         command_timeout: 10m
+  #         script: |
+  #           set -euo pipefail
+
+  #           APP_DIR=/var/www/productschool
+  #           cd "$APP_DIR"
+
+  #           echo "=== [1/7] Pulling latest code ==="
+  #           git pull origin main
+
+  #           cd src
+
+  #           echo "=== [2/7] Installing Composer dependencies ==="
+  #           composer install \
+  #             --no-progress \
+  #             --prefer-dist \
+  #             --optimize-autoloader \
+  #             --no-interaction \
+  #             --no-dev
+
+  #           echo "=== [3/7] Building frontend assets ==="
+  #           npm ci --ignore-scripts
+  #           npm run build
+
+  #           echo "=== [4/7] Running database migrations ==="
+  #           php artisan migrate --force
+
+  #           echo "=== [5/7] Optimizing application ==="
+  #           php artisan optimize:clear
+  #           php artisan config:cache
+  #           php artisan route:cache
+  #           php artisan view:cache
+  #           php artisan event:cache
+
+  #           echo "=== [6/7] Restarting background services ==="
+  #           php artisan queue:restart
+  #           php artisan reverb:restart
+
+  #           echo "=== [7/7] Deployment complete ==="
+
+  #     - name: Health check
+  #       run: |
+  #         echo "Waiting for services to warm up..."
+  #         sleep 15
+
+  #         for i in 1 2 3; do
+  #           HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+  #             --max-time 30 \
+  #             "https://${{ secrets.DEPLOY_HOST }}/up")
+
+  #           if [ "$HTTP_CODE" = "200" ]; then
+  #             echo "✅ Health check passed (HTTP $HTTP_CODE)"
+  #             exit 0
+  #           fi
+
+  #           echo "⚠️  Attempt $i: HTTP $HTTP_CODE — retrying in 10s..."
+  #           sleep 10
+  #         done
+
+  #         echo "❌ Health check failed after 3 attempts"
+  #         exit 1
+
+  #     - name: Notify on failure
+  #       if: failure()
+  #       run: |
+  #         echo "::error::Deployment to production failed. Check logs above."
+  #         # Tambahkan webhook Slack/Discord/Teams di sini jika perlu:
+  #         # curl -X POST "${{ secrets.SLACK_WEBHOOK }}" \
+  #         #   -H 'Content-type: application/json' \
+  #         #   --data '{"text":"🚨 Deployment gagal di commit ${{ github.sha }}"}'

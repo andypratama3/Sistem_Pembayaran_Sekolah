@@ -1,0 +1,128 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: school-app-network-policy
+  namespace: school-management
+  labels:
+    app: school-app
+spec:
+  podSelector:
+    matchLabels:
+      app: school-app
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    # Allow from Nginx Ingress Controller
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              name: ingress-nginx
+      ports:
+        - protocol: TCP
+          port: 80
+    # Allow from same namespace
+    - from:
+        - podSelector: {}
+      ports:
+        - protocol: TCP
+          port: 9000
+  egress:
+    # Allow to MySQL
+    - to:
+        - podSelector:
+            matchLabels:
+              app: school-mysql
+      ports:
+        - protocol: TCP
+          port: 3306
+    # Allow to Redis
+    - to:
+        - podSelector:
+            matchLabels:
+              app: school-redis
+      ports:
+        - protocol: TCP
+          port: 6379
+    # Allow DNS
+    - to:
+        - namespaceSelector: {}
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - protocol: UDP
+          port: 53
+    # Allow to external APIs (internet)
+    - to:
+        - namespaceSelector: {}
+      ports:
+        - protocol: TCP
+          port: 443
+        - protocol: TCP
+          port: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: school-mysql-network-policy
+  namespace: school-management
+  labels:
+    app: school-mysql
+spec:
+  podSelector:
+    matchLabels:
+      app: school-mysql
+  policyTypes:
+    - Ingress
+  ingress:
+    # Allow from app
+    - from:
+        - podSelector:
+            matchLabels:
+              app: school-app
+      ports:
+        - protocol: TCP
+          port: 3306
+    # Allow from same StatefulSet (replication)
+    - from:
+        - podSelector:
+            matchLabels:
+              app: school-mysql
+      ports:
+        - protocol: TCP
+          port: 3306
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: school-redis-network-policy
+  namespace: school-management
+  labels:
+    app: school-redis
+spec:
+  podSelector:
+    matchLabels:
+      app: school-redis
+  policyTypes:
+    - Ingress
+  ingress:
+    # Allow from app
+    - from:
+        - podSelector:
+            matchLabels:
+              app: school-app
+      ports:
+        - protocol: TCP
+          port: 6379
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-all
+  namespace: school-management
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+    - Egress

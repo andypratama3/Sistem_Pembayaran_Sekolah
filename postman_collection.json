@@ -1,0 +1,467 @@
+{
+  "info": {
+    "_postman_id": "school-management-api",
+    "name": "School Management System API",
+    "description": "Complete API collection for School Management System",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@school.test\",\n  \"password\": \"password\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/login",
+              "host": ["{{base_url}}"],
+              "path": ["login"]
+            }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/logout",
+              "host": ["{{base_url}}"],
+              "path": ["logout"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Students",
+      "item": [
+        {
+          "name": "List Students",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/dashboard/students",
+              "host": ["{{base_url}}"],
+              "path": ["dashboard", "students"]
+            }
+          }
+        },
+        {
+          "name": "Create Student",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Budi Santoso\",\n  \"nisn\": \"1234567890\",\n  \"gender\": \"Laki-laki\",\n  \"birth_place\": \"Jakarta\",\n  \"birth_date\": \"2010-05-15\",\n  \"religion\": \"Islam\",\n  \"guardian_type\": \"orang_tua\",\n  \"father_name\": \"Santoso\",\n  \"mother_name\": \"Siti\",\n  \"phone\": \"085123456789\",\n  \"classroom_id\": \"{{classroom_uuid}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/dashboard/students",
+              "host": ["{{base_url}}"],
+              "path": ["dashboard", "students"]
+            }
+          }
+        },
+        {
+          "name": "Get Student",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/dashboard/students/{{student_uuid}}",
+              "host": ["{{base_url}}"],
+              "path": ["dashboard", "students", "{{student_uuid}}"]
+            }
+          }
+        },
+        {
+          "name": "Update Student",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Budi Santoso Updated\",\n  \"phone\": \"085987654321\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/dashboard/students/{{student_uuid}}",
+              "host": ["{{base_url}}"],
+              "path": ["dashboard", "students", "{{student_uuid}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Student",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/dashboard/students/{{student_uuid}}",
+              "host": ["{{base_url}}"],
+              "path": ["dashboard", "students", "{{student_uuid}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Attendance - Student",
+      "item": [
+        {
+          "name": "Mark Attendance",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"student_id\": \"{{student_uuid}}\",\n  \"classroom_id\": \"{{classroom_uuid}}\",\n  \"date\": \"2026-03-27\",\n  \"status\": \"hadir\",\n  \"notes\": \"Present\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/dashboard/attendances",
+              "host": ["{{base_url}}"],
+              "path": ["dashboard", "attendances"]
+            }
+          }
+        },
+        {
+          "name": "Daily Attendance Report",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/dashboard/attendances/daily/{{classroom_uuid}}",
+              "host": ["{{base_url}}"],
+              "path": ["dashboard", "attendances", "daily", "{{classroom_uuid}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Attendance - Employee",
+      "item": [
+        {
+          "name": "Employee Check-In",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"latitude\": -6.2088,\n  \"longitude\": 106.8456,\n  \"device_id\": \"device-001\",\n  \"device_fingerprint\": \"fingerprint-hash\",\n  \"notes\": \"Check-in from office\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/dashboard/employee-attendances/check-in",
+              "host": ["{{base_url}}"],
+              "path": ["dashboard", "employee-attendances", "check-in"]
+            }
+          }
+        },
+        {
+          "name": "Employee Check-Out",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"latitude\": -6.2088,\n  \"longitude\": 106.8456,\n  \"device_id\": \"device-001\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/dashboard/employee-attendances/check-out",
+              "host": ["{{base_url}}"],
+              "path": ["dashboard", "employee-attendances", "check-out"]
+            }
+          }
+        },
+        {
+          "name": "List Employee Attendance",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/dashboard/employee-attendances",
+              "host": ["{{base_url}}"],
+              "path": ["dashboard", "employee-attendances"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Grades",
+      "item": [
+        {
+          "name": "Create Grade",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"student_id\": \"{{student_uuid}}\",\n  \"subject_id\": \"{{subject_uuid}}\",\n  \"classroom_id\": \"{{classroom_uuid}}\",\n  \"semester\": \"ganjil\",\n  \"score\": 85\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/dashboard/grades",
+              "host": ["{{base_url}}"],
+              "path": ["dashboard", "grades"]
+            }
+          }
+        },
+        {
+          "name": "List Grades",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/dashboard/grades",
+              "host": ["{{base_url}}"],
+              "path": ["dashboard", "grades"]
+            }
+          }
+        },
+        {
+          "name": "Get Student Transcript",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/dashboard/grades/transcript/{{student_uuid}}",
+              "host": ["{{base_url}}"],
+              "path": ["dashboard", "grades", "transcript", "{{student_uuid}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Payments",
+      "item": [
+        {
+          "name": "Create Payment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"student_id\": \"{{student_uuid}}\",\n  \"classroom_id\": \"{{classroom_uuid}}\",\n  \"payment_title_ids\": [\"{{payment_title_uuid}}\"],\n  \"gross_amount\": 500000,\n  \"description\": \"SPP Maret 2026\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/dashboard/payments",
+              "host": ["{{base_url}}"],
+              "path": ["dashboard", "payments"]
+            }
+          }
+        },
+        {
+          "name": "Get Snap Token (Midtrans)",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/dashboard/midtrans/snap-token/{{payment_uuid}}",
+              "host": ["{{base_url}}"],
+              "path": ["dashboard", "midtrans", "snap-token", "{{payment_uuid}}"]
+            }
+          }
+        },
+        {
+          "name": "Get Payment Status",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/dashboard/midtrans/status/{{charge_uuid}}",
+              "host": ["{{base_url}}"],
+              "path": ["dashboard", "midtrans", "status", "{{charge_uuid}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Leave Requests",
+      "item": [
+        {
+          "name": "Submit Leave Request",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"cuti\",\n  \"start_date\": \"2026-04-01\",\n  \"end_date\": \"2026-04-05\",\n  \"reason\": \"Family emergency\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/dashboard/leave-requests",
+              "host": ["{{base_url}}"],
+              "path": ["dashboard", "leave-requests"]
+            }
+          }
+        },
+        {
+          "name": "Approve Leave Request",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/dashboard/leave-requests/{{leave_request_uuid}}/approve",
+              "host": ["{{base_url}}"],
+              "path": ["dashboard", "leave-requests", "{{leave_request_uuid}}", "approve"]
+            }
+          }
+        },
+        {
+          "name": "Reject Leave Request",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reason\": \"Manager conflict\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/dashboard/leave-requests/{{leave_request_uuid}}/reject",
+              "host": ["{{base_url}}"],
+              "path": ["dashboard", "leave-requests", "{{leave_request_uuid}}", "reject"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Notifications",
+      "item": [
+        {
+          "name": "List Notifications",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/dashboard/notifications",
+              "host": ["{{base_url}}"],
+              "path": ["dashboard", "notifications"]
+            }
+          }
+        },
+        {
+          "name": "Get Unread Count",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/dashboard/notifications/unread-count",
+              "host": ["{{base_url}}"],
+              "path": ["dashboard", "notifications", "unread-count"]
+            }
+          }
+        },
+        {
+          "name": "Mark as Read",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/dashboard/notifications/{{notification_id}}/read",
+              "host": ["{{base_url}}"],
+              "path": ["dashboard", "notifications", "{{notification_id}}", "read"]
+            }
+          }
+        },
+        {
+          "name": "Mark All as Read",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/dashboard/notifications/read-all",
+              "host": ["{{base_url}}"],
+              "path": ["dashboard", "notifications", "read-all"]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "student_uuid",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "classroom_uuid",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "subject_uuid",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "payment_uuid",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "charge_uuid",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "leave_request_uuid",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "notification_id",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

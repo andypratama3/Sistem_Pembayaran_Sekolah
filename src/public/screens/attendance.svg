@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700">
+  <rect width="1200" height="700" fill="#f0fdf4"/>
+  <text x="60" y="80" font-family="Inter, Arial" font-size="36" fill="#065f46">attendance.png</text>
+  <text x="60" y="120" font-family="Inter, Arial" font-size="16" fill="#065f46">Attendance and chart placeholder</text>
+  <g transform="translate(60,160)">
+    <rect x="0" y="0" width="1040" height="420" rx="12" fill="#fff" stroke="#dcfce7"/>
+    <rect x="40" y="40" width="920" height="300" rx="8" fill="#f7fdf6"/>
+  </g>
+</svg>

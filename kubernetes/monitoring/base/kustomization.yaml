@@ -1,0 +1,22 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+metadata:
+  name: monitoring-base
+
+namespace: monitoring
+
+resources:
+  - namespace.yaml
+  - prometheus
+  - grafana
+  - loki
+  - promtail
+  - ingress
+
+commonLabels:
+  project: school-management
+  managed-by: kustomize
+  component: monitoring
+
+commonAnnotations:
+  deployed-by: kubectl-kustomize

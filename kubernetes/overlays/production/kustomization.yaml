@@ -1,0 +1,111 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+metadata:
+  name: school-management-production
+
+namespace: school-management
+
+bases:
+  - ../../base
+
+namePrefix: prod-
+
+replicas:
+  - name: school-app
+    count: 3
+  - name: school-mysql
+    count: 3
+  - name: school-redis
+    count: 1
+
+images:
+  - name: "{{ REGISTRY }}/school-app"
+    newTag: "v1.0.0"  # Use semantic versioning in production
+
+commonLabels:
+  environment: production
+
+resources:
+  - app-hpa.yaml
+
+patches:
+  - target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: prod-school-app
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/requests/memory
+        value: 512Mi
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/requests/cpu
+        value: 500m
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/limits/memory
+        value: 2Gi
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/limits/cpu
+        value: 2000m
+      - op: add
+        path: /spec/template/spec/affinity
+        value:
+          podAntiAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+              - weight: 100
+                podAffinityTerm:
+                  labelSelector:
+                    matchExpressions:
+                      - key: app
+                        operator: In
+                        values:
+                          - school-app
+                  topologyKey: kubernetes.io/hostname
+  - target:
+      group: apps
+      version: v1
+      kind: StatefulSet
+      name: prod-school-mysql
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/requests/memory
+        value: 1Gi
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/requests/cpu
+        value: 500m
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/limits/memory
+        value: 4Gi
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/limits/cpu
+        value: 2000m
+  - target:
+      group: v1
+      kind: PersistentVolumeClaim
+      name: prod-mysql-data-pvc
+    patch: |-
+      - op: replace
+        path: /spec/resources/requests/storage
+        value: 200Gi
+      - op: replace
+        path: /spec/storageClassName
+        value: persistent
+  - target:
+      group: v1
+      kind: PersistentVolumeClaim
+      name: prod-app-storage-pvc
+    patch: |-
+      - op: replace
+        path: /spec/resources/requests/storage
+        value: 100Gi
+      - op: replace
+        path: /spec/storageClassName
+        value: fast
+  - target:
+      group: v1
+      kind: PersistentVolumeClaim
+      name: prod-redis-data-pvc
+    patch: |-
+      - op: replace
+        path: /spec/resources/requests/storage
+        value: 50Gi

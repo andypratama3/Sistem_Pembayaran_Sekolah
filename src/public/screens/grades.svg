@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700">
+  <rect width="1200" height="700" fill="#fff7f0"/>
+  <text x="60" y="80" font-family="Inter, Arial" font-size="36" fill="#7c2d12">grades.png</text>
+  <text x="60" y="120" font-family="Inter, Arial" font-size="16" fill="#7c2d12">Grades entry placeholder</text>
+  <g transform="translate(60,160)">
+    <rect x="0" y="0" width="1040" height="420" rx="12" fill="#fff" stroke="#fbe7d6"/>
+    <rect x="24" y="24" width="992" height="44" rx="6" fill="#f8faf6"/>
+  </g>
+</svg>
