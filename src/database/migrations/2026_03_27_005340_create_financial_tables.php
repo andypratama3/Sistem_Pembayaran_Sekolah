@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('payment_titles', function (Blueprint $table) {
@@ -29,17 +26,21 @@ return new class extends Migration
             $table->decimal('gross_amount', 15, 2)->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
+            $table->timestamp('paid_at')->nullable();
             $table->string('payment_type', 50)->nullable();
             $table->string('session_id')->nullable();
             $table->text('payment_url')->nullable();
             $table->string('transaction_id')->nullable();
+            $table->string('va_number')->nullable();
             $table->string('bulk_id')->nullable();
             $table->string('account_id')->nullable();
             $table->foreignUuid('payment_title_id')->constrained('payment_titles')->cascadeOnDelete();
             $table->string('status', 50)->default('pending');
+            $table->softDeletes()->index();
             $table->timestamps();
 
             $table->index(['student_id', 'status']);
+            $table->index('created_at', 'payments_created_at_index');
         });
 
         Schema::create('charges', function (Blueprint $table) {
@@ -48,6 +49,7 @@ return new class extends Migration
             $table->string('order_id')->unique();
             $table->string('order_id_alt')->nullable();
             $table->foreignUuid('student_id')->constrained('students')->cascadeOnDelete();
+            $table->foreignUuid('payment_id')->nullable()->constrained('payments')->cascadeOnDelete();
             $table->decimal('gross_amount', 15, 2);
             $table->string('payment_type', 50)->default('bank_transfer');
             $table->string('bank', 50)->nullable();
@@ -66,6 +68,8 @@ return new class extends Migration
 
             $table->index(['student_id', 'transaction_status']);
             $table->index('transaction_id');
+            $table->index(['payment_title_id', 'transaction_status']);
+            $table->index('created_at', 'charges_created_at_index');
         });
 
         Schema::create('charges_archive', function (Blueprint $table) {
@@ -73,6 +77,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('order_id')->nullable();
             $table->foreignUuid('student_id')->constrained('students')->cascadeOnDelete();
+            $table->foreignUuid('payment_id')->nullable()->constrained('payments')->cascadeOnDelete();
             $table->decimal('gross_amount', 15, 2);
             $table->string('payment_type', 50)->default('bank_transfer');
             $table->string('bank', 50)->nullable();
@@ -101,9 +106,6 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('student_fees');

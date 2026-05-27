@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('student_attendances', function (Blueprint $table) {
@@ -26,35 +23,51 @@ return new class extends Migration
             $table->index(['student_id', 'date'], 'sa_student_date_index');
         });
 
-        Schema::create('grade_weights', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->decimal('weight', 5, 2);
-            $table->foreignUuid('subject_id')->constrained('subjects')->cascadeOnDelete();
-            $table->foreignUuid('classroom_id')->constrained('classrooms')->cascadeOnDelete();
-            $table->timestamps();
-        });
-
         Schema::create('grades', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('student_id')->constrained('students')->cascadeOnDelete();
             $table->foreignUuid('classroom_id')->constrained('classrooms')->cascadeOnDelete();
             $table->foreignUuid('subject_id')->constrained('subjects')->cascadeOnDelete();
+            $table->foreignUuid('academic_year_id')->nullable()->constrained('academic_years')->nullOnDelete();
+            $table->foreignUuid('teacher_id')->nullable()->constrained('teachers')->nullOnDelete();
             $table->enum('semester', ['ganjil', 'genap'])->default('ganjil');
             $table->decimal('score', 5, 2)->nullable();
+            $table->text('narrative')->nullable()->comment('Narasi capaian kompetensi');
+            $table->string('predicate', 5)->nullable()->comment('Predikat: A/B/C/D');
             $table->timestamps();
 
             $table->unique(['student_id', 'classroom_id', 'subject_id', 'semester'], 'grades_unique_constraint');
             $table->index(['classroom_id', 'semester'], 'grades_classroom_semester_index');
+            $table->index('classroom_id', 'grades_classroom_id_index');
+            $table->index(['student_id', 'subject_id'], 'grades_student_subject_index');
+            $table->index('created_at', 'grades_created_at_index');
+        });
+
+        Schema::create('grade_component_weights', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->foreignUuid('classroom_id')->constrained('classrooms')->cascadeOnDelete();
+            $table->foreignUuid('subject_id')->constrained('subjects')->cascadeOnDelete();
+            $table->enum('semester', ['ganjil', 'genap'])->default('ganjil');
+            $table->string('component_label', 100);
+            $table->decimal('percentage', 5, 2);
+            $table->integer('sort_order')->default(0);
+            $table->timestamps();
+
+            $table->index(['classroom_id', 'semester']);
         });
 
         Schema::create('schedules', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('academic_year', 50);
+            $table->foreignUuid('academic_year_id')->nullable()->constrained('academic_years')->nullOnDelete();
             $table->string('file')->nullable();
             $table->foreignUuid('classroom_id')->constrained('classrooms')->cascadeOnDelete();
             $table->string('classroom_type', 100);
             $table->string('slug')->unique();
+            $table->string('status', 50)->default('draft');
             $table->timestamps();
+
+            $table->index(['classroom_id', 'academic_year']);
         });
 
         Schema::create('schedule_details', function (Blueprint $table) {
@@ -70,18 +83,16 @@ return new class extends Migration
             $table->timestamps();
 
             $table->index(['schedule_id', 'day']);
+            $table->index('schedule_id', 'schedule_details_schedule_id_index');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('schedule_details');
         Schema::dropIfExists('schedules');
+        Schema::dropIfExists('grade_component_weights');
         Schema::dropIfExists('grades');
-        Schema::dropIfExists('grade_weights');
         Schema::dropIfExists('student_attendances');
     }
 };

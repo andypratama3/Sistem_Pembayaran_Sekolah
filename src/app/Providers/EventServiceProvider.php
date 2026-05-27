@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use App\Events\PaymentCompleted;
-use App\Events\WhatsAppConversationAssigned;
 use App\Events\WhatsAppMessageSent;
 use App\Listeners\PaymentNotificationListener;
 use Illuminate\Auth\Events\Registered;
@@ -22,8 +21,6 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         WhatsAppMessageSent::class => [],
-
-        WhatsAppConversationAssigned::class => [],
     ];
 
     public function boot(): void

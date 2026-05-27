@@ -46,7 +46,6 @@
         },
         "files": [
             "app/Helpers/FormatCurrency.php",
-            "app/Helpers/SentryHelper.php",
             "app/Helpers/SystemConfig.php"
         ]
     },
