@@ -42,6 +42,7 @@ class StudentApiController extends Controller
     {
         $data = $request->validate($this->updateRules($request));
         if (isset($data['name']) || isset($data['nisn'])) {
+            /** @var Student $student */
             $student = Student::findOrFail($request->route('id') ?? $request->route('student'));
             $name = $data['name'] ?? $student->name;
             $nisn = $data['nisn'] ?? $student->nisn;

@@ -6,6 +6,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use Sentry\Laravel\Integration;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -52,7 +53,7 @@ class Handler extends ExceptionHandler
                 $this->reportToSentry($e);
             } else {
                 // Fallback logging when Sentry DSN is not configured
-                \Log::error('Exception (Sentry DSN not configured)', [
+                Log::error('Exception (Sentry DSN not configured)', [
                     'message' => $e->getMessage(),
                     'file' => $e->getFile(),
                     'line' => $e->getLine(),
@@ -83,7 +84,7 @@ class Handler extends ExceptionHandler
         try {
             Integration::captureUnhandledException($exception);
         } catch (Throwable $e) {
-            \Log::error('Failed to report to Sentry', [
+            Log::error('Failed to report to Sentry', [
                 'original_error' => $exception->getMessage(),
                 'sentry_error' => $e->getMessage(),
             ]);

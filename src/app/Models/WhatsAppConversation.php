@@ -17,6 +17,7 @@ use Illuminate\Support\Carbon;
  * @property int|null $assigned_admin_id
  * @property Carbon|null $updated_at
  * @property Student|null $student
+ * @method static firstOrCreate(array $attributes, array $values = [])
  */
 class WhatsAppConversation extends Model
 {

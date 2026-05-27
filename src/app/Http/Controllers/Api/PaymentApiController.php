@@ -44,12 +44,18 @@ class PaymentApiController extends Controller
         $data = $request->validate($this->storeRules($request));
 
         $student = Student::query()->findOrFail($data['student_id']);
-        $classroom = $student->classrooms()->first() ?? Classroom::query()->first() ?? Classroom::factory()->create();
-        $paymentTitle = PaymentTitle::query()->first() ?? PaymentTitle::factory()->create([
-            'name' => 'General Payment',
-            'code' => 'GENERAL',
-            'slug' => 'general-payment',
-        ]);
+        $classroom = $student->classrooms()->first() ?? Classroom::query()->first();
+        if (!$classroom) {
+            $classroom = Classroom::factory()->create();
+        }
+        $paymentTitle = PaymentTitle::query()->first();
+        if (!$paymentTitle) {
+            $paymentTitle = PaymentTitle::factory()->create([
+                'name' => 'General Payment',
+                'code' => 'GENERAL',
+                'slug' => 'general-payment',
+            ]);
+        }
 
         return [
             'order_id' => $data['reference'] ?? 'ORD-'.Str::upper(Str::random(12)),
