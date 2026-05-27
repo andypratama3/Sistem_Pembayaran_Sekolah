@@ -45,11 +45,11 @@ class PaymentApiController extends Controller
 
         $student = Student::query()->findOrFail($data['student_id']);
         $classroom = $student->classrooms()->first() ?? Classroom::query()->first();
-        if (!$classroom) {
+        if (! $classroom) {
             $classroom = Classroom::factory()->create();
         }
         $paymentTitle = PaymentTitle::query()->first();
-        if (!$paymentTitle) {
+        if (! $paymentTitle) {
             $paymentTitle = PaymentTitle::factory()->create([
                 'name' => 'General Payment',
                 'code' => 'GENERAL',
