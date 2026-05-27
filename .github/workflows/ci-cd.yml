@@ -54,7 +54,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: src
+        shell: bash
 
     outputs:
       php-version: "8.3"
@@ -78,22 +78,22 @@ jobs:
         with:
           node-version: "22"
           cache: npm
-          cache-dependency-path: src/package-lock.json
+          cache-dependency-path: package-lock.json
 
       - name: Cache Composer dependencies
         id: composer-cache
         uses: actions/cache@v4
         with:
-          path: src/vendor
-          key: ${{ runner.os }}-composer-${{ hashFiles('src/composer.lock') }}
+          path: vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
 
       - name: Cache NPM dependencies
         id: npm-cache
         uses: actions/cache@v4
         with:
-          path: src/node_modules
-          key: ${{ runner.os }}-npm-${{ hashFiles('src/package-lock.json') }}
+          path: node_modules
+          key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
           restore-keys: ${{ runner.os }}-npm-
 
       - name: Ensure bootstrap/cache directory exists
@@ -116,10 +116,6 @@ jobs:
     needs: install
     timeout-minutes: 15
 
-    defaults:
-      run:
-        working-directory: src
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -136,8 +132,8 @@ jobs:
       - name: Restore Composer cache
         uses: actions/cache@v4
         with:
-          path: src/vendor
-          key: ${{ runner.os }}-composer-${{ hashFiles('src/composer.lock') }}
+          path: vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
 
       - name: Ensure bootstrap/cache directory exists
@@ -169,10 +165,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: install
     timeout-minutes: 45
-
-    defaults:
-      run:
-        working-directory: src
 
     env:
       BROADCAST_DRIVER: log
@@ -206,20 +198,20 @@ jobs:
         with:
           node-version: "22"
           cache: npm
-          cache-dependency-path: src/package-lock.json
+          cache-dependency-path: package-lock.json
 
       - name: Restore Composer cache
         uses: actions/cache@v4
         with:
-          path: src/vendor
-          key: ${{ runner.os }}-composer-${{ hashFiles('src/composer.lock') }}
+          path: vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
 
       - name: Restore NPM cache
         uses: actions/cache@v4
         with:
-          path: src/node_modules
-          key: ${{ runner.os }}-npm-${{ hashFiles('src/package-lock.json') }}
+          path: node_modules
+          key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
           restore-keys: ${{ runner.os }}-npm-
 
       - name: Ensure bootstrap/cache directory exists
@@ -257,7 +249,7 @@ jobs:
         if: always()
         with:
           name: coverage-report
-          path: src/coverage.xml
+          path: coverage.xml
           overwrite: true
           retention-days: 30
 
@@ -271,10 +263,6 @@ jobs:
     needs: install
     timeout-minutes: 10
 
-    defaults:
-      run:
-        working-directory: src
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -284,13 +272,13 @@ jobs:
         with:
           node-version: "22"
           cache: npm
-          cache-dependency-path: src/package-lock.json
+          cache-dependency-path: package-lock.json
 
       - name: Restore NPM cache
         uses: actions/cache@v4
         with:
-          path: src/node_modules
-          key: ${{ runner.os }}-npm-${{ hashFiles('src/package-lock.json') }}
+          path: node_modules
+          key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
           restore-keys: ${{ runner.os }}-npm-
 
       - name: Install NPM dependencies
@@ -335,7 +323,7 @@ jobs:
   #           echo "=== [1/7] Pulling latest code ==="
   #           git pull origin main
 
-  #           cd src
+  #           cd .
 
   #           echo "=== [2/7] Installing Composer dependencies ==="
   #           composer install \

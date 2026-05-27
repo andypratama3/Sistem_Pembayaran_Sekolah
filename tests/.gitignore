@@ -1,0 +1,17 @@
+# Playwright
+playwright/.cache/
+playwright/test-results/
+*.exec
+
+# Test Reports
+tests/e2e/reports/
+tests/e2e/**/screenshots/
+*.zip
+*.html
+
+# Videos
+*.webm
+
+# Traces
+playwright-report/
+trace.zip
