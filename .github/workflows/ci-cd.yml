@@ -96,6 +96,9 @@ jobs:
           key: ${{ runner.os }}-npm-${{ hashFiles('src/package-lock.json') }}
           restore-keys: ${{ runner.os }}-npm-
 
+      - name: Ensure bootstrap/cache directory exists
+        run: mkdir -p bootstrap/cache
+
       - name: Install Composer dependencies
         if: steps.composer-cache.outputs.cache-hit != 'true'
         run: composer install --no-progress --prefer-dist --optimize-autoloader --no-interaction
@@ -136,6 +139,9 @@ jobs:
           path: src/vendor
           key: ${{ runner.os }}-composer-${{ hashFiles('src/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
+
+      - name: Ensure bootstrap/cache directory exists
+        run: mkdir -p bootstrap/cache
 
       - name: Install Composer dependencies
         run: composer install --no-progress --prefer-dist --optimize-autoloader --no-interaction
@@ -215,6 +221,9 @@ jobs:
           path: src/node_modules
           key: ${{ runner.os }}-npm-${{ hashFiles('src/package-lock.json') }}
           restore-keys: ${{ runner.os }}-npm-
+
+      - name: Ensure bootstrap/cache directory exists
+        run: mkdir -p bootstrap/cache
 
       - name: Install Composer dependencies
         run: composer install --no-progress --prefer-dist --optimize-autoloader --no-interaction
