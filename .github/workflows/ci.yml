@@ -79,11 +79,15 @@ jobs:
       - name: Count JS test files
         id: check_js
         run: |
-          count=$(find . -type f \( -name "*.test.*" -o -name "*.spec.*" \) -not -path "./node_modules/*" -not -path "./.git/*" | wc -l)
+          # Include __tests__ directories and common test filename patterns to match Vitest defaults
+          count=$(find . -type f \( -path "*/__tests__/*" -o -name "*.test.*" -o -name "*.spec.*" \) -not -path "./node_modules/*" -not -path "./.git/*" | wc -l)
           echo "count=$count" >> $GITHUB_OUTPUT
 
       - name: Run Vitest (if tests exist)
         if: steps.check_js.outputs.count != '0'
+        env:
+          LARAVEL_BYPASS_ENV_CHECK: '1'
+          CI: '1'
         run: npm run test:js --silent 2>&1 | tee vitest.log
 
       - name: No JS tests found
