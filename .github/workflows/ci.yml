@@ -29,11 +29,24 @@ jobs:
           path: ~/.composer/cache
           key: composer-${{ hashFiles('**/composer.lock') }}
 
-      - name: Install Composer dependencies
-        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+      - name: Install Composer dependencies (no scripts)
+        run: |
+          composer install --no-interaction --prefer-dist --optimize-autoloader --no-scripts
+          # Create minimal .env to allow artisan package discovery to run safely
+          cp .env.example .env || true
+          php -r "file_exists('.env') || copy('.env.example', '.env');"
+          # Ensure required env vars for packages that boot during discovery
+          php -r "file_put_contents('.env', str_replace([PHP_EOL], [PHP_EOL], file_get_contents('.env')));"
+          echo "BROADCAST_DRIVER=log" >> .env
+          echo "PUSHER_APP_KEY=dummy" >> .env
+          echo "PUSHER_APP_SECRET=dummy" >> .env
+          echo "PUSHER_APP_ID=dummy" >> .env
+          echo "APP_KEY=base64:$(php -r 'echo base64_encode(random_bytes(32));')" >> .env
 
-      - name: Run ParaTest (parallel PHPUnit)
-        run: ./vendor/bin/paratest -p $(nproc) 2>&1 | tee paratest.log
+      - name: Run package discovery and ParaTest
+        run: |
+          php artisan package:discover --ansi || true
+          ./vendor/bin/paratest -p $(nproc) 2>&1 | tee paratest.log
 
       - name: Upload paratest log
         if: always()
