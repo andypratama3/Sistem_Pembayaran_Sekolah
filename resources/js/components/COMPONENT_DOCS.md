@@ -25,7 +25,6 @@ This directory contains modern React components built to replace Laravel Blade t
 ├── hooks/
 │   ├── useApi.js                    # API, debounce, and table state hooks
 │   └── index.js                     # Barrel export
-└── TemplateEditor/                  # Existing template editor
 ```
 
 ## Components

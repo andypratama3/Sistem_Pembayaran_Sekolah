@@ -4,13 +4,9 @@ namespace Database\Seeders;
 
 use App\Models\AcademicYear;
 use App\Models\Classroom;
-use App\Models\Employee;
-use App\Models\Grade;
 use App\Models\Payment;
 use App\Models\PaymentTitle;
 use App\Models\Student;
-use App\Models\Subject;
-use App\Models\Teacher;
 use App\Models\User;
 use App\Models\WhatsAppConversation;
 use App\Models\WhatsAppMessage;
@@ -34,17 +30,11 @@ class DemoDataSeeder extends Seeder
         $academicYear = AcademicYear::where('is_active', true)->first() ?? AcademicYear::first();
 
         $classrooms = $this->createClassrooms($academicYear);
-        $subjects = $this->createSubjects();
-        $employees = $this->createEmployees();
-        $teachers = $this->createTeachers($employees);
         $students = $this->createStudents(50);
 
         $this->assignStudentsToClassrooms($students, $classrooms);
-        $this->assignSubjectsToClassrooms($classrooms, $subjects);
-        $this->createGrades($students, $subjects, $classrooms);
         $this->createPayments($students, $classrooms);
         $this->createWhatsAppConversations($students);
-        $this->createTeacherClassrooms($teachers, $classrooms);
 
         $this->command->info('✅ Demo data seeded successfully!');
     }
@@ -95,110 +85,6 @@ class DemoDataSeeder extends Seeder
         $this->command->info('   📚 Created '.count($classrooms).' classrooms');
 
         return $classrooms;
-    }
-
-    protected function createSubjects(): array
-    {
-        $subjects = [];
-        $subjectNames = [
-            ['name' => 'Pendidikan Agama Islam', 'slug' => 'pendidikan-agama-islam'],
-            ['name' => 'Pendidikan Kewarganegaraan', 'slug' => 'pendidikan-kewarganegaraan'],
-            ['name' => 'Bahasa Indonesia', 'slug' => 'bahasa-indonesia'],
-            ['name' => 'Matematika', 'slug' => 'matematika'],
-            ['name' => 'IPA', 'slug' => 'ipa'],
-            ['name' => 'IPS', 'slug' => 'ips'],
-            ['name' => 'Seni Budaya', 'slug' => 'seni-budaya'],
-            ['name' => 'Pendidikan Jasmani', 'slug' => 'pendidikan-jasmani'],
-            ['name' => 'Bahasa Inggris', 'slug' => 'bahasa-inggris'],
-            ['name' => 'TIK', 'slug' => 'tik'],
-        ];
-
-        foreach ($subjectNames as $subject) {
-            $subjects[] = Subject::firstOrCreate(
-                ['slug' => $subject['slug']],
-                ['name' => $subject['name'], 'slug' => $subject['slug']]
-            );
-        }
-
-        $this->command->info('   📖 Created '.count($subjects).' subjects');
-
-        return $subjects;
-    }
-
-    protected function createEmployees(): array
-    {
-        $employees = [];
-        $employeeData = [
-            ['name' => 'Drs. H. Ahmad Wijaya, M.Pd', 'sex' => 'Laki-Laki', 'position' => 'Kepala Sekolah', 'salary' => 15000000],
-            ['name' => ' Dra. Siti Rahayu', 'sex' => 'Perempuan', 'position' => 'Waketur Kurikulum', 'salary' => 10000000],
-            ['name' => 'H. Budi Santoso, S.Pd', 'sex' => 'Laki-Laki', 'position' => 'Waketur Kesiswaan', 'salary' => 10000000],
-            ['name' => ' Dra. Dewi Kusuma', 'sex' => 'Perempuan', 'position' => 'Sekretaris', 'salary' => 6000000],
-            ['name' => 'Joko Pramono, S.Pd', 'sex' => 'Laki-Laki', 'position' => 'Tata Usaha', 'salary' => 5000000],
-            ['name' => 'Indra Gumilar, S.Si', 'sex' => 'Laki-Laki', 'position' => 'Bendahara', 'salary' => 5500000],
-            ['name' => 'Lisa Permata, S.Ak', 'sex' => 'Perempuan', 'position' => 'Keuangan', 'salary' => 5000000],
-            ['name' => 'Muhamad Fadli, S.Kom', 'sex' => 'Laki-Laki', 'position' => 'IT Support', 'salary' => 4500000],
-            ['name' => 'Nina Hartati, S.Pd', 'sex' => 'Perempuan', 'position' => 'Perpustakaan', 'salary' => 4000000],
-            ['name' => 'Putra Pratama', 'sex' => 'Laki-Laki', 'position' => 'Satpam', 'salary' => 3500000],
-        ];
-
-        foreach ($employeeData as $index => $emp) {
-            $slug = Str::slug($emp['name']);
-            $employee = Employee::where('slug', $slug)->first();
-
-            if (! $employee) {
-                $employee = Employee::create([
-                    'name' => $emp['name'],
-                    'sex' => $emp['sex'],
-                    'phone' => '08'.str_pad((string) ($index + 1100000000), 10, '0', STR_PAD_LEFT),
-                    'nip' => str_pad((string) (198500000 + $index), 18, '0', STR_PAD_LEFT),
-                    'nik' => str_pad((string) (3274 .rand(100000000, 999999999)), 16, '0', STR_PAD_LEFT),
-                    'slug' => $slug,
-                    'base_salary' => $emp['salary'],
-                    'status' => 1,
-                ]);
-            } else {
-                $employee->update(['base_salary' => $emp['salary'], 'status' => 1]);
-            }
-            $employees[] = $employee;
-        }
-
-        $this->command->info('   👔 Created '.count($employees).' employees');
-
-        return $employees;
-    }
-
-    protected function createTeachers(array $employees): array
-    {
-        $teachers = [];
-        $teacherData = [
-            ['name' => 'Ustadz H. Muhammad Idris, M.Ag', 'employee_id' => 1],
-            ['name' => 'Ustadzah Dra. Hj. Fatimah', 'employee_id' => 2],
-            ['name' => 'Pak Hendra Wijaya, S.Pd', 'employee_id' => 3],
-            ['name' => 'Bu Ratna Sari, S.Pd', 'employee_id' => 4],
-            ['name' => 'Pak Anto Susanto, S.Si', 'employee_id' => 5],
-            ['name' => 'Bu Yuni Listiani, S.Pd', 'employee_id' => 6],
-            ['name' => 'Pak Reza Fernando, S.Kom', 'employee_id' => 7],
-            ['name' => 'Bu Maya Kusuma DewI, S.Pd', 'employee_id' => 8],
-        ];
-
-        foreach ($teacherData as $index => $teacher) {
-            $slug = Str::slug($teacher['name']);
-            $existingTeacher = Teacher::where('slug', $slug)->first();
-
-            if (! $existingTeacher) {
-                $emp = $employees[$teacher['employee_id'] - 1] ?? $employees[0];
-                $existingTeacher = Teacher::create([
-                    'name' => $teacher['name'],
-                    'employee_id' => $emp->id,
-                    'slug' => $slug,
-                ]);
-            }
-            $teachers[] = $existingTeacher;
-        }
-
-        $this->command->info('   👨‍🏫 Created '.count($teachers).' teachers');
-
-        return $teachers;
     }
 
     protected function createStudents(int $count): array
@@ -295,76 +181,6 @@ class DemoDataSeeder extends Seeder
             }
         }
         $this->command->info('   📝 Assigned students to classrooms');
-    }
-
-    protected function assignSubjectsToClassrooms(array $classrooms, array $subjects): void
-    {
-        foreach ($classrooms as $classroom) {
-            $existingSubjects = DB::table('classroom_subjects')
-                ->where('classroom_id', (string) $classroom->id)
-                ->pluck('subject_id')
-                ->toArray();
-
-            $numToAssign = rand(4, min(6, count($subjects)));
-            $shuffledSubjects = $subjects;
-            shuffle($shuffledSubjects);
-            $selectedSubjects = array_slice($shuffledSubjects, 0, $numToAssign);
-
-            foreach ($selectedSubjects as $subject) {
-                if (! in_array($subject->id, $existingSubjects)) {
-                    DB::table('classroom_subjects')->insert([
-                        'classroom_id' => (string) $classroom->id,
-                        'subject_id' => (string) $subject->id,
-                    ]);
-                }
-            }
-        }
-        $this->command->info('   📗 Assigned subjects to classrooms');
-    }
-
-    protected function createGrades(array $students, array $subjects, array $classrooms): void
-    {
-        $gradeCount = 0;
-        $semesters = ['ganjil', 'genap'];
-        $academicYear = AcademicYear::where('is_active', true)->first() ?? AcademicYear::first();
-
-        foreach ($students as $student) {
-            $classroom = $student->classrooms()->first();
-            if (! $classroom) {
-                continue;
-            }
-
-            $studentSubjects = $classroom->subjects()->get();
-            if ($studentSubjects->isEmpty()) {
-                continue;
-            }
-
-            foreach ($semesters as $semester) {
-                foreach ($studentSubjects as $subject) {
-                    $existingGrade = Grade::where('student_id', $student->id)
-                        ->where('subject_id', $subject->id)
-                        ->where('semester', $semester)
-                        ->first();
-
-                    if ($existingGrade) {
-                        continue;
-                    }
-
-                    $baseScore = rand(70, 95);
-                    Grade::create([
-                        'student_id' => $student->id,
-                        'subject_id' => $subject->id,
-                        'classroom_id' => $classroom->id,
-                        'academic_year_id' => $academicYear?->id,
-                        'semester' => $semester,
-                        'score' => $baseScore + rand(-5, 10),
-                    ]);
-                    $gradeCount++;
-                }
-            }
-        }
-
-        $this->command->info('   📊 Created '.$gradeCount.' grades');
     }
 
     protected function createPayments(array $students, array $classrooms): void
@@ -476,25 +292,5 @@ class DemoDataSeeder extends Seeder
                 'updated_at' => $timestamp,
             ]);
         }
-    }
-
-    protected function createTeacherClassrooms(array $teachers, array $classrooms): void
-    {
-        foreach ($teachers as $index => $teacher) {
-            if (isset($classrooms[$index])) {
-                $exists = DB::table('teacher_classrooms')
-                    ->where('teacher_id', (string) $teacher->id)
-                    ->where('classroom_id', (string) $classrooms[$index]->id)
-                    ->exists();
-
-                if (! $exists) {
-                    DB::table('teacher_classrooms')->insert([
-                        'teacher_id' => (string) $teacher->id,
-                        'classroom_id' => (string) $classrooms[$index]->id,
-                    ]);
-                }
-            }
-        }
-        $this->command->info('   👨‍🏫 Assigned teachers to classrooms');
     }
 }

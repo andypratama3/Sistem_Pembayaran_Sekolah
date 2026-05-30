@@ -38,15 +38,17 @@ return [
         'key' => env('KALTIM_API_KEY'),
     ],
 
-    'whatsapp' => [
-        'api_url' => env('WHATSAPP_API_URL', 'https://graph.facebook.com/v24.0'),
-        'api_version' => env('WHATSAPP_API_VERSION', 'v24.0'),
-        'phone_id' => env('WHATSAPP_PHONE_NUMBER_ID', ''),
-        'access_token' => env('WHATSAPP_ACCESS_TOKEN', ''),
-        'verify_token' => env('WHATSAPP_VERIFY_TOKEN', 'product_school_webhook_token_2024'),
-        'business_id' => env('WHATSAPP_BUSINESS_ID', ''),
-        'webhook_verify_token' => env('WHATSAPP_WEBHOOK_VERIFY_TOKEN', 'product_school_webhook_token_2024'),
+    'whatsapp' => config('integrations.whatsapp'),
+
+    'anthropic' => config('integrations.ai.anthropic'),
+
+    'deepseek' => config('integrations.ai.deepseek'),
+
+    'ai' => [
+        'driver' => config('integrations.ai.driver'),
     ],
+
+    'sms' => config('integrations.sms'),
 
     'anthropic' => [
         'api_key' => env('ANTHROPIC_API_KEY'),

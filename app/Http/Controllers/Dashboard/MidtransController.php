@@ -178,12 +178,6 @@ class MidtransController extends ResourceController
             $charge = Charge::where('order_id', $chargeId)->firstOrFail();
             $payment = $charge->payment;
 
-            if (! $charge) {
-                return redirect()
-                    ->route('dashboard.payments.show', $payment)
-                    ->with('error', 'Charge record not found');
-            }
-
             // Verify final status with Midtrans
             $statusResult = $this->midtransService->getTransactionStatus($charge->order_id);
 
@@ -198,7 +192,7 @@ class MidtransController extends ResourceController
                 ->with('info', 'Payment is being processed');
         } catch (\Exception $e) {
             return redirect()
-                ->route('dashboard.payments.show', $payment)
+                ->route('dashboard.payments.show')
                 ->with('error', 'Error verifying payment: '.$e->getMessage());
         }
     }
@@ -217,7 +211,7 @@ class MidtransController extends ResourceController
                 ->with('info', 'Payment is still pending. Please complete the process.');
         } catch (\Exception $e) {
             return redirect()
-                ->route('dashboard.payments.show', $payment)
+                ->route('dashboard.payments.show')
                 ->with('error', 'Error: '.$e->getMessage());
         }
     }
@@ -238,7 +232,7 @@ class MidtransController extends ResourceController
                 ->with('error', 'Payment failed. Please try again.');
         } catch (\Exception $e) {
             return redirect()
-                ->route('dashboard.payments.show', $payment)
+                ->route('dashboard.payments.show')
                 ->with('error', 'Error: '.$e->getMessage());
         }
     }

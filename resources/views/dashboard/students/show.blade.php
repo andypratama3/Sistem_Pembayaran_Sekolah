@@ -25,10 +25,6 @@
 @section('content')
     @php
         $latestClassroom = $student->classrooms->last();
-        $attendanceCount = $student->attendances->count();
-        $presentCount = $student->attendances->where('status', 'present')->count();
-        $attendanceRate = $attendanceCount > 0 ? round(($presentCount / $attendanceCount) * 100) : 0;
-        $gradeAvg = $student->grades->avg('score');
         $paymentTotal = $student->payments->sum('gross_amount');
     @endphp
 
@@ -66,20 +62,6 @@
                     </div>
                 </div>
                 <div class="col-md-auto ms-auto">
-                    <div class="row g-2 text-center">
-                        <div class="col-6">
-                            <div class="px-4 py-2 border rounded bg-body-secondary">
-                                <div class="small text-muted text-uppercase">Nilai Rata-rata</div>
-                                <div class="fw-bold fs-5 text-primary">{{ $gradeAvg !== null ? number_format($gradeAvg, 2) : '-' }}</div>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="px-4 py-2 border rounded bg-body-secondary">
-                                <div class="small text-muted text-uppercase">Kehadiran</div>
-                                <div class="fw-bold fs-5 text-success">{{ $attendanceRate }}%</div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </x-card>
@@ -91,16 +73,7 @@
                     <i class="feather-user me-2"></i>Detail Profil
                 </button>
             </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link py-2 px-4" id="grades-tab" data-bs-toggle="tab" data-bs-target="#tab-grades" type="button" role="tab">
-                    <i class="feather-book-open me-2"></i>Nilai <span class="badge bg-primary ms-2">{{ $student->grades->count() }}</span>
-                </button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link py-2 px-4" id="attendance-tab" data-bs-toggle="tab" data-bs-target="#tab-attendance" type="button" role="tab">
-                    <i class="feather-calendar me-2"></i>Presensi <span class="badge bg-warning ms-2 text-dark">{{ $student->attendances->count() }}</span>
-                </button>
-            </li>
+
             <li class="nav-item" role="presentation">
                 <button class="nav-link py-2 px-4" id="payments-tab" data-bs-toggle="tab" data-bs-target="#tab-payments" type="button" role="tab">
                     <i class="feather-credit-card me-2"></i>Pembayaran <span class="badge bg-success ms-2">{{ $student->payments->count() }}</span>
@@ -206,108 +179,9 @@
                 </div>
             </div>
 
-            {{-- TAB NILAI --}}
-            <div class="tab-pane fade" id="tab-grades" role="tabpanel">
-                <x-card class="border-0 shadow-sm">
-                    <x-slot:header>
-                        <div class="d-flex justify-content-between align-items-center w-100">
-                            <h5 class="mb-0 card-title">Riwayat Nilai Siswa</h5>
-                            <a href="{{ route('dashboard.grades.create', ['student_id' => $student->id]) }}" class="btn btn-sm btn-primary">
-                                <i class="feather-plus me-1"></i>Input Nilai
-                            </a>
-                        </div>
-                    </x-slot:header>
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead class="bg-body-secondary">
-                                <tr>
-                                    <th>Mata Pelajaran</th>
-                                    <th>Kategori</th>
-                                    <th class="text-center">Nilai</th>
-                                    <th>Guru</th>
-                                    <th>Tanggal</th>
-                                    <th class="text-end">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse($student->grades as $grade)
-                                    <tr>
-                                        <td><div class="fw-bold">{{ $grade->subject?->name ?? '-' }}</div></td>
-                                        <td>{{ ucfirst($grade->category ?? '-') }}</td>
-                                        <td class="text-center">
-                                            <span class="badge {{ $grade->score >= 75 ? 'bg-soft-success text-success' : 'bg-soft-danger text-danger' }} fs-14">
-                                                {{ $grade->score }}
-                                            </span>
-                                        </td>
-                                        <td>{{ $grade->teacher?->name ?? '-' }}</td>
-                                        <td>{{ $grade->created_at->format('d/m/Y') }}</td>
-                                        <td class="text-end">
-                                            <a href="{{ route('dashboard.grades.edit', $grade) }}" class="btn btn-sm btn-light-brand"><i class="feather-edit-2"></i></a>
-                                        </td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="6" class="text-center py-5 text-muted">Belum ada data nilai tercatat.</td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </div>
-                </x-card>
-            </div>
 
-            {{-- TAB PRESENSI --}}
-            <div class="tab-pane fade" id="tab-attendance" role="tabpanel">
-                <x-card class="border-0 shadow-sm">
-                    <x-slot:header>
-                        <div class="d-flex justify-content-between align-items-center w-100">
-                            <h5 class="mb-0 card-title">Riwayat Presensi</h5>
-                            <a href="{{ route('dashboard.attendances.index', ['student_id' => $student->id]) }}" class="btn btn-sm btn-primary">
-                                <i class="feather-external-link me-1"></i>Lihat Selengkapnya
-                            </a>
-                        </div>
-                    </x-slot:header>
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead class="bg-body-secondary">
-                                <tr>
-                                    <th>Tanggal</th>
-                                    <th>Sesi</th>
-                                    <th class="text-center">Status</th>
-                                    <th>Keterangan</th>
-                                    <th class="text-end">Lokasi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse($student->attendances->take(10) as $att)
-                                    <tr>
-                                        <td>{{ $att->date?->format('d/m/Y') ?? $att->created_at->format('d/m/Y') }}</td>
-                                        <td>{{ $att->session ?? 'Default' }}</td>
-                                        <td class="text-center">
-                                            @php
-                                                $attBadge = match($att->status) {
-                                                    'present' => 'bg-success',
-                                                    'sick' => 'bg-warning',
-                                                    'permission' => 'bg-info',
-                                                    'absent' => 'bg-danger',
-                                                    default => 'bg-secondary'
-                                                };
-                                            @endphp
-                                            <span class="badge {{ $attBadge }}">{{ strtoupper($att->status) }}</span>
-                                        </td>
-                                        <td>{{ $att->notes ?? '-' }}</td>
-                                        <td class="text-end small text-muted">{{ $att->latitude ? $att->latitude . ', ' . $att->longitude : 'Manual' }}</td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="5" class="text-center py-5 text-muted">Belum ada data presensi.</td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </div>
-                </x-card>
-            </div>
+
+
 
             {{-- TAB PEMBAYARAN --}}
             <div class="tab-pane fade" id="tab-payments" role="tabpanel">

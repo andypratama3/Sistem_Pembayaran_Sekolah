@@ -5,7 +5,7 @@
 @section('page-header')
     <x-page-header title="Notifikasi">
         <x-slot:left>
-            {{ Breadcrumbs::render('dashboard.notifications') }}
+            {{ Breadcrumbs::render('dashboard.notifications.index') }}
         </x-slot:left>
     </x-page-header>
 

@@ -13,6 +13,7 @@ return new class extends Migration
             $table->foreignUuid('student_id')->constrained('students')->cascadeOnDelete();
             $table->foreignUuid('classroom_id')->constrained('classrooms')->cascadeOnDelete();
             $table->foreignUuid('subject_id')->constrained('subjects')->cascadeOnDelete();
+            $table->foreignUuid('academic_year_id')->nullable()->constrained('academic_years')->nullOnDelete();
             $table->enum('semester', ['ganjil', 'genap'])->default('ganjil');
             $table->string('component_type', 50);
             $table->decimal('score', 5, 2)->nullable();

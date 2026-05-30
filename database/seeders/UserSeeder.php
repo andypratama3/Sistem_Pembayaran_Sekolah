@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
             [
                 'id' => Str::uuid(),
                 'name' => 'superadmin',
-                'password' => bcrypt('sdmuhammadiyah3smd.com'),
+                'password' => bcrypt('superadmin'),
                 'slug' => Str::slug('superadmin'),
             ]
         );
@@ -36,7 +36,7 @@ class UserSeeder extends Seeder
             [
                 'id' => Str::uuid(),
                 'name' => 'admin',
-                'password' => bcrypt('sdmuhammadiyah3smd.com'),
+                'password' => bcrypt('superadmin'),
                 'slug' => Str::slug('admin'),
             ]
         );
@@ -53,7 +53,7 @@ class UserSeeder extends Seeder
             [
                 'id' => Str::uuid(),
                 'name' => 'user',
-                'password' => bcrypt('sdmuhammadiyah3smd.com'),
+                'password' => bcrypt('superadmin'),
                 'slug' => Str::slug('user'),
             ]
         );

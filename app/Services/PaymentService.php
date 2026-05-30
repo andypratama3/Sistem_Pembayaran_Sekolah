@@ -39,7 +39,7 @@ class PaymentService
             'payment_title_id' => $paymentTitle->id,
             'amount' => $data['gross_amount'],
             'due_date' => now()->addDays((int) env('PAYMENT_DUE_DAYS', 7)),
-            'status' => 'unpaid',
+            'status' => 'belum_bayar',
             'academic_year' => $data['academic_year'] ?? null,
             'notes' => $data['notes'] ?? null,
         ]);

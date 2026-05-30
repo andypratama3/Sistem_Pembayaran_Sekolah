@@ -21,6 +21,7 @@ class Charge extends Model
         'order_id',
         'order_id_alt',
         'student_id',
+        'payment_id',
         'gross_amount',
         'payment_type',
         'bank',
@@ -52,5 +53,10 @@ class Charge extends Model
     public function paymentTitle()
     {
         return $this->belongsTo(PaymentTitle::class, 'payment_title_id', 'id');
+    }
+
+    public function payment()
+    {
+        return $this->belongsTo(Payment::class, 'payment_id', 'id');
     }
 }

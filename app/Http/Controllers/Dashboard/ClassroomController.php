@@ -74,19 +74,6 @@ class ClassroomController extends ResourceController
                                     <i class="feather feather-eye"></i>
                                 </a>';
 
-                    // Relationship Links
-                    $attendanceBtn = '<a href="'.route('dashboard.attendances.index', ['classroom_id' => $item->id]).'" class="avatar-text avatar-md bg-soft-warning text-warning" title="Presensi Kelas">
-                        <i class="feather feather-calendar"></i>
-                    </a>';
-
-                    $gradesBtn = '<a href="'.route('dashboard.grades.index', ['classroom_id' => $item->id]).'" class="avatar-text avatar-md bg-soft-success text-success" title="Nilai Kelas">
-                        <i class="feather feather-book-open"></i>
-                    </a>';
-
-                    $scheduleBtn = '<a href="'.route('dashboard.schedules.index', ['classroom_id' => $item->id]).'" class="avatar-text avatar-md bg-soft-info text-info" title="Jadwal Pelajaran">
-                        <i class="feather feather-clock"></i>
-                    </a>';
-
                     $dropdown = '
                         <div class="dropdown">
                             <a href="javascript:void(0);" class="avatar-text avatar-md" data-bs-toggle="dropdown" data-bs-offset="25, 25">
@@ -106,9 +93,6 @@ class ClassroomController extends ResourceController
                         </div>';
 
                     return '<div class="gap-2 hstack justify-content-end">'
-                         .$attendanceBtn
-                         .$gradesBtn
-                         .$scheduleBtn
                          .$viewBtn
                          .$dropdown
                          .'</div>';

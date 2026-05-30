@@ -2,7 +2,7 @@
 <div class="modal fade-scale" id="searchModal" aria-hidden="true" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-top modal-dialog-scrollable">
         <div class="modal-content">
-            <div class="modal-header search-form py-0">
+            <div class="py-0 modal-header search-form">
                 <div class="input-group">
                     <span class="input-group-text">
                         <i class="feather-search fs-4 text-muted"></i>
@@ -14,32 +14,27 @@
                 </div>
             </div>
             <div class="modal-body">
-                <div class="searching-for mb-5">
-                    <h4 class="fs-13 fw-normal text-gray-600 mb-3">Apa yang Anda cari?</h4>
+                <div class="mb-5 searching-for">
+                    <h4 class="mb-3 text-gray-600 fs-13 fw-normal">Apa yang Anda cari?</h4>
                     <div class="row g-1" id="searchQuickLinks">
                         <div class="col-md-4 col-xl-2">
-                            <a href="{{ route('dashboard.students.index') }}" class="d-block border border-dashed rounded p-2 text-center">
-                                <i class="feather-users fs-5 d-block mb-1"></i>
+                            <a href="{{ route('dashboard.students.index') }}" class="p-2 text-center border border-dashed rounded d-block">
+                                <i class="mb-1 feather-users fs-5 d-block"></i>
                                 <span class="fs-12 text-muted">Siswa</span>
                             </a>
                         </div>
+                      
                         <div class="col-md-4 col-xl-2">
-                            <a href="{{ route('dashboard.schedules.index') }}" class="d-block border border-dashed rounded p-2 text-center">
-                                <i class="feather-calendar fs-5 d-block mb-1"></i>
-                                <span class="fs-12 text-muted">Jadwal</span>
-                            </a>
-                        </div>
-                        <div class="col-md-4 col-xl-2">
-                            <a href="{{ route('dashboard.classrooms.index') }}" class="d-block border border-dashed rounded p-2 text-center">
-                                <i class="feather-home fs-5 d-block mb-1"></i>
+                            <a href="{{ route('dashboard.classrooms.index') }}" class="p-2 text-center border border-dashed rounded d-block">
+                                <i class="mb-1 feather-home fs-5 d-block"></i>
                                 <span class="fs-12 text-muted">Kelas</span>
                             </a>
                         </div>
                     </div>
                 </div>
                 
-                <div id="searchResults" class="d-none mt-4">
-                    <h4 class="fs-13 fw-normal text-gray-600 mb-3" id="searchResultTitle">Hasil Pencarian</h4>
+                <div id="searchResults" class="mt-4 d-none">
+                    <h4 class="mb-3 text-gray-600 fs-13 fw-normal" id="searchResultTitle">Hasil Pencarian</h4>
                     <div class="list-group list-group-flush" id="searchList">
                         <!-- Ajax results here -->
                     </div>
@@ -85,7 +80,7 @@
                         resultTitle.innerText = 'Hasil Pencarian';
                         data.results.forEach(item => {
                             const html = `
-                                <a href="${item.url}" class="list-group-item list-group-item-action d-flex align-items-center px-0 border-0 mb-2">
+                                <a href="${item.url}" class="px-0 mb-2 border-0 list-group-item list-group-item-action d-flex align-items-center">
                                     <div class="avatar-text bg-soft-${item.color} text-${item.color} rounded-circle me-3">
                                         <i class="${item.icon}"></i>
                                     </div>

@@ -95,9 +95,10 @@ class WhatsAppChatService
         string $content,
         string $messageType = 'text',
         ?string $mediaUrl = null,
-        ?string $mediaType = null
+        ?string $mediaType = null,
+        ?string $replyToMessageId = null
     ): WhatsAppMessage {
-        $message = WhatsAppMessage::create([
+        $messageData = [
             'id' => Str::uuid(),
             'conversation_id' => $conversation->id,
             'sender_id' => $admin->id,
@@ -107,7 +108,13 @@ class WhatsAppChatService
             'media_url' => $mediaUrl,
             'media_type' => $mediaType,
             'status' => 'sent',
-        ]);
+        ];
+
+        if ($replyToMessageId) {
+            $messageData['reply_to_message_id'] = $replyToMessageId;
+        }
+
+        $message = WhatsAppMessage::create($messageData);
 
         // Update conversation stats
         $conversation->increment('message_count');

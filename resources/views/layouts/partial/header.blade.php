@@ -58,75 +58,6 @@
                         class="feather-sun"></i></a>
             </div>
 
-            {{-- Timesheets --}}
-            <div class="dropdown nxl-h-item">
-                <a href="javascript:void(0);" class="nxl-head-link me-0" data-bs-toggle="dropdown" role="button"
-                    data-bs-auto-close="outside">
-                    <i class="feather-clock"></i>
-                    @if ($activeTimer)
-                        <span class="badge bg-danger nxl-h-badge pulse-ring">1</span>
-                    @endif
-                </a>
-                <div class="dropdown-menu dropdown-menu-end nxl-h-dropdown nxl-timesheets-menu">
-                    <div class="d-flex justify-content-between align-items-center timesheets-head">
-                        <h6 class="mb-0 fw-bold text-dark">Log Kerja</h6>
-                        <a href="{{ route('dashboard.timesheets.index') }}" class="fs-11 text-success text-end ms-auto">
-                            <span>Lihat Semua</span>
-                        </a>
-                    </div>
-                    <div class="p-0 timesheets-body">
-                        @if ($activeTimer)
-                            <div class="p-3 border-bottom bg-soft-primary">
-                                <div class="mb-2 d-flex align-items-center justify-content-between">
-                                    <span class="badge bg-primary rounded-pill">Berjalan</span>
-                                    <span class="fw-black text-primary" id="headerTimerDisplay"
-                                        data-start="{{ $activeTimer->start_time->toIso8601String() }}">
-                                        {{ $activeTimer->getFormattedDuration() }}
-                                    </span>
-                                </div>
-                                <h6 class="mb-1 fw-bold text-dark text-truncate">{{ $activeTimer->task->title }}</h6>
-                                <p class="mb-3 small text-muted">{{ strtoupper($activeTimer->task->category) }}</p>
-                                <button type="button" class="btn btn-sm btn-danger w-100 stop-timer-btn"
-                                    data-id="{{ $activeTimer->id }}">
-                                    <i class="feather-stop-circle me-1"></i> Berhenti
-                                </button>
-                            </div>
-                        @else
-                            <div class="p-4 text-center">
-                                <i class="mb-3 feather-clock fs-1 text-muted"></i>
-                                <p class="mb-0 text-muted small">Tidak ada timer aktif</p>
-                            </div>
-                        @endif
-
-                        <div class="p-3 recent-logs">
-                            <h6 class="mb-3 fs-11 fw-black text-uppercase ls-1 text-muted">Log Terbaru</h6>
-                            <div class="gap-3 vstack">
-                                @forelse($recentTimesheets as $log)
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <div class="overflow-hidden">
-                                            <div class="fw-bold text-dark text-truncate small">{{ $log->task->title }}
-                                            </div>
-                                            <div class="text-muted extra-small">
-                                                {{ $log->start_time->format('d M, H:i') }}</div>
-                                        </div>
-                                        <span
-                                            class="badge bg-light text-dark fw-bold">{{ $log->getFormattedDuration() }}</span>
-                                    </div>
-                                @empty
-                                    <div class="py-2 text-center">
-                                        <span class="text-muted small">Belum ada log</span>
-                                    </div>
-                                @endforelse
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-center timesheets-footer">
-                        <a href="{{ route('dashboard.timesheets.index') }}" class="fs-13 fw-semibold text-dark">Kelola
-                            Timesheet</a>
-                    </div>
-                </div>
-            </div>
-
             {{-- Notifications --}}
             <div class="dropdown nxl-h-item">
                 <a class="nxl-head-link me-3" data-bs-toggle="dropdown" href="#" role="button"
@@ -279,43 +210,14 @@
         }
 
         // ── Notifications ─────────────────────────────────────────────────────────
-        // Generate URL notifikasi
         function getNotifUrl(n) {
             let url = '#';
             if (n.data && n.data.url) return n.data.url;
             switch (n.type) {
-                case 'grade':
-                case 'grade_posted':
-                    url = n.data?.grade_id ? "{{ route('dashboard.grades.show', ':id') }}".replace(':id', n.data
-                        .grade_id) : "{{ route('dashboard.grades.index') }}";
-                    break;
-                case 'attendance':
-                    url = "{{ route('dashboard.attendances.index') }}";
-                    break;
                 case 'payment':
                 case 'payment_completed':
                     url = n.data?.payment_id ? "{{ route('dashboard.payments.show', ':id') }}".replace(':id', n.data
                         .payment_id) : "{{ route('dashboard.payments.index') }}";
-                    break;
-                case 'leave_approved':
-                case 'leave_rejected':
-                    url = n.data?.leave_request_id ? "{{ route('dashboard.leave-requests.show', ':id') }}".replace(':id', n
-                        .data.leave_request_id) : "{{ route('dashboard.leave-requests.index') }}";
-                    break;
-                case 'salary_grade':
-                    url = "{{ route('dashboard.payroll.salary-grades.index') }}";
-                    break;
-                case 'education_allowance':
-                    url = "{{ route('dashboard.payroll.education-allowances.index') }}";
-                    break;
-                case 'structural_allowance':
-                    url = "{{ route('dashboard.payroll.structural-allowances.index') }}";
-                    break;
-                case 'functional_allowance':
-                    url = "{{ route('dashboard.payroll.functional-allowances.index') }}";
-                    break;
-                case 'salary_rate':
-                    url = "{{ route('dashboard.payroll.salary-rates.index') }}";
                     break;
             }
             return url;

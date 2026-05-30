@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Jobs\ProcessWhatsAppMessage;
 use App\Models\WhatsAppConversation;
 use App\Services\WhatsAppAdminRouterService;
 use App\Services\WhatsAppBotService;
+use App\Services\WhatsAppChatService;
 use App\Services\WhatsappMetaService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +16,8 @@ class WhatsAppWebhookController extends Controller
 {
     public function __construct(
         private readonly WhatsAppBotService $botService,
-        private readonly WhatsAppAdminRouterService $adminRouter
+        private readonly WhatsAppAdminRouterService $adminRouter,
+        private readonly WhatsAppChatService $chatService
     ) {}
 
     /**
@@ -161,13 +162,23 @@ class WhatsAppWebhookController extends Controller
             $messageText = $this->extractMessageText($message, $type);
 
             if ($messageText !== null) {
-                // 🎯 Route to admin if during work hours
+                // Get or create conversation
                 $conversation = WhatsAppConversation::firstOrCreate(
                     ['phone_number' => $from],
                     [
                         'profile_name' => $profileName,
                         'status' => 'active',
                     ]
+                );
+
+                // Store message in whatsapp_messages so dashboard shows it
+                $this->chatService->storeIncomingMessage(
+                    $conversation,
+                    $messageText,
+                    $type,
+                    null,
+                    null,
+                    $messageId
                 );
 
                 // Try to route to admin
@@ -212,8 +223,6 @@ class WhatsAppWebhookController extends Controller
 
     private function dispatchBotHandler(string $phone, string $messageText, string $profileName): void
     {
-        ProcessWhatsAppMessage::dispatch($phone, $messageText, $profileName);
-
         try {
             $this->botService->handle($phone, $messageText, $profileName);
         } catch (\Exception $e) {

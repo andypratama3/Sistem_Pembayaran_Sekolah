@@ -106,15 +106,6 @@ class StudentController extends ResourceController
                             <i class="feather feather-eye"></i>
                         </a>' : '';
 
-                    // Relationship Links
-                    $gradesBtn = '<a href="'.route('dashboard.grades.index', ['student_id' => $student->id]).'" class="avatar-text avatar-md bg-soft-success text-success" title="Nilai">
-                        <i class="feather feather-book-open"></i>
-                    </a>';
-
-                    $attendanceBtn = '<a href="'.route('dashboard.attendances.index', ['student_id' => $student->id]).'" class="avatar-text avatar-md bg-soft-warning text-warning" title="Presensi">
-                        <i class="feather feather-calendar"></i>
-                    </a>';
-
                     $paymentsBtn = '<a href="'.route('dashboard.payments.index', ['student_id' => $student->id]).'" class="avatar-text avatar-md bg-soft-info text-info" title="Pembayaran">
                         <i class="feather feather-credit-card"></i>
                     </a>';
@@ -150,8 +141,6 @@ class StudentController extends ResourceController
                         </div>' : '';
 
                     return '<div class="gap-2 hstack justify-content-end">'
-                         .$gradesBtn
-                         .$attendanceBtn
                          .$paymentsBtn
                          .$viewBtn
                          .$dropdown

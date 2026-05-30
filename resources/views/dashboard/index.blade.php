@@ -63,58 +63,59 @@
 
         {{-- KPI Cards --}}
         <div class="mb-4 row g-3">
-        <x-analytics-card
-            title="Siswa Aktif"
-            :value="$stats['total_students']"
-            icon="users"
-            iconBg="bg-soft-primary"
-            iconColor="text-primary"
-            id="stat-total-students"
-            route="{{ route('dashboard.students.index') }}"
-            routeLabel="<i class='feather-users fs-10 me-1'></i> Daftar Siswa"
-        />
-        <x-analytics-card
-            title="Guru & Staf"
-            :value="$stats['total_teachers'] + $stats['total_employees']"
-            icon="user-check"
-            iconBg="bg-soft-warning"
-            iconColor="text-warning"
-            id="stat-total-staff"
-            badge="Verifikasi"
-            badgeClass="badge bg-soft-primary text-primary"
-            route="{{ route('dashboard.teachers.index') }}"
-            routeLabel="<i class='feather-user-check fs-10 me-1'></i> Daftar Guru"
-        />
-        <x-analytics-card
-            title="Kehadiran Hari Ini"
-            :value="$stats['attendance_today']"
-            icon="activity"
-            iconBg="bg-soft-info"
-            iconColor="text-info"
-            format="percent"
-            id="stat-attendance-today"
-            badge="Langsung"
-            badgeClass="badge bg-soft-info text-info"
-            route="{{ route('dashboard.attendances.index') }}"
-            routeLabel="<i class='feather-calendar fs-10 me-1'></i> Rekap Absensi"
-        />
-        <x-analytics-card
-            title="Tagihan Tertunda"
-            :value="$stats['outstanding_payments']"
-            icon="dollar-sign"
-            iconBg="bg-soft-danger"
-            iconColor="text-danger"
-            format="currency"
-            :divisor="1000000"
-            :decimal="1"
-            suffix="jt"
-            id="stat-outstanding-payments"
-            badge="Pending"
-            badgeClass="badge bg-soft-danger text-danger"
-            route="{{ route('dashboard.payments.index') }}"
-            routeLabel="<i class='feather-credit-card fs-10 me-1'></i> Kelola Tagihan"
-        />
-    </div>
+            <x-analytics-card
+                title="Siswa Aktif"
+                :value="$stats['total_students']"
+                icon="users"
+                iconBg="bg-soft-primary"
+                iconColor="text-primary"
+                id="stat-total-students"
+                route="{{ route('dashboard.students.index') }}"
+                routeLabel="<i class='feather-users fs-10 me-1'></i> Daftar Siswa"
+            />
+            <x-analytics-card
+                title="Total Kelas"
+                :value="$stats['total_classrooms']"
+                icon="home"
+                iconBg="bg-soft-info"
+                iconColor="text-info"
+                id="stat-total-classrooms"
+                route="{{ route('dashboard.classrooms.index') }}"
+                routeLabel="<i class='feather-box fs-10 me-1'></i> Kelola Kelas"
+            />
+            <x-analytics-card
+                title="Tagihan Pending"
+                :value="$stats['outstanding_payments']"
+                icon="dollar-sign"
+                iconBg="bg-soft-danger"
+                iconColor="text-danger"
+                format="currency"
+                :divisor="1000000"
+                :decimal="1"
+                suffix="jt"
+                id="stat-outstanding-payments"
+                badge="Tertunda"
+                badgeClass="badge bg-soft-danger text-danger"
+                route="{{ route('dashboard.payments.index') }}"
+                routeLabel="<i class='feather-credit-card fs-10 me-1'></i> Kelola Tagihan"
+            />
+            <x-analytics-card
+                title="Masuk Bulan Ini"
+                :value="$stats['total_payments_month']"
+                icon="trending-up"
+                iconBg="bg-soft-success"
+                iconColor="text-success"
+                format="currency"
+                :divisor="1000000"
+                :decimal="1"
+                suffix="jt"
+                id="stat-total-payments-month"
+                badge="Lunas"
+                badgeClass="badge bg-soft-success text-success"
+                route="{{ route('dashboard.payments.index') }}"
+                routeLabel="<i class='feather-file-text fs-10 me-1'></i> Laporan"
+            />
+        </div>
 
     {{-- Row 2: Quick Actions & Live Stats --}}
     <div class="row">
@@ -131,39 +132,39 @@
                 </x-slot:header>
                 <div class="row g-3">
                     <div class="col-sm-4 col-6">
-                        <a href="{{ route('dashboard.admissions.create') }}" class="py-3 btn btn-quick-action w-100 flex-column">
-                            <i class="mb-2 feather-user-plus fs-20"></i>
-                            <span class="fw-bold small text-uppercase">Siswa Baru</span>
-                        </a>
-                    </div>
-                    <div class="col-sm-4 col-6">
                         <a href="{{ route('dashboard.payments.create') }}" class="py-3 btn btn-quick-action w-100 flex-column">
-                            <i class="mb-2 feather-credit-card fs-20"></i>
+                            <i class="mb-2 feather-credit-card fs-20 text-primary"></i>
                             <span class="fw-bold small text-uppercase">Input Bayar</span>
                         </a>
                     </div>
                     <div class="col-sm-4 col-6">
-                        <a href="{{ route('dashboard.attendances.index') }}" class="py-3 btn btn-quick-action w-100 flex-column">
-                            <i class="mb-2 feather-check-square fs-20"></i>
-                            <span class="fw-bold small text-uppercase">Absensi</span>
-                        </a>
-                    </div>
-                    <div class="col-sm-4 col-6">
-                        <a href="{{ route('dashboard.report-cards.index') }}" class="py-3 btn btn-quick-action w-100 flex-column">
-                            <i class="mb-2 feather-book-open fs-20"></i>
-                            <span class="fw-bold small text-uppercase">Kelola Rapor</span>
-                        </a>
-                    </div>
-                    <div class="col-sm-4 col-6">
-                        <a href="{{ route('dashboard.payroll.index') }}" class="py-3 btn btn-quick-action w-100 flex-column">
-                            <i class="mb-2 feather-briefcase fs-20"></i>
-                            <span class="fw-bold small text-uppercase">Gaji & Payroll</span>
+                        <a href="{{ route('dashboard.students.create') }}" class="py-3 btn btn-quick-action w-100 flex-column">
+                            <i class="mb-2 feather-user-plus fs-20 text-success"></i>
+                            <span class="fw-bold small text-uppercase">Tambah Siswa</span>
                         </a>
                     </div>
                     <div class="col-sm-4 col-6">
                         <a href="{{ route('dashboard.whatsapp-chat.index') }}" class="py-3 btn btn-quick-action w-100 flex-column">
-                            <i class="mb-2 feather-message-circle fs-20"></i>
+                            <i class="mb-2 feather-message-circle fs-20 text-info"></i>
                             <span class="fw-bold small text-uppercase">Kirim Pesan</span>
+                        </a>
+                    </div>
+                    <div class="col-sm-4 col-6">
+                        <a href="{{ route('dashboard.classrooms.index') }}" class="py-3 btn btn-quick-action w-100 flex-column">
+                            <i class="mb-2 feather-home fs-20 text-warning"></i>
+                            <span class="fw-bold small text-uppercase">Data Kelas</span>
+                        </a>
+                    </div>
+                    <div class="col-sm-4 col-6">
+                        <a href="{{ route('dashboard.audit_log.index') }}" class="py-3 btn btn-quick-action w-100 flex-column">
+                            <i class="mb-2 feather-list fs-20 text-danger"></i>
+                            <span class="fw-bold small text-uppercase">Log Sistem</span>
+                        </a>
+                    </div>
+                    <div class="col-sm-4 col-6">
+                        <a href="{{ route('dashboard.settings.users.index') }}" class="py-3 btn btn-quick-action w-100 flex-column">
+                            <i class="mb-2 feather-users fs-20 text-secondary"></i>
+                            <span class="fw-bold small text-uppercase">Kelola User</span>
                         </a>
                     </div>
                 </div>
@@ -176,19 +177,12 @@
                         <i class="feather-award fs-80"></i>
                     </div>
                     <h5 class="mb-4 text-white">Selamat Datang, {{ $user->name }}!</h5>
-                    <p class="text-white text-opacity-75 small">Anda memiliki
-                        <strong id="stat-my-active-tasks">{{ $stats['tugas_aktif_saya'] }}</strong> tugas yang menunggu hari ini. Selesaikan sisa
-                        rapor dan verifikasi pembayaran untuk menutup hari.</p>
+                    <p class="text-white text-opacity-75 small">Pantau aktivitas siswa dan verifikasi pembayaran untuk menutup hari.</p>
 
                     <div class="gap-3 pt-4 mt-4 border-white hstack border-top border-opacity-10">
                         <div>
                             <span class="text-white text-opacity-50 d-block small">Tahun Ajaran</span>
                             <span class="text-white fw-bold">{{ $stats['academic_years']->where('is_active', true)->first()->name ?? 'N/A' }}</span>
-                        </div>
-                        <div class="ms-auto text-end">
-                            <a href="{{ route('dashboard.tasks.index') }}" class="btn btn-sm btn-white text-primary fw-bold btn-premium-light">
-                                Buka Tugas <i class="feather-arrow-right ms-1 small"></i>
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -202,7 +196,7 @@
             <x-card full-height class="border-0 shadow-sm premium-card">
                 <x-slot:header>
                     <div class="d-flex align-items-center justify-content-between w-100">
-                        <h5 class="mb-0 card-title">Demografi & Status</h5>
+                        <h5 class="mb-0 card-title">Demografi Siswa</h5>
                         <i class="feather-pie-chart text-primary"></i>
                     </div>
                 </x-slot:header>
@@ -213,7 +207,7 @@
                     <div class="col-6">
                         <div class="gap-2 d-flex flex-column">
                             @foreach($stats['siswa_by_status'] as $status => $count)
-                                <div class="p-2 rounded bg-body-secondary border-start border-3 border-{{ $status == 'active' ? 'success' : ($status == 'inactive' ? 'secondary' : 'primary') }}">
+                                <div class="p-2 rounded bg-body-secondary border-start border-3 border-{{ $status == 'aktif' ? 'success' : 'secondary' }}">
                                     <div class="smaller text-muted text-uppercase fw-bold">{{ $status }}</div>
                                     <div class="fw-bold">{{ number_format($count) }} <small class="text-muted">Siswa</small></div>
                                 </div>
@@ -227,31 +221,28 @@
             <x-card full-height class="border-0 shadow-sm premium-card">
                 <x-slot:header>
                     <div class="d-flex align-items-center justify-content-between w-100">
-                        <h5 class="mb-0 card-title">Ulang Tahun Hari Ini</h5>
-                        <span class="px-2 border badge rounded-pill bg-soft-danger text-danger border-danger border-opacity-10">Special Day</span>
+                        <h5 class="mb-0 card-title">Statistik SDM</h5>
+                        <i class="feather-users text-success"></i>
                     </div>
                 </x-slot:header>
-                <div class="p-0 card-body">
-                    <div class="list-group list-group-flush">
-                        @forelse ($stats['student_birthdays'] as $person)
-                            <div class="gap-3 py-3 border-0 list-group-item d-flex align-items-center">
-                                <div class="border border-opacity-25 rounded-circle avatar-text avatar-md bg-soft-warning text-warning border-warning">
-                                    <i class="feather-gift"></i>
-                                </div>
-                                <div>
-                                    <span class="fw-bold d-block">{{ $person->name }}</span>
-                                    <span class="text-muted small">Merayakan ulang tahun hari ini! 🎂</span>
-                                </div>
-                                <div class="ms-auto">
-                                    <button class="btn btn-sm btn-icon btn-soft-primary rounded-circle"><i class="feather-send"></i></button>
-                                </div>
-                            </div>
-                        @empty
-                            <div class="py-5 text-center text-muted">
-                                <i class="mb-2 opacity-25 feather-calendar fs-24"></i>
-                                <p class="mb-0 small">Tidak ada yang berulang tahun hari ini.</p>
-                            </div>
-                        @endforelse
+                <div class="gap-3 d-flex flex-column">
+                    <div class="p-3 rounded bg-soft-primary border-0 d-flex align-items-center">
+                        <div class="avatar-text avatar-md bg-primary text-white rounded me-3">
+                            <i class="feather-user"></i>
+                        </div>
+                        <div>
+                            <span class="text-muted small d-block">Total Guru</span>
+                            <span class="fs-18 fw-bold" id="stat-total-teachers">{{ number_format($stats['total_teachers']) }}</span>
+                        </div>
+                    </div>
+                    <div class="p-3 rounded bg-soft-info border-0 d-flex align-items-center">
+                        <div class="avatar-text avatar-md bg-info text-white rounded me-3">
+                            <i class="feather-briefcase"></i>
+                        </div>
+                        <div>
+                            <span class="text-muted small d-block">Total Pegawai</span>
+                            <span class="fs-18 fw-bold" id="stat-total-employees">{{ number_format($stats['total_employees']) }}</span>
+                        </div>
                     </div>
                 </div>
             </x-card>
@@ -260,48 +251,29 @@
             <x-card full-height class="border-0 shadow-sm premium-card">
                 <x-slot:header>
                     <div class="d-flex align-items-center justify-content-between w-100">
-                        <h5 class="mb-0 card-title">Monitoring SDM (Cuti)</h5>
-                        <a href="{{ route('dashboard.leave-requests.index') }}" class="small fw-bold">Kelola</a>
+                        <h5 class="mb-0 card-title">Ulang Tahun Siswa</h5>
+                        <i class="feather-gift text-danger"></i>
                     </div>
                 </x-slot:header>
-                <div class="row g-3">
-                    @php
-                        $pendingCuti = $stats['cuti_stats']['pending'] ?? 0;
-                        $approvedCuti = $stats['cuti_stats']['approved'] ?? 0;
-                        $rejectedCuti = $stats['cuti_stats']['rejected'] ?? 0;
-                        $totalCuti = $pendingCuti + $approvedCuti + $rejectedCuti;
-                    @endphp
-                    <div class="col-12">
-                        <div class="mb-2 d-flex justify-content-between smaller fw-bold text-uppercase">
-                            <span>Persetujuan Cuti</span>
-                            <span>{{ $totalCuti > 0 ? round(($approvedCuti / $totalCuti) * 100) : 0 }}% Terproses</span>
-                        </div>
-                        <div class="mb-4 progress rounded-pill" style="height: 10px;">
-                            <div class="progress-bar bg-success" style="width: {{ $totalCuti > 0 ? ($approvedCuti / $totalCuti) * 100 : 0 }}%"></div>
-                            <div class="progress-bar bg-warning" style="width: {{ $totalCuti > 0 ? ($pendingCuti / $totalCuti) * 100 : 0 }}%"></div>
-                            <div class="progress-bar bg-danger" style="width: {{ $totalCuti > 0 ? ($rejectedCuti / $totalCuti) * 100 : 0 }}%"></div>
-                        </div>
-                        <div class="text-center row g-2">
-                            <div class="col-4">
-                                <div class="p-2 rounded bg-soft-warning">
-                                    <h5 class="mb-0 fw-bold text-warning">{{ $pendingCuti }}</h5>
-                                    <small class="smaller text-muted text-uppercase">Pending</small>
+                <div class="list-group list-group-flush">
+                    @forelse($stats['student_birthdays'] as $birthdayStudent)
+                        <div class="px-0 border-0 list-group-item d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center">
+                                <div class="avatar-text avatar-sm bg-soft-danger text-danger rounded-circle me-2">
+                                    {{ strtoupper(substr($birthdayStudent->name, 0, 1)) }}
+                                </div>
+                                <div>
+                                    <span class="fw-bold small d-block">{{ $birthdayStudent->name }}</span>
+                                    <span class="text-muted smaller">{{ $birthdayStudent->birth_date->format('d M') }}</span>
                                 </div>
                             </div>
-                            <div class="col-4">
-                                <div class="p-2 rounded bg-soft-success">
-                                    <h5 class="mb-0 fw-bold text-success">{{ $approvedCuti }}</h5>
-                                    <small class="smaller text-muted text-uppercase">Disetujui</small>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="p-2 rounded bg-soft-danger">
-                                    <h5 class="mb-0 fw-bold text-danger">{{ $rejectedCuti }}</h5>
-                                    <small class="smaller text-muted text-uppercase">Ditolak</small>
-                                </div>
-                            </div>
+                            @if($birthdayStudent->birth_date->format('m-d') == now()->format('m-d'))
+                                <span class="badge bg-soft-danger text-danger rounded-pill smaller">Hari Ini!</span>
+                            @endif
                         </div>
-                    </div>
+                    @empty
+                        <div class="py-4 text-center text-muted small">Tidak ada ulang tahun dalam 14 hari ke depan.</div>
+                    @endforelse
                 </div>
             </x-card>
         </div>
@@ -309,18 +281,7 @@
 
     {{-- Row 4: Main Charts --}}
     <div class="row">
-        <div class="col-xxl-6 col-lg-12">
-            <x-card full-height class="border-0 shadow-sm premium-card">
-                <x-slot:header>
-                    <div class="d-flex align-items-center justify-content-between w-100">
-                        <h5 class="mb-0 card-title">Tren Kehadiran Siswa (7 Hari Terakhir)</h5>
-                        <div class="px-2 border badge rounded-pill bg-soft-success text-success border-success border-opacity-10">Target: 95%</div>
-                    </div>
-                </x-slot:header>
-                <div id="attendanceTrendChart" style="min-height: 350px;"></div>
-            </x-card>
-        </div>
-        <div class="col-xxl-6 col-lg-12">
+        <div class="col-xxl-12 col-lg-12">
             <x-card full-height class="border-0 shadow-sm premium-card">
                 <x-slot:header>
                     <div class="d-flex align-items-center justify-content-between w-100">
@@ -347,70 +308,58 @@
 
     {{-- Row 4: Operational Widgets --}}
     <div class="row">
-        <div class="col-xxl-4 col-md-6">
+        <div class="col-xxl-8 col-lg-7">
             <x-card full-height class="border-0 shadow-sm premium-card">
                 <x-slot:header>
                     <div class="d-flex align-items-center justify-content-between w-100">
-                        <h5 class="mb-0 card-title">Agenda Terdekat</h5>
-                        <a href="{{ route('dashboard.academic-calendar.index') }}" class="small fw-bold">Lihat Semua</a>
-                    </div>
-                </x-slot:header>
-                <div class="p-0 card-body">
-                    <div class="border-0 list-group list-group-flush" id="upcoming-events-container">
-                        @forelse ($stats['acara_terdekat'] as $event)
-                            <div class="gap-3 py-3 border-0 list-group-item d-flex align-items-center">
-                                <div class="flex-shrink-0 rounded avatar-text avatar-md bg-soft-info text-info">
-                                    <span class="fw-bold">{{ \Carbon\Carbon::parse($event->start_date)->format('d') }}</span>
-                                    <span class="small" style="font-size: 8px;">{{ \Carbon\Carbon::parse($event->start_date)->format('M') }}</span>
-                                </div>
-                                <div class="overflow-hidden">
-                                    <span class="text-truncate-1-line fw-bold d-block">{{ $event->title }}</span>
-                                    <span class="text-muted small d-block"><i class="feather-map-pin me-1"></i> {{ $event->location ?? 'Sekolah' }}</span>
-                                </div>
-                            </div>
-                        @empty
-                            <div class="p-4 text-center">
-                                <span class="text-muted small">Tidak ada agenda terdekat</span>
-                            </div>
-                        @endforelse
-                    </div>
-                </div>
-            </x-card>
-        </div>
-        <div class="col-xxl-4 col-md-6">
-            <x-card full-height class="border-0 shadow-sm premium-card">
-                <x-slot:header>
-                    <div class="d-flex align-items-center justify-content-between w-100">
-                        <h5 class="mb-0 card-title">Peringatan Dini</h5>
-                        <span class="px-2 border badge rounded-pill bg-soft-danger text-danger border-danger border-opacity-10"><span id="stat-risk-alerts-count">{{ $stats['peringatan_dini_aktif'] }}</span> Alerta</span>
+                        <h5 class="mb-0 card-title">Pembayaran Terbaru</h5>
+                        <a href="{{ route('dashboard.payments.index') }}" class="small fw-bold">Semua Transaksi</a>
                     </div>
                 </x-slot:header>
                 <div class="p-0 card-body">
                     <div class="table-responsive">
-                        <table class="table mb-0 table-hover">
-                            <tbody id="risk-assessments-container">
-                                @forelse ($stats['risiko_siswa'] as $risk)
+                        <table class="table mb-0 align-middle table-hover">
+                            <thead>
+                                <tr class="smaller text-muted text-uppercase fw-bold">
+                                    <th class="ps-4">Siswa</th>
+                                    <th>Kategori</th>
+                                    <th>Nominal</th>
+                                    <th>Status</th>
+                                    <th class="text-end pe-4">Tanggal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($stats['recent_payments'] as $payment)
                                     <tr>
-                                        <td class="border-0">
-                                            <div class="gap-2 d-flex align-items-center">
-                                                <div class="avatar-image avatar-sm">
-                                                    <img src="{{ asset('assets/images/avatar/1.png') }}" class="rounded img-fluid">
+                                        <td class="ps-4">
+                                            <div class="gap-2 hstack">
+                                                <div class="text-white avatar-text avatar-sm bg-soft-primary text-primary rounded-circle">
+                                                    {{ strtoupper(substr($payment->student->name ?? 'S', 0, 1)) }}
                                                 </div>
                                                 <div>
-                                                    <span class="fw-bold small d-block">{{ $risk->student->name }}</span>
-                                                    <span class="text-muted smaller d-block">{{ $risk->student->classroom->name ?? '-' }}</span>
+                                                    <span class="fw-bold small d-block">{{ $payment->student->name ?? 'N/A' }}</span>
+                                                    <span class="text-muted smaller">#{{ $payment->order_id }}</span>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="border-0 text-end">
-                                            <span class="badge bg-soft-danger text-danger smaller">{{ strtoupper($risk->risk_level) }}</span>
+                                        <td><span class="small">{{ $payment->paymentTitle->name ?? 'N/A' }}</span></td>
+                                        <td><span class="fw-bold small">Rp {{ number_format($payment->gross_amount, 0, ',', '.') }}</span></td>
+                                        <td>
+                                            @php
+                                                $statusClass = match($payment->status) {
+                                                    'paid', 'completed' => 'success',
+                                                    'pending' => 'warning',
+                                                    'failed', 'expired', 'deny' => 'danger',
+                                                    default => 'secondary'
+                                                };
+                                            @endphp
+                                            <span class="px-2 border badge rounded-pill bg-soft-{{ $statusClass }} text-{{ $statusClass }} smaller border-{{ $statusClass }} border-opacity-10">{{ strtoupper($payment->status) }}</span>
                                         </td>
+                                        <td class="text-end pe-4 small text-muted">{{ $payment->created_at->format('d/m/Y') }}</td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="2" class="p-4 text-center border-0">
-                                            <span class="text-muted small">Semua siswa dalam kondisi aman</span>
-                                        </td>
+                                        <td colspan="5" class="py-4 text-center text-muted small">Belum ada data pembayaran</td>
                                     </tr>
                                 @endforelse
                             </tbody>
@@ -419,27 +368,31 @@
                 </div>
             </x-card>
         </div>
-        <div class="col-xxl-4 col-md-12">
+
+        <div class="col-xxl-4 col-lg-5">
             <x-card full-height class="border-0 shadow-sm premium-card">
                 <x-slot:header>
                     <div class="d-flex align-items-center justify-content-between w-100">
-                        <h5 class="mb-0 card-title">Pesan WhatsApp Pending</h5>
+                        <h5 class="mb-0 card-title">WhatsApp Pending</h5>
                         <a href="{{ route('dashboard.whatsapp-chat.index') }}" class="px-2 border badge rounded-pill bg-soft-warning text-warning border-warning border-opacity-10">
                             <span id="stat-unread-wa">{{ $stats['pesan_wa_belum_dibaca'] }}</span> Unread
                         </a>
                     </div>
                 </x-slot:header>
                 <div class="gap-4 mb-4 d-flex align-items-center">
-                    <div class="rounded avatar-text avatar-xl bg-soft-success text-success">
-                        <i class="feather-message-square"></i>
+                    <div class="rounded-circle avatar-text avatar-xl bg-soft-success text-success" style="width: 60px; height: 60px;">
+                        <i class="feather-message-square fs-24"></i>
                     </div>
                     <div>
-                        <span class="fs-20 fw-bold d-block" id="stat-unread-wa-big">{{ $stats['pesan_wa_belum_dibaca'] }}</span>
-                        <span class="text-muted small">Conversations need response</span>
+                        <span class="fs-28 fw-bold d-block" id="stat-unread-wa-big">{{ $stats['pesan_wa_belum_dibaca'] }}</span>
+                        <span class="text-muted small">Percakapan butuh respon</span>
                     </div>
                 </div>
+                <div class="mb-3 alert alert-soft-info border-0 small">
+                    <i class="feather-info me-2"></i> Balas pesan wali murid tepat waktu untuk meningkatkan pelayanan.
+                </div>
                 <div class="d-grid">
-                    <a href="{{ route('dashboard.whatsapp-chat.index') }}" class="border-opacity-25 btn btn-success border-success w-100 fw-bold btn-quick-action">
+                    <a href="{{ route('dashboard.whatsapp-chat.index') }}" class="btn btn-premium w-100 fw-bold">
                         Buka Layanan Chat <i class="feather-external-link ms-2"></i>
                     </a>
                 </div>
@@ -450,7 +403,7 @@
     {{-- Row 5: Activity Feed & Cache Stats --}}
     <div class="row">
         <div class="col-xxl-8 col-lg-7">
-            <x-card full-height class="border-0 shadow-sm">
+            <x-card full-height class="border-0 shadow-sm premium-card">
                 <x-slot:header>
                     <div class="d-flex align-items-center justify-content-between w-100">
                         <h5 class="mb-0 card-title">Aktivitas Sistem Terbaru</h5>
@@ -492,56 +445,46 @@
                 </div>
             </x-card>
         </div>
+
         <div class="col-xxl-4 col-lg-5">
             <x-card full-height class="border-0 shadow-sm premium-card">
                 <x-slot:header>
-                    <h5 class="mb-0 card-title">System Health & Cache</h5>
+                    <div class="d-flex align-items-center justify-content-between w-100">
+                        <h5 class="mb-0 card-title">Status Cache</h5>
+                        <i class="feather-database text-primary"></i>
+                    </div>
                 </x-slot:header>
-                <div class="gap-3 mb-4 hstack">
-                    <div class="rounded avatar-text avatar-lg bg-soft-info text-info">
-                        <i class="feather-database"></i>
-                    </div>
+                <div class="mb-4 d-flex align-items-center justify-content-between">
                     <div>
-                        <span class="text-muted small d-block">Cache Items</span>
-                        <span class="fw-bold fs-18" id="cacheItems">{{ number_format($stats['cache_items'] ?? 0) }}</span>
+                        <span class="text-muted small d-block">Sistem Cache</span>
+                        <span class="fw-bold text-success"><i class="feather-check-circle me-1"></i> Aktif (Redis)</span>
                     </div>
+                    <form action="{{ route('dashboard.cache.flush') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-sm btn-soft-danger">
+                            <i class="feather-trash-2 me-1"></i> Kosongkan
+                        </button>
+                    </form>
                 </div>
-                <div class="gap-3 mb-4 hstack">
-                    <div class="rounded avatar-text avatar-lg bg-soft-success text-success">
-                        <i class="feather-cpu"></i>
-                    </div>
-                    <div>
-                        <span class="text-muted small d-block">Hit Rate</span>
-                        <div class="mt-1 progress" style="height: 6px; width: 100px;">
-                            <div id="cacheHitRateBar" class="progress-bar bg-success" style="width: {{ $stats['cache_hit_rate'] ?? 0 }}%"></div>
+                <div class="gap-3 d-flex flex-column">
+                    <div class="p-3 rounded bg-body-secondary border-start border-3 border-primary">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <div class="smaller text-muted text-uppercase fw-bold">Waktu Refresh Terakhir</div>
+                                <div class="fw-bold">{{ now()->format('H:i:s') }}</div>
+                            </div>
+                            <i class="feather-clock text-muted"></i>
                         </div>
                     </div>
-                    <span id="cacheHitRateText" class="ms-auto fw-bold text-success">{{ $stats['cache_hit_rate'] ?? 0 }}%</span>
-                </div>
-
-                <hr class="my-4 op-10">
-
-                <div class="mb-3">
-                    <div class="small text-muted">Modules</div>
-                    <ul id="cacheModuleList" class="mt-2 list-group list-group-flush">
-                        @foreach ($stats['cache_modules'] ?? [] as $module => $m)
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                {{ ucfirst($module) }}
-                                <span class="badge bg-secondary" id="module-count-{{ $module }}">{{ $m['key_count'] ?? 0 }}</span>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-
-                <div class="gap-2 mb-3 hstack">
-                    <i class="feather-clock text-muted small"></i>
-                    <span class="text-muted small">Last Refresh: <span id="lastCacheRefresh">{{ $stats['last_cache_refresh'] }}</span></span>
-                </div>
-
-                <div class="d-grid">
-                    <button type="button" class="btn btn-sm btn-primary" id="clearCacheBtn">
-                        <i class="feather-zap me-1"></i> Clear System Cache
-                    </button>
+                    <div class="p-3 rounded bg-body-secondary border-start border-3 border-info">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <div class="smaller text-muted text-uppercase fw-bold">Optimasi Database</div>
+                                <div class="fw-bold">Teroptimasi</div>
+                            </div>
+                            <i class="feather-zap text-muted"></i>
+                        </div>
+                    </div>
                 </div>
             </x-card>
         </div>
@@ -555,10 +498,9 @@
 
 @push('scripts')
     <script>
-        let attendanceChart, financeChart;
+        let financeChart;
 
         function refreshDashboardStats() {
-            console.log('[Dashboard] Refreshing stats...');
             var filterData = {
                 date_from: $('input[name="date_from"]').val(),
                 date_to: $('input[name="date_to"]').val(),
@@ -569,25 +511,14 @@
                     const s = response.data.stats;
                     const c = response.data.charts;
 
-                    // Update KPI Cards
                     $('#stat-total-students').text(new Intl.NumberFormat().format(s.total_students));
-                    $('#stat-total-staff').text(new Intl.NumberFormat().format(s.total_teachers + s.total_employees));
-                    $('#stat-attendance-today').text(s.attendance_today);
-                    $('#stat-outstanding-payments').text(new Intl.NumberFormat().format(s.outstanding_payments / 1000000).substring(0, 4));
-                    $('#stat-my-active-tasks').text(s.tugas_aktif_saya);
-                    $('#stat-risk-alerts-count').text(s.peringatan_dini_aktif);
+                    $('#stat-total-classrooms').text(new Intl.NumberFormat().format(s.total_classrooms));
+                    $('#stat-total-teachers').text(new Intl.NumberFormat().format(s.total_teachers));
+                    $('#stat-total-employees').text(new Intl.NumberFormat().format(s.total_employees));
+                    $('#stat-outstanding-payments').text(new Intl.NumberFormat('id-ID', { minimumFractionDigits: 1 }).format(s.outstanding_payments / 1000000) + 'jt');
+                    $('#stat-total-payments-month').text(new Intl.NumberFormat('id-ID', { minimumFractionDigits: 1 }).format(s.total_payments_month / 1000000) + 'jt');
                     $('#stat-unread-wa').text(s.pesan_wa_belum_dibaca);
                     $('#stat-unread-wa-big').text(s.pesan_wa_belum_dibaca);
-
-                    // Update Charts
-                    if (attendanceChart) {
-                        attendanceChart.updateSeries([
-                            { name: 'Hadir', data: c.attendance.hadir },
-                            { name: 'Izin', data: c.attendance.izin },
-                            { name: 'Sakit', data: c.attendance.sakit },
-                            { name: 'Alpa', data: c.attendance.alpha }
-                        ]);
-                    }
 
                     if (financeChart) {
                         financeChart.updateSeries([
@@ -597,14 +528,12 @@
                         ]);
                     }
 
-                    // Trigger custom UI updates (recent activities, events, etc.)
-                    updateDashboardUI(s);
+                    updateRecentActivities(s);
                 }
             });
         }
 
-        function updateDashboardUI(s) {
-            // Update Recent Activities
+        function updateRecentActivities(s) {
             if (s.recent_activities && s.recent_activities.length > 0) {
                 let html = '';
                 s.recent_activities.forEach(log => {
@@ -625,107 +554,11 @@
                 });
                 $('#recent-activities-container').html(html);
             }
-
-            // Update Upcoming Events
-            if (s.acara_terdekat && s.acara_terdekat.length > 0) {
-                let html = '';
-                s.acara_terdekat.forEach(event => {
-                    const date = new Date(event.start_date);
-                    const day = date.getDate();
-                    const month = date.toLocaleString('default', { month: 'short' });
-                    html += `
-                        <div class="gap-3 py-3 border-0 list-group-item d-flex align-items-center">
-                            <div class="flex-shrink-0 rounded avatar-text avatar-md bg-soft-info text-info">
-                                <span class="fw-bold">${day}</span>
-                                <span class="small" style="font-size: 8px;">${month}</span>
-                            </div>
-                            <div class="overflow-hidden">
-                                <span class="text-truncate-1-line fw-bold d-block">${event.title}</span>
-                                <span class="text-muted small d-block"><i class="feather-map-pin me-1"></i> ${event.location || 'Sekolah'}</span>
-                            </div>
-                        </div>
-                    `;
-                });
-                $('#upcoming-events-container').html(html);
-            }
-
-            // Update Risk Assessments
-            if (s.risiko_siswa && s.risiko_siswa.length > 0) {
-                let html = '';
-                s.risiko_siswa.forEach(risk => {
-                    html += `
-                        <tr>
-                            <td class="border-0">
-                                <div class="gap-2 d-flex align-items-center">
-                                    <div class="avatar-image avatar-sm">
-                                        <img src="/assets/images/avatar/1.png" class="rounded img-fluid">
-                                    </div>
-                                    <div>
-                                        <span class="fw-bold small d-block">${risk.student?.name || '-'}</span>
-                                        <span class="text-muted smaller d-block">${risk.student?.classroom?.name || '-'}</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="border-0 text-end">
-                                <span class="badge bg-soft-danger text-danger smaller">${risk.risk_level.toUpperCase()}</span>
-                            </td>
-                        </tr>
-                    `;
-                });
-                $('#risk-assessments-container').html(html);
-            }
         }
 
-        // Global exposing for Echo
         window.refreshDashboardStats = refreshDashboardStats;
 
         $(document).ready(function() {
-            // Notifications for Cache Clear
-            $('#clearCacheBtn').on('click', function() {
-                window.ConfirmAction(
-                    'Kosongkan Cache?',
-                    'Hal ini akan menghapus data cache sementara di seluruh sistem. Lanjutkan?',
-                    'Ya, Hapus!'
-                ).then((result) => {
-                    if (result.value) {
-                        $.ajax({
-                            url: '{{ route('dashboard.cache.flush') }}',
-                            method: 'POST',
-                            headers: {
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                            },
-                            success: function(response) {
-                                window.Toast.fire({
-                                    icon: 'success',
-                                    title: 'Cache berhasil dikosongkan'
-                                });
-                                refreshDashboardStats();
-                            }
-                        });
-                    }
-                });
-            });
-
-            // Attendance Trend Chart
-            const attendanceOptions = {
-                series: [
-                    { name: 'Hadir', data: @json($charts['attendance']['hadir'] ?? []) },
-                    { name: 'Izin', data: @json($charts['attendance']['izin'] ?? []) },
-                    { name: 'Sakit', data: @json($charts['attendance']['sakit'] ?? []) },
-                    { name: 'Alpa', data: @json($charts['attendance']['alpha'] ?? []) }
-                ],
-                chart: { height: 350, type: 'area', toolbar: { show: false }, zoom: { enabled: false } },
-                colors: ['#3454d1', '#ffa500', '#2ecc71', '#e74c3c'],
-                dataLabels: { enabled: false },
-                stroke: { curve: 'smooth', width: 2 },
-                xaxis: { categories: @json($charts['attendance']['labels'] ?? []) },
-                yaxis: { title: { text: 'Jumlah Siswa' } },
-                fill: { type: 'gradient', gradient: { shadeIntensity: 1, opacityFrom: 0.4, opacityTo: 0.05 } },
-                legend: { position: 'top', horizontalAlign: 'right' }
-            };
-            attendanceChart = new ApexCharts(document.querySelector("#attendanceTrendChart"), attendanceOptions);
-            attendanceChart.render();
-
             // Finance Trend Chart
             const financeOptions = {
                 series: [

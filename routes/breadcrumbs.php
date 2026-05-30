@@ -177,6 +177,31 @@ Breadcrumbs::for('dashboard.payment-titles.show', function (Trail $trail, $payme
     $trail->push('Detail');
 });
 
+// ── Classrooms ────────────────────────────────────────────────────────────
+Breadcrumbs::for('dashboard.classrooms', function (Trail $trail) {
+    $trail->parent('dashboard.index');
+    $trail->push('Kelas', route('dashboard.classrooms.index'));
+});
+
+Breadcrumbs::for('dashboard.classrooms.index', function (Trail $trail) {
+    $trail->parent('dashboard.classrooms');
+});
+
+Breadcrumbs::for('dashboard.classrooms.create', function (Trail $trail) {
+    $trail->parent('dashboard.classrooms');
+    $trail->push('Tambah Kelas');
+});
+
+Breadcrumbs::for('dashboard.classrooms.edit', function (Trail $trail, $classroom) {
+    $trail->parent('dashboard.classrooms');
+    $trail->push('Edit Kelas');
+});
+
+Breadcrumbs::for('dashboard.classrooms.show', function (Trail $trail, $classroom) {
+    $trail->parent('dashboard.classrooms');
+    $trail->push('Detail Kelas');
+});
+
 // ── Academic Years ────────────────────────────────────────────────────────
 Breadcrumbs::for('dashboard.academic-years', function (Trail $trail) {
     $trail->parent('dashboard.index');

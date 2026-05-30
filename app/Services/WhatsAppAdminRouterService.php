@@ -59,7 +59,7 @@ class WhatsAppAdminRouterService
         // Get admin with least assigned conversations
         $admin = $availableAdmins
             ->sortBy(function ($user) {
-                return $user->assignedConversations()->count();
+                return $user->whatsappConversations()->count();
             })
             ->first();
 
@@ -72,7 +72,7 @@ class WhatsAppAdminRouterService
             'assigned_admin_id' => $admin->id,
             'admin_assigned_at' => now(),
             'work_hours_connected' => true,
-            'status' => 'assigned_to_admin',
+            'status' => 'active',
         ]);
 
         // Log activity
@@ -132,7 +132,7 @@ class WhatsAppAdminRouterService
             // Store in database
             $conversation->update([
                 'outside_hours_message' => $message,
-                'status' => 'waiting_for_work_hours',
+                'status' => 'active',
                 'work_hours_connected' => false,
             ]);
 
@@ -155,7 +155,8 @@ class WhatsAppAdminRouterService
                 'profile' => $profileName,
             ]);
 
-            return true;
+            // Return false so the caller knows it wasn't routed to admin (bot should not fire)
+            return false;
 
         } catch (\Exception $e) {
             Log::channel('whatsapp')->error('Failed to send outside hours message', [

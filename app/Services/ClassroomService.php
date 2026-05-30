@@ -5,6 +5,10 @@ namespace App\Services;
 use App\Models\AcademicYear;
 use App\Models\Classroom;
 use App\Models\Student;
+use App\Models\StudentAttendance;
+use App\Models\Subject;
+use App\Models\Teacher;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Str;
 
@@ -28,6 +32,7 @@ class ClassroomService
         return [
             'totalCount' => Classroom::count(),
             'totalStudentCount' => Student::where('status', 'active')->count(),
+            'noTeacherCount' => Classroom::doesntHave('teachers')->count(),
         ];
     }
 
@@ -35,6 +40,8 @@ class ClassroomService
     {
         return [
             'academicYears' => AcademicYear::all(),
+            'teachers' => Teacher::orderBy('name')->get(),
+            'subjects' => Subject::orderBy('name')->get(),
         ];
     }
 
@@ -62,9 +69,20 @@ class ClassroomService
     {
         $students = $classroom->students()->orderBy('name')->get();
 
+        $averageGrade = round($classroom->grades()->avg('score') ?? 0, 1);
+
+        $totalStudents = $students->count();
+        $presentToday = StudentAttendance::where('classroom_id', $classroom->id)
+            ->where('date', Carbon::today())
+            ->where('status', 'present')
+            ->count();
+        $attendanceToday = $totalStudents > 0 ? round(($presentToday / $totalStudents) * 100, 1) : 0;
+
         return [
             'students' => $students,
-            'totalStudents' => $students->count(),
+            'totalStudents' => $totalStudents,
+            'averageGrade' => $averageGrade,
+            'attendanceToday' => $attendanceToday,
         ];
     }
 

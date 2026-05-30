@@ -1,85 +1,114 @@
-# 🤖 Template Editor — OpenCode Full Audit System
+# ProductSchool ERP — Sistem Manajemen Sekolah
 
-Sistem multi-agent untuk melakukan audit penuh dan perbaikan bug pada Template Editor menggunakan OpenCode.
+Sistem manajemen sekolah berbasis web dengan fitur manajemen siswa, pembayaran SPP online (Midtrans), komunikasi orang tua via WhatsApp (Meta API), manajemen kelas & tahun ajaran, serta RBAC (Spatie Permission).
 
 ---
 
-## 📦 CARA INSTALL
+## Tech Stack
 
-### Step 1 — Copy File ke Project Root
+| Layer | Teknologi |
+|-------|-----------|
+| Backend | Laravel 12 + PHP ^8.2 |
+| Frontend | React 19 + Tailwind CSS 3 |
+| Database | MySQL |
+| Cache / Queue / Session | Redis |
+| WebSocket | Laravel Reverb |
+| Build Tool | Vite 6 |
+
+## Fitur Utama
+
+- **Dashboard & Statistik** — Grafik real-time (siswa, pembayaran, tunggakan)
+- **Manajemen Siswa** — CRUD + upload foto + filter + status (active/inactive/graduated/dropped)
+- **Import Siswa (Excel)** — Import batch via job queue + progress bar real-time
+- **Manajemen Kelas** — CRUD + assignment siswa & guru + filter tahun ajaran
+- **Tahun Ajaran** — CRUD + penanda aktif (hanya satu per waktu)
+- **Pembayaran SPP** — Tagihan + status tracking (pending/settlement/expire) + mark paid manual
+- **Midtrans Gateway** — Snap token, webhook, refund, cancel, status check
+- **WhatsApp Chat** — Inbox dua arah via Meta API, template message, assign admin, reaksi, pencarian
+- **RBAC** — User, role, permission management (Spatie)
+- **Notifikasi** — In-app notification + preferensi channel (WhatsApp/Email/SMS)
+- **Audit Log** — Riwayat perubahan data (siapa, apa, kapan, data lama & baru)
+- **Pencarian Global** — Cari siswa/kelas dari navbar
+- **REST API** — Endpoint Students/Classrooms/Payments via Sanctum
+- **Scheduled Task** — Generate tagihan SPP bulanan otomatis (tgl 1)
+- **Real-time Broadcasting** — Update live via Laravel Reverb (import, chat, notifikasi)
+
+## Integrasi Eksternal
+
+| Service | Fungsi |
+|---------|--------|
+| **Midtrans** | Pembayaran online (VA, QRIS, CC, E-Wallet) |
+| **WhatsApp Meta API** | Komunikasi dua arah dengan orang tua |
+| **Anthropic / DeepSeek** | AI untuk narasi rapor (config siap) |
+| **Sentry** | Error tracking & performance monitoring |
+
+## Persyaratan Sistem
+
+- PHP ^8.2
+- Composer
+- MySQL
+- Redis
+- Node.js + NPM
+
+## Instalasi
+
 ```bash
-cp -r .opencode/       /path/to/your/laravel-project/.opencode/
-cp opencode.json       /path/to/your/laravel-project/opencode.json
-cp AGENTS.md           /path/to/your/laravel-project/AGENTS.md
+git clone <repo-url>
+cd skripis_fix
+composer install
+npm install
+cp .env.example .env
+php artisan key:generate
+# Konfigurasi database, redis, dan API keys di .env
+php artisan migrate --seed
+php artisan storage:link
+npm run build
 ```
 
-### Step 2 — Masuk ke Project
+### Menjalankan Development
+
 ```bash
-cd /path/to/your/laravel-project
-opencode
+composer dev
 ```
 
-### Step 3 — Jalankan Audit
+Menjalankan server, queue worker, log (Pail), dan Vite secara concurrent.
 
-**Cara 1 — Via Custom Command (REKOMENDASI):**
-```
-/audit-template-editor
-```
-
-**Cara 2 — Pilih Agent AuditMaster lalu ketik:**
-```
-Lakukan full audit dan perbaikan seluruh sistem Template Editor sesuai protokol.
-```
-
-**Cara 3 — Invoke sub-agent langsung (untuk audit parsial):**
-```
-@code-architect Audit TemplateController.php untuk bugs
-@frontier-js    Audit template-editor.js untuk memory leaks
-@security-hunter Scan seluruh sistem untuk vulnerabilities
-```
-
----
-
-## 🗂️ STRUKTUR FILE
+## Struktur Direktori
 
 ```
-.opencode/
-├── agents/
-│   ├── audit-master.md          ← Orchestrator utama
-│   ├── code-architect.md        ← PHP specialist
-│   ├── frontier-js.md           ← JavaScript specialist
-│   ├── blade-guardian.md        ← Blade specialist
-│   ├── route-warden.md          ← Routes specialist
-│   ├── db-sentinel.md           ← Database specialist
-│   ├── security-hunter.md       ← Security specialist
-│   └── integration-validator.md ← Integration specialist
-└── commands/
-    └── audit-template-editor.md ← Custom /command
-opencode.json                    ← Agent configuration
-AGENTS.md                        ← Project context
+app/
+├── Console/Commands/    # Artisan commands (generate bills, dll)
+├── Enums/               # Enum types
+├── Events/              # Event classes
+├── Exceptions/          # Custom exceptions
+├── Exports/             # Excel exports
+├── Helpers/             # Helper functions (currency, system config)
+├── Http/
+│   ├── Controllers/     # Web & API controllers
+│   └── Requests/        # Form request validation
+├── Jobs/                # Queue jobs
+├── Listeners/           # Event listeners
+├── Mail/                # Mailables
+├── Models/              # Eloquent models (62 tables)
+├── Notifications/       # Notification classes
+├── Policies/            # Authorization policies
+├── Providers/           # Service providers
+├── Services/            # Midtrans, WhatsApp, AI services
+└── Traits/              # Reusable traits
+routes/
+├── web.php              # Web routes (admin dashboard)
+├── api.php              # REST API routes
+├── auth.php             # Authentication routes
+├── channels.php         # Broadcasting channels
+├── console.php          # Scheduled commands
+└── breadcrumbs.php      # Breadcrumb definitions
+config/
+├── integrations.php     # Single source of truth for external services
+├── services.php         # Delegates to integrations.php
+├── midtrans.php         # Delegates to integrations.php
+└── ...
 ```
 
----
+## Lisensi
 
-## 🎯 AGENT ROLES
-
-| Agent | Spesialisasi | Invoke Untuk |
-|-------|-------------|-------------|
-| `AuditMaster` | Orchestrator | Full system audit |
-| `@code-architect` | PHP/Laravel | Controller bugs, validation |
-| `@frontier-js` | JavaScript | Canvas bugs, memory leaks |
-| `@blade-guardian` | Blade | XSS, script loading, layout |
-| `@route-warden` | Routes | Middleware, naming, breadcrumbs |
-| `@db-sentinel` | Database | N+1, relationships, integrity |
-| `@security-hunter` | Security | CSRF, IDOR, injection |
-| `@integration-validator` | Integration | JS↔PHP contract |
-
----
-
-## ⚡ QUICK TIPS
-
-- Gunakan **Tab key** untuk switch antara primary agents
-- Gunakan **@agent-name** untuk invoke sub-agent dari dalam conversation
-- Setelah `/audit-template-editor`, AuditMaster akan otomatis invoke semua sub-agents secara paralel
-- Jika audit terlalu lama, invoke per-agent satu per satu
-- Gunakan `/undo` jika ada perubahan yang tidak diinginkan
+Proprietary — kode internal ProductSchool.

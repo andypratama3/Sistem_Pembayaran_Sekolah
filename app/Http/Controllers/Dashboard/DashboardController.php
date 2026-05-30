@@ -6,8 +6,10 @@ use App\Http\Controllers\ResourceController;
 use App\Models\AcademicYear;
 use App\Models\AuditLog;
 use App\Models\Classroom;
+use App\Models\Employee;
 use App\Models\Payment;
 use App\Models\Student;
+use App\Models\Teacher;
 use App\Models\WhatsAppMessage;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -55,7 +57,6 @@ class DashboardController extends ResourceController
         $stats['recent_payments'] = $this->getRecentPayments($isSuperAdmin, $isFinance);
 
         $stats['academic_years'] = AcademicYear::all();
-        $stats['recent_students'] = Student::with('classrooms:id,name')->latest()->limit(10)->get();
 
         $this->getRecentActivityData($stats, $filterStartDate, $filterEndDate);
 
@@ -69,7 +70,35 @@ class DashboardController extends ResourceController
         $stats = [
             'total_students' => Cache::remember('dashboard:total_students', 300, fn () => Student::where('status', 'active')->count()),
             'total_classrooms' => Cache::remember('dashboard:total_classrooms', 300, fn () => Classroom::count()),
+            'total_teachers' => Cache::remember('dashboard:total_teachers', 300, fn () => Teacher::count()),
+            'total_employees' => Cache::remember('dashboard:total_employees', 300, fn () => Employee::count()),
+            'attendance_today' => 0,
+            'tugas_aktif_saya' => 0,
+            'siswa_by_status' => Student::selectRaw('status, COUNT(*) as total')->groupBy('status')->pluck('total', 'status'),
+            'cuti_stats' => ['pending' => 0, 'approved' => 0, 'rejected' => 0],
+            'gender_distribution' => Student::selectRaw('COALESCE(gender, "unknown") as gender, COUNT(*) as total')->groupBy('gender')->get(),
+            'acara_terdekat' => collect(),
+            'peringatan_dini_aktif' => 0,
+            'risiko_siswa' => collect(),
+            'cache_items' => 0,
+            'cache_hit_rate' => 0,
+            'cache_modules' => [],
+            'last_cache_refresh' => '-',
         ];
+
+        if (DB::getDriverName() === 'sqlite') {
+            $stats['student_birthdays'] = Student::whereRaw("strftime('%m-%d', birth_date) >= ?", [now()->format('m-d')])
+                ->whereRaw("strftime('%m-%d', birth_date) <= ?", [now()->addDays(14)->format('m-d')])
+                ->orderByRaw("strftime('%m-%d', birth_date) ASC")
+                ->limit(5)
+                ->get();
+        } else {
+            $stats['student_birthdays'] = Student::whereRaw("DATE_FORMAT(birth_date, '%m-%d') >= ?", [now()->format('m-d')])
+                ->whereRaw("DATE_FORMAT(birth_date, '%m-%d') <= ?", [now()->addDays(14)->format('m-d')])
+                ->orderByRaw("DATE_FORMAT(birth_date, '%m-%d') ASC")
+                ->limit(5)
+                ->get();
+        }
 
         $stats['outstanding_payments'] = ($isSuperAdmin || $isFinance)
             ? Cache::remember('dashboard:outstanding_payments', 300, fn () => Payment::where('status', 'pending')->sum('gross_amount'))
@@ -87,6 +116,13 @@ class DashboardController extends ResourceController
     private function getFinanceChart(bool $isSuperAdmin, bool $isFinance, ?string $filterStartDate, ?string $filterEndDate): array
     {
         $charts = [
+            'attendance' => [
+                'labels' => [],
+                'hadir' => [],
+                'izin' => [],
+                'sakit' => [],
+                'alpha' => [],
+            ],
             'finance' => [
                 'labels' => collect(),
                 'income' => collect(),

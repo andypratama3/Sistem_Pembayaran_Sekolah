@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Dashboard\AcademicYearController;
 use App\Http\Controllers\Dashboard\AuditLogController;
+use App\Http\Controllers\Dashboard\ClassroomController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\MidtransController;
 use App\Http\Controllers\Dashboard\NotificationController;
@@ -10,6 +12,7 @@ use App\Http\Controllers\Dashboard\PaymentTitleController;
 use App\Http\Controllers\Dashboard\PermissionController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\RoleController;
+use App\Http\Controllers\Dashboard\ScheduleController;
 use App\Http\Controllers\Dashboard\SearchController;
 use App\Http\Controllers\Dashboard\StudentController;
 use App\Http\Controllers\Dashboard\StudentImportController;
@@ -58,6 +61,17 @@ Route::prefix('dashboard')->as('dashboard.')->middleware(['auth', 'verified', Ch
     Route::post('students/{studentRecord}/status', [StudentController::class, 'updateStatus'])->name('students.update-status');
     Route::post('students/{studentRecord}/assign-class', [StudentController::class, 'assignClassroom'])->name('students.assign-classroom');
     Route::post('students/{studentRecord}/unassign-class', [StudentController::class, 'unassignClassroom'])->name('students.unassign-classroom');
+
+    Route::resource('classrooms', ClassroomController::class)->parameters(['classrooms' => 'classroomRecord']);
+    Route::get('classrooms/{classroomRecord}/students', [ClassroomController::class, 'getStudents'])->name('classrooms.get-students');
+    Route::post('classrooms/{classroomRecord}/add-student', [ClassroomController::class, 'addStudent'])->name('classrooms.add-student');
+    Route::delete('classrooms/{classroomRecord}/remove-student/{studentRecord}', [ClassroomController::class, 'removeStudent'])->name('classrooms.remove-student');
+
+    Route::resource('academic-years', AcademicYearController::class)->parameters(['academic-years' => 'academicYearRecord']);
+
+    Route::prefix('schedules')->name('schedules.')->group(function () {
+        Route::get('/', [ScheduleController::class, 'index'])->name('index');
+    });
 
     Route::get('payments/outstanding/{studentRecord}', [PaymentController::class, 'getOutstanding'])->name('payments.outstanding');
     Route::resource('payments', PaymentController::class)->parameters(['payments' => 'paymentRecord']);

@@ -23,7 +23,6 @@ components/
 ├── hooks/
 │   ├── useApi.js                       # API & utility hooks (3.2KB)
 │   └── index.js                        # Barrel export
-├── TemplateEditor/                     # Existing template editor
 ├── index.js                            # Main export file
 ├── COMPONENT_DOCS.md                   # Component documentation
 ├── EXAMPLES.jsx                        # Usage examples

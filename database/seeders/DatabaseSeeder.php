@@ -12,19 +12,15 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             RoleSeeder::class,
             UserSeeder::class,
-
             AcademicYearSeeder::class,
-
             PaymentTitleSeeder::class,
-
             WhatsAppMessageTemplateSeeder::class,
             WhatsAppConversationSeeder::class,
             WhatsAppMessageSeeder::class,
             WhatsAppWebhookSimulationSeeder::class,
             NotificationPreferenceSeeder::class,
-
-            DemoDataSeeder::class,
             SystemConfigSeeder::class,
+            DemoDataSeeder::class,
         ]);
     }
 }

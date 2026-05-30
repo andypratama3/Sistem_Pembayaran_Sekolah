@@ -92,13 +92,23 @@ class WhatsAppChatController extends ResourceController
 
         $validated = $request->validated();
 
+        $mediaUrl = null;
+        $mediaType = null;
+        if ($request->hasFile('media_file')) {
+            $file = $request->file('media_file');
+            $path = $file->store('whatsapp-media', 'public');
+            $mediaUrl = asset('storage/'.$path);
+            $mediaType = $file->getMimeType();
+        }
+
         $message = $this->chatService->sendMessageFromAdmin(
-            $conversationRecord,
-            auth()->user(),
-            $validated['content'] ?? null,
-            $validated['message_type'] ?? 'text',
-            $validated['reply_to_message_id'] ?? null,
-            $request->file('media_file')
+            conversation: $conversationRecord,
+            admin: auth()->user(),
+            content: $validated['content'] ?? null,
+            messageType: $validated['message_type'] ?? 'text',
+            mediaUrl: $mediaUrl,
+            mediaType: $mediaType,
+            replyToMessageId: $validated['reply_to_message_id'] ?? null,
         );
 
         broadcast(new WhatsAppMessageSent($message, $conversationRecord))->toOthers();
