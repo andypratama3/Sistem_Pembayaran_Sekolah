@@ -12,6 +12,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Ensure bootstrap/cache exists
+        run: |
+          mkdir -p bootstrap/cache
+          chmod -R 0777 bootstrap/cache
+
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
