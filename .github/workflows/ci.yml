@@ -1,0 +1,80 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  php-tests:
+    name: PHP tests (ParaTest)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, xml, bcmath, sqlite, pcntl
+
+      - name: Cache Composer
+        uses: actions/cache@v4
+        with:
+          path: ~/.composer/cache
+          key: composer-${{ hashFiles('**/composer.lock') }}
+
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: Run ParaTest (parallel PHPUnit)
+        run: ./vendor/bin/paratest -p $(nproc) 2>&1 | tee paratest.log
+
+      - name: Upload paratest log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: paratest-log
+          path: paratest.log
+
+  js-tests:
+    name: JS tests (Vitest)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Cache npm
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: node-modules-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install JS dependencies
+        run: npm ci --silent
+
+      - name: Count JS test files
+        id: check_js
+        run: |
+          count=$(find . -type f \( -name "*.test.*" -o -name "*.spec.*" \) -not -path "./node_modules/*" -not -path "./.git/*" | wc -l)
+          echo "count=$count" >> $GITHUB_OUTPUT
+
+      - name: Run Vitest (if tests exist)
+        if: steps.check_js.outputs.count != '0'
+        run: npm run test:js --silent 2>&1 | tee vitest.log
+
+      - name: No JS tests found
+        if: steps.check_js.outputs.count == '0'
+        run: echo "No JS tests found — skipping Vitest."
+
+      - name: Upload vitest log
+        if: steps.check_js.outputs.count != '0'
+        uses: actions/upload-artifact@v4
+        with:
+          name: vitest-log
+          path: vitest.log
